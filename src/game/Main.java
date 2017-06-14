@@ -1,6 +1,6 @@
 package game;
 
-import Generator.Generate;
+import generator.Generate;
 import objects.Floor;
 import objects.Wall;
 
