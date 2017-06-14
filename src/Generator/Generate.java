@@ -181,16 +181,19 @@ public class Generate {
 					if(!rooms.get(i).walkable && rooms.get(rooms.get(i).neighbours.get(j)).walkable){
 						tmpArray[rooms.get(i).neidoory.get(j)][rooms.get(i).neidoorx.get(j)] = new Door();
 						rooms.get(i).doors++;
-						rooms.get(j).doors++;
-						if(rooms.get(i).doors > 2){
-							rooms.get(i).walkable = true;
-						}
+						rooms.get(rooms.get(i).neighbours.get(j)).doors++;
+						//if(rooms.get(i).doors > 2){
+						rooms.get(i).walkable = true;
+						//}
+						System.out.println(i);
 					}
 				}
 			}
-			
+			allreachable = true;
 			for(int i = 1; i < rooms.size(); i++){
-				allreachable = rooms.get(i).walkable;
+				if(!rooms.get(i).walkable){
+					allreachable = false;
+				}				
 			}
 			timeout++;
 			if(timeout > 500){
