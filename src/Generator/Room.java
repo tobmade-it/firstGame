@@ -1,5 +1,6 @@
 package Generator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
@@ -13,6 +14,30 @@ public class Room {
 		this.walkable = false;
 		this.bossroom = false;
 		this.roomid = Room.id++;
+		
+		for(int i = sx-1; i <= sx + x+1; i++){
+			this.wallsx.add(i);
+		}
+		for(int i = 0; i <= y; i++){
+			this.wallsx.add(sx-1);
+			this.wallsx.add(sx+x+1);
+		}
+		for(int i = sx-1; i <= sx + x+1; i++){
+			this.wallsx.add(i);
+		}
+		
+		
+		for(int i = 0; i <= x; i++){
+			this.wallsy.add(sy-1);
+		}
+		for(int j = 0; j < 2 ; j++){
+			for(int i = sy-1; i <= sy + y + 1; i++){
+				this.wallsy.add(i);
+			}
+		}
+		for(int i = 0; i <= x; i++){
+			this.wallsy.add(sy+y+1);
+		}
 	}
 	
 	static int id = 0;
@@ -24,8 +49,10 @@ public class Room {
 	public int area;
 	public boolean walkable;
 	public boolean bossroom;
-	public List<Integer> neighbours;
-	public List<Integer> neidoorx;
-	public List<Integer> neidoory;
+	public List<Integer> neighbours = new ArrayList<Integer>();
+	public List<Integer> neidoorx = new ArrayList<Integer>();
+	public List<Integer> neidoory = new ArrayList<Integer>();
+	public List<Integer> wallsx = new ArrayList<Integer>();
+	public List<Integer> wallsy = new ArrayList<Integer>();
 
 }
