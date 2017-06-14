@@ -1,8 +1,6 @@
 package game;
 
-import generator.Generate;
-import objects.Floor;
-import objects.Wall;
+import Generator.Generate;
 
 public class Main {
 

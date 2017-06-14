@@ -2,9 +2,6 @@ package game;
 
 import java.util.Random;
 
-import objects.Floor;
-import objects.Wall;
-
 public class Reference {
 	
 	public static Random r = new Random();

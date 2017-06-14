@@ -1,5 +1,7 @@
-package generator;
+package Generator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import game.Visible;
@@ -12,8 +14,9 @@ public class Generate {
 		Random r = new Random();
 		
 		Visible[][] tmpArray = new Visible[y][x];
+		List<Room> rooms = new ArrayList<Room>();
 		
-		//ini the bining walls
+		//ini the binding walls
 		for(int i = 0; i < x; i++){
 			tmpArray[0][i] = new Wall();
 			tmpArray[y-1][i] = new Wall();
@@ -41,26 +44,39 @@ public class Generate {
 		for(int i = 0; i < 8; i++){
 			tmpArray[i+1][8] = new Wall();
 		}
+		//rooms.add(new Room(1,1,7,7));
 		//stop ini startroom
 		
+		//ini bossroom
+		for(int j = 1; j < 10; j++){
+			for(int i = x-2; i > x-11; i--){
+				tmpArray[j][i] = new Floor();	
+			}
+			tmpArray[j][x-11] = new Wall();
+			tmpArray[10][x-j] = new Wall();
+		}
+		tmpArray[5][x-6] = new Floor_spikes();
+		tmpArray[10][x-11] = new Wall();
+		rooms.add(new Room(x-11,1,9,9));
+		rooms.get(0).bossroom = true;
 		
 		//create Rooms
-		for(int hight = 1; hight < y-1; hight++){
+		for(int height = 1; height < y-1; height++){
 			for(int width = 1; width < x-1; width++){
 				//start
 				int tmpx = 0;
 				int tmpy = 0;
-				if(tmpArray[hight][width] == null){
+				if(tmpArray[height][width] == null){
 					//check how big it can be (count empty space)
-					for(int i = 0; i < y-hight; i++){
-						if(tmpArray[i+hight][width] == null){
+					for(int i = 0; i < y-height; i++){
+						if(tmpArray[i+height][width] == null){
 							tmpy++;
 						}else{
 							break;
 						}
 					}
 					for(int j = 0; j < x-width; j++){
-						if(tmpArray[hight][j+width] == null){
+						if(tmpArray[height][j+width] == null){
 							tmpx++;
 						}else{
 							break;
@@ -76,10 +92,11 @@ public class Generate {
 					tmpy = 4 + r.nextInt(tmpy/2-2);
 				}
 				
+				//useless, safety for empty spaces or too small rooms
 				if(tmpx < 2 || tmpy < 2){
 					for(int i = 0; i < tmpy; i++){
 						for(int j = 0; j < tmpx; j++){
-								tmpArray[width+j][hight+i] = new Wall();
+								//tmpArray[width+j][height+i] = new Wall();
 						}
 					}
 					tmpx = 0;
@@ -90,39 +107,53 @@ public class Generate {
 				for(int i = 0; i < tmpy; i++){
 					for(int j = 0; j < tmpx; j++){
 						if(i == 0){
-							tmpArray[hight+i-1][width+j] = new Wall();
+							tmpArray[height+i-1][width+j] = new Wall();
 							if(j == 0){
-								tmpArray[hight+i-1][width+j-1] = new Wall();
+								tmpArray[height+i-1][width+j-1] = new Wall();
 							}
 						}
 						if(i == tmpy-1){
-							tmpArray[hight+i+1][width+j] = new Wall();
+							tmpArray[height+i+1][width+j] = new Wall();
 							if(j == 0){
-								tmpArray[hight+i+1][width+j-1] = new Wall();
+								tmpArray[height+i+1][width+j-1] = new Wall();
 							}
 						}
 						if(j == 0){
-							tmpArray[hight+i][width+j-1] = new Wall();
+							tmpArray[height+i][width+j-1] = new Wall();
 							if(i == tmpy-1){
-								tmpArray[hight+i+1][width+j-1] = new Wall();
+								tmpArray[height+i+1][width+j-1] = new Wall();
 							}
 						}
 						if(j == tmpx-1){
-							tmpArray[hight+i][width+j+1] = new Wall();
+							tmpArray[height+i][width+j+1] = new Wall();
 							if(i == 0){
-								tmpArray[hight+i-1][width+j+1] = new Wall();
+								tmpArray[height+i-1][width+j+1] = new Wall();
 							}
 							if(i == tmpy-1){
-								tmpArray[hight+i+1][width+j+1] = new Wall();
+								tmpArray[height+i+1][width+j+1] = new Wall();
 							}
 						}
-						tmpArray[hight+i][width+j] = new Floor();
+						tmpArray[height+i][width+j] = new Floor();
 
 					}
+					//add room to list
+					if(tmpx > 0){
+						rooms.add(new Room(width, height, tmpx, tmpy));
+					}
 				}
-				
 			}//end
 			
+			//Add doors
+			
+			boolean allreachable = false;
+			rooms.get(1).walkable = true;
+			while(!allreachable){
+				
+				for(int i = 1; i < rooms.size(); i++){
+					allreachable = rooms.get(i).walkable;
+				}
+				allreachable = true; //REMOVE
+			}
 			
 		}
 		

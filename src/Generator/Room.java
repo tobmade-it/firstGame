@@ -1,4 +1,4 @@
-package generator;
+package Generator;
 
 public class Room {
 	
@@ -10,8 +10,11 @@ public class Room {
 		this.area = x*y;
 		this.walkable = false;
 		this.bossroom = false;
+		this.roomid = Room.id++;
 	}
 	
+	static int id = 0;
+	public int roomid;
 	public int startx;
 	public int starty;
 	public int x;
@@ -19,5 +22,6 @@ public class Room {
 	public int area;
 	public boolean walkable;
 	public boolean bossroom;
+	public int[] neighbours;
 
 }
