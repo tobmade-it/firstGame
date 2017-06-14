@@ -19,7 +19,7 @@ public class Door_boss extends WorldGen implements Visible{
 	}
 	@Override
 	public boolean getIsSolid() {
-		return false;
+		return this.open;
 	}
 	
 	public static boolean open;

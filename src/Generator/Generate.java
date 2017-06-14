@@ -133,7 +133,12 @@ public class Generate {
 								tmpArray[height+i+1][width+j+1] = new Wall();
 							}
 						}
-						tmpArray[height+i][width+j] = new Floor();
+						int ran = r.nextInt(100);
+						if(i > 2 && i < tmpy-2 && j > 2 && j < tmpx-2 && ran < 20){
+							tmpArray[height+i][width+j] = new RandomObj().genRanObj();
+						}else{
+							tmpArray[height+i][width+j] = new Floor();
+						}
 
 					}	
 				}
@@ -146,7 +151,7 @@ public class Generate {
 		}
 		
 		//get neighbours
-		for(int i = 1; i < rooms.size(); i++){
+		for(int i = 0; i < rooms.size(); i++){
 			for(int j = 1; j < rooms.size(); j++){
 				int cnt = 0;
 				int firstx = 0;
@@ -175,17 +180,14 @@ public class Generate {
 		rooms.get(1).walkable = true;
 		int timeout = 0;
 		while(!allreachable){
-			//wähle solange nachbarn aus, bis jeder jeden erreicht
+			//is a neighbour walkable? if yes, build a door so we can be walkable too!
 			for(int i = 2; i < rooms.size(); i++){
 				for(int j = 0; j < rooms.get(i).neighbours.size(); j++){
 					if(!rooms.get(i).walkable && rooms.get(rooms.get(i).neighbours.get(j)).walkable){
 						tmpArray[rooms.get(i).neidoory.get(j)][rooms.get(i).neidoorx.get(j)] = new Door();
 						rooms.get(i).doors++;
 						rooms.get(rooms.get(i).neighbours.get(j)).doors++;
-						//if(rooms.get(i).doors > 2){
 						rooms.get(i).walkable = true;
-						//}
-						System.out.println(i);
 					}
 				}
 			}
@@ -195,12 +197,15 @@ public class Generate {
 					allreachable = false;
 				}				
 			}
+			
+			//safety first
 			timeout++;
 			if(timeout > 500){
 				allreachable = true; //REMOVE
 				System.out.println("ACHTUNG!");
 			}
 		}
+		//doors for boss and start
 		tmpArray[8][4] = new Door();
 		tmpArray[3][x-11] = new Door_boss();
 		tmpArray[4][x-11] = new Door_boss();
