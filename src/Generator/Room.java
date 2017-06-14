@@ -1,5 +1,7 @@
 package Generator;
 
+import java.util.List;
+
 public class Room {
 	
 	Room(int sx,int sy,int x,int y){
@@ -22,6 +24,8 @@ public class Room {
 	public int area;
 	public boolean walkable;
 	public boolean bossroom;
-	public int[] neighbours;
+	public List<Integer> neighbours;
+	public List<Integer> neidoorx;
+	public List<Integer> neidoory;
 
 }
