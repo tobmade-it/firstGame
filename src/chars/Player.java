@@ -6,6 +6,10 @@ public class Player extends Creatures implements Visible {
 	private int x;
 	private int y;
 	
+	public Player(int viewdist) {
+		super.viewdist = viewdist;
+	}
+	
 	@Override
 	public boolean getvisibility() {
 		// TODO Auto-generated method stub

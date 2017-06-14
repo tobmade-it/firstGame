@@ -7,11 +7,11 @@ import Generator.Generate;
 import game.Visible;
 
 public class Render {
-	public static void main(String args[]) {
-		int x = 70;
-		int y = 60;
-		
-		Visible[][] gameField = Generate.genDungeon(x, y);
+	public final static int X_FIELD = 70;
+	public final static int Y_FIELD = 60;
+	
+	public static void main(String args[]) {		
+		Visible[][] gameField = Generate.genDungeon(Render.X_FIELD, Render.Y_FIELD);
 		System.out.println("FELD: " + gameField.length);
 		
 		EventQueue.invokeLater(new Runnable() {

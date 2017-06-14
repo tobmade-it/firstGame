@@ -10,21 +10,20 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import chars.Player;
+import game.Settings;
 import game.Visible;
 
 public class GameArea extends JPanel implements ActionListener {
-	private final int DELAY = 150; // FPS of the game
+	private final int DELAY = 1000/Settings.FPS; // FPS of the game
     private Timer timer;
-    private int width = 700;
-    private int height = 600;
     private Visible[][] gameField = null;
-    public Player p = new Player();
+    public Player p = new Player(20);
     
-    public GameArea(Color background, Visible[][] gameField) {   	
-    	this.setBackground(background);
+    public GameArea(Visible[][] gameField) {   	
+    	this.setBackground(Settings.BACKGROUND);
     	this.gameField = gameField;
-    	this.p.setX(20);
-    	this.p.setY(20);
+    	this.p.setX(4);
+    	this.p.setY(1);
     	
         initTimer();
     }
@@ -46,11 +45,16 @@ public class GameArea extends JPanel implements ActionListener {
         
         g2d.setPaint(Color.white);
         
-        g2d.drawRect(0, 0, this.width, this.height);
+        g2d.drawRect(0, 0, Settings.GAME_W, Settings.GAME_H);
         
-        int x = 70;
-        int y = 60;
-
+        int x = Render.X_FIELD;
+        int y = Render.Y_FIELD;
+        
+        try {
+        	System.out.println();
+        } catch(ArrayIndexOutOfBoundsException ax) {
+        	
+        }
         
         for(int i = 0; i < y; i++){
 			for(int j = 0; j < x; j++){
@@ -72,12 +76,13 @@ public class GameArea extends JPanel implements ActionListener {
         }
         
         // draw Player
-        g2d.fillRect(p.getX(), p.getY(), 10, 10);
+        g2d.setPaint(Color.red);
+        g2d.fillRect(p.getX()*10, p.getY()*10, 10, 10);
         
     }
     
     public Visible getFieldPosition(int x, int y) {
-    	return gameField[x][y];
+    	return gameField[y][x];
     }
     
     @Override
