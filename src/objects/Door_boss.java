@@ -3,6 +3,10 @@ package objects;
 import game.Visible;
 
 public class Door_boss extends WorldGen implements Visible{
+	
+	public Door_boss(){
+		this.open = false;
+	}
 
 	@Override
 	public boolean getvisibility() {
@@ -17,5 +21,7 @@ public class Door_boss extends WorldGen implements Visible{
 	public boolean getIsSolid() {
 		return false;
 	}
+	
+	public static boolean open;
 
 }

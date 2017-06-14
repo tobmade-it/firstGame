@@ -202,6 +202,9 @@ public class Generate {
 			}
 		}
 		tmpArray[8][4] = new Door();
+		tmpArray[3][x-11] = new Door_boss();
+		tmpArray[4][x-11] = new Door_boss();
+		tmpArray[5][x-11] = new Door_boss();
 		
 		return tmpArray;
 	}
