@@ -51,33 +51,54 @@ public class GameArea extends JPanel implements ActionListener {
         int y = Render.Y_FIELD;
         
         try {
-        	System.out.println();
+        	// System.out.println();
         } catch(ArrayIndexOutOfBoundsException ax) {
         	
         }
         
+        for(int i = 0; i < 20; i++) {
+        	for(int j = 0; j < 20; j++) {
+        		int xValue = p.getX()-(10-i);
+        		int yValue = p.getY()-(10-j);
+        		System.out.println("x: " + xValue);
+        		System.out.println("y: " + yValue);
+        		if(xValue >= 0 && xValue < Render.X_FIELD && yValue >= 0 && yValue < Render.Y_FIELD) {
+        			Visible v = gameField[yValue][xValue];
+        			if(v.getType() == "w") {
+        				g2d.setPaint(Color.white);
+        				g2d.fillRect(i*35, j*30, 35, 30);
+        			}
+        			if(v.getType() == " ") {
+						g2d.setPaint(Color.blue);
+						g2d.fillRect(i*35, j*30, 35, 30);
+					}
+        		}
+            }
+        }
+        /*
         for(int i = 0; i < y; i++){
 			for(int j = 0; j < x; j++){
 				Visible v = gameField[i][j];
 				if(v != null){
 					// draw wall
+					int off = 200;
 					if(v.getType() == "w") {
 						g2d.setPaint(Color.white);
-						g2d.fillRect(j*10, i*10, 10, 10);
+						g2d.fillRect(off+j*30, off+i*35, 30, 35);
 					}
 					if(v.getType() == " ") {
 						g2d.setPaint(Color.blue);
-						g2d.fillRect(j*10, i*10, 10, 10);
+						g2d.fillRect(off+j*30, off+i*35, 30, 35);
 					}
 				}else{
 					System.out.print("! ");
 				}
 			}
-        }
+        } */
         
         // draw Player
         g2d.setPaint(Color.red);
-        g2d.fillRect(p.getX()*10, p.getY()*10, 10, 10);
+        g2d.fillRect((Settings.GAME_W/2), (Settings.GAME_H/2), 35, 30);
         
     }
     
