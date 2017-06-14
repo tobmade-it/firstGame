@@ -15,5 +15,9 @@ public class Floor_bloody extends WorldGen implements Visible{
 		// TODO Auto-generated method stub
 		return "b";
 	}
+	@Override
+	public boolean getIsSolid() {
+		return false;
+	}
 
 }

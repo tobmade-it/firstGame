@@ -33,5 +33,10 @@ public class Player extends Creatures implements Visible {
 		this.x = x;
 	}
 
+	@Override
+	public boolean getIsSolid() {
+		return false;
+	}
+
 
 }

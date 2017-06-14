@@ -146,8 +146,8 @@ public class Generate {
 		}
 		
 		//get neighbours
-		for(int i = 0; i < rooms.size(); i++){
-			for(int j = 0; j < rooms.size(); j++){
+		for(int i = 1; i < rooms.size(); i++){
+			for(int j = 1; j < rooms.size(); j++){
 				int cnt = 0;
 				int firstx = 0;
 				int firsty = 0;
@@ -156,8 +156,8 @@ public class Generate {
 						for(int w2 = 0; w2 < rooms.get(j).wallsx.size() ; w2++){
 							if(rooms.get(i).wallsx.get(w1) == rooms.get(j).wallsx.get(w2) && rooms.get(i).wallsy.get(w1) == rooms.get(j).wallsy.get(w2)){
 								cnt++;
-								firstx += rooms.get(i).wallsx.get(w1);
-								firsty += rooms.get(i).wallsy.get(w1);
+								firstx += rooms.get(j).wallsx.get(w2);
+								firsty += rooms.get(j).wallsy.get(w2);
 							}
 						}
 					}
@@ -176,11 +176,15 @@ public class Generate {
 		int timeout = 0;
 		while(!allreachable){
 			//wähle solange nachbarn aus, bis jeder jeden erreicht
-			for(int i = 1; i < rooms.size(); i++){
+			for(int i = 2; i < rooms.size(); i++){
 				for(int j = 0; j < rooms.get(i).neighbours.size(); j++){
 					if(!rooms.get(i).walkable && rooms.get(rooms.get(i).neighbours.get(j)).walkable){
 						tmpArray[rooms.get(i).neidoory.get(j)][rooms.get(i).neidoorx.get(j)] = new Door();
-						rooms.get(i).walkable = true;
+						rooms.get(i).doors++;
+						rooms.get(j).doors++;
+						if(rooms.get(i).doors > 2){
+							rooms.get(i).walkable = true;
+						}
 					}
 				}
 			}
@@ -189,10 +193,12 @@ public class Generate {
 				allreachable = rooms.get(i).walkable;
 			}
 			timeout++;
-			if(timeout > 100){
+			if(timeout > 500){
 				allreachable = true; //REMOVE
+				System.out.println("ACHTUNG!");
 			}
 		}
+		tmpArray[8][4] = new Door();
 		
 		return tmpArray;
 	}

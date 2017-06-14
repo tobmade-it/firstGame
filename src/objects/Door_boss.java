@@ -13,5 +13,9 @@ public class Door_boss extends WorldGen implements Visible{
 	public String getType() {
 		return "6";
 	}
+	@Override
+	public boolean getIsSolid() {
+		return false;
+	}
 
 }

@@ -15,5 +15,9 @@ public class Chest extends WorldGen implements Visible{
 		// TODO Auto-generated method stub
 		return "C";
 	}
+	@Override
+	public boolean getIsSolid() {
+		return true;
+	}
 
 }

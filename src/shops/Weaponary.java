@@ -20,5 +20,9 @@ public class Weaponary extends Shops implements Visible {
 		return this.type;
 	}
 
+	@Override
+	public boolean getIsSolid() {
+		return true;
+	}
 
 }

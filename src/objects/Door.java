@@ -13,5 +13,9 @@ public class Door extends WorldGen implements Visible{
 	public String getType() {
 		return "D";
 	}
+	@Override
+	public boolean getIsSolid() {
+		return false;
+	}
 
 }

@@ -19,5 +19,9 @@ public class Armory extends Shops implements Visible {
 	public String getType() {
 		return this.type;
 	}
+	@Override
+	public boolean getIsSolid() {
+		return true;
+	}
 
 }

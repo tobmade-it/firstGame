@@ -6,6 +6,7 @@ import java.util.List;
 public class Room {
 	
 	Room(int sx,int sy,int x,int y){
+		this.doors = 0;
 		this.startx = sx;
 		this.starty = sy;
 		this.x = x;
@@ -30,16 +31,17 @@ public class Room {
 		for(int i = 0; i <= x; i++){
 			this.wallsy.add(sy-1);
 		}
-		for(int j = 0; j < 2 ; j++){
+		//for(int j = 0; j < 2 ; j++){
 			for(int i = sy-1; i <= sy + y + 1; i++){
 				this.wallsy.add(i);
+				this.wallsy.add(i);
 			}
-		}
+		//}
 		for(int i = 0; i <= x; i++){
 			this.wallsy.add(sy+y+1);
 		}
 	}
-	
+	public int doors;
 	static int id = 0;
 	public int roomid;
 	public int startx;

@@ -15,6 +15,10 @@ public class Floor_spikes extends WorldGen implements Visible{
 		// TODO Auto-generated method stub
 		return "^";
 	}
+	@Override
+	public boolean getIsSolid() {
+		return false;
+	}
 	
 	
 

@@ -53,22 +53,22 @@ public class Window extends JFrame {
 				System.out.println(p.getY()/10-1);
 				if(key == 37) {
 					// left
-					if(!(gameArea.getFieldPosition((p.getX()/10)-1, p.getY()/10).getType() == "w")) {
+					if(!(gameArea.getFieldPosition((p.getX()/10)-1, p.getY()/10).getIsSolid())) {
 						gameArea.p.setX(p.getX()-dis);
 					}
 				} else if(key == 38) {
 					// top
-					if(!(gameArea.getFieldPosition(p.getX()/10, (p.getY()/10)-1).getType() == "w")) {
+					if(!(gameArea.getFieldPosition(p.getX()/10, (p.getY()/10)-1).getIsSolid())) {
 						gameArea.p.setY(p.getY()-dis);
 					}
 				} else if(key == 39) {
 					// right
-					if(!(gameArea.getFieldPosition((p.getX()/10)+1, p.getY()/10).getType() == "w")) {
+					if(!(gameArea.getFieldPosition((p.getX()/10)+1, p.getY()/10).getIsSolid())) {
 						gameArea.p.setX(p.getX()+dis);
 					}
 				} else if(key == 40) {
 					// bottom
-					if(!(gameArea.getFieldPosition(p.getX()/10, (p.getY()/10)+1).getType() == "w")) {
+					if(!(gameArea.getFieldPosition(p.getX()/10, (p.getY()/10)+1).getIsSolid())) {
 						gameArea.p.setY(p.getY()+dis);
 					}
 				}

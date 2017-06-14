@@ -23,6 +23,10 @@ public class Floor extends WorldGen implements Visible{
 	public String getType() {
 		return this.type;
 	}
+	@Override
+	public boolean getIsSolid() {
+		return false;
+	}
 
 	private int treasure;
 
