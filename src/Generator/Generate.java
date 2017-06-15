@@ -201,7 +201,7 @@ public class Generate {
 			//safety first
 			timeout++;
 			if(timeout > 500){
-				allreachable = true; //REMOVE
+				allreachable = true;
 				System.out.println("ACHTUNG!");
 			}
 		}
