@@ -225,7 +225,7 @@ public class Generate {
 	
 	static Visible[][] genRoomLayout(int x, int y){
 		Random r = new Random();
-		int rand = r.nextInt(3);
+		int rand = 0;
 		
 		Visible[][] layout = genEmptyRoom(x,y);
 		/*
@@ -263,6 +263,7 @@ public class Generate {
 		*/
 		if(x > 2 && y > 2){
 			if(y > 14 && x > 14){
+				rand = 2;//r.nextInt(4);
 				switch(rand){
 					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 					case 1: 
@@ -271,22 +272,40 @@ public class Generate {
 							layout[y-1][0] = new Floor_spikes();
 							layout[y-1][x-1] = new Floor_spikes();
 							return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					case 2: return genLabyrinth(x, y);
 					default:
 						return layout;
 				}
 			}else if(y > 12 && x > 12){
+				rand = r.nextInt(3);
 				switch(rand){
 					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 					default:
 						return layout;
 				}	
 			}else if(y > 10 && x > 10){
+				rand = r.nextInt(3);
 				switch(rand){
 				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+				case 1: 
+					layout[0][0] = new Floor_spikes();
+					layout[0][1] = new Floor_spikes();
+					layout[1][0] = new Floor_spikes();
+					layout[0][x-1] = new Floor_spikes();
+					layout[1][x-1] = new Floor_spikes();
+					layout[0][x-2] = new Floor_spikes();
+					layout[y-1][0] = new Floor_spikes();
+					layout[y-1][1] = new Floor_spikes();
+					layout[y-2][0] = new Floor_spikes();
+					layout[y-2][x-1] = new Floor_spikes();
+					layout[y-1][x-1] = new Floor_spikes();
+					layout[y-1][x-2] = new Floor_spikes();
+					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 				default:
 					return layout;
 			}	
 			}else if(y > 8 && x > 8){
+				rand = r.nextInt(3);
 				switch(rand){
 				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 				case 1:	
@@ -301,9 +320,10 @@ public class Generate {
 					return layout;
 			}	
 			}else if(y > 6 && x > 6){
+				rand = r.nextInt(3);
 				switch(rand){
-				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
-				case 1: 
+					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					case 1: 
 						for(int i = 0; i < x; i++){
 							layout[0][i] = new Wall();
 							layout[y-1][i] = new Wall();
@@ -317,10 +337,11 @@ public class Generate {
 						layout[0][x/2] = new Door();
 						layout[y-1][x/2] = new Door();
 						return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
-				default:
+					default:
 						return layout;
-			}	
+				}	
 			}else if(y > 4 && x > 4){
+				rand = r.nextInt(4);
 				switch(rand){
 				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 				case 1:
@@ -328,27 +349,48 @@ public class Generate {
 						int ranposy = 1 + r.nextInt(y-2);
 						layout[ranposy][ranposx] = new Monster_hostile();
 						return layout;
+				case 2: 
+					for(int i = 0; i < y; i++){
+						layout[i][0] = new Floor_spikes();
+						layout[i][x-1] = new Floor_spikes();
+					}
+					for(int i = 0; i < x; i++){
+						layout[0][i] = new Floor_spikes();
+					}
+					for(int i = x-1; i > 1; i--){
+						layout[y-1][i] = new Floor_spikes();
+					}
+					for(int i = y-1; i > 1; i--){
+						layout[i][2] = new Floor_spikes();
+					}
+					for(int i = 2; i < x-2; i++){
+						layout[2][i] = new Floor_spikes();
+					}
+					layout[y-2][3] = new Chest();
+					return layout;
+					
 				default:
 					return layout;
 			}	
 			}else{
+				rand = r.nextInt(4);
 				switch(rand){
-				case 0: layout[y/2][x/2] = new RandomObj().genRanObj();
+					case 0: layout[y/2][x/2] = new RandomObj().genRanObj();
 						return layout;
-				case 1: 
-						layout[y/2][x/2] = new Chest();
+					case 1: 
+						layout[y/2][x/2] = new Monster_hostile();
 						layout[y/2+1][x/2+1] = new Wall();
 						layout[y/2-1][x/2-1] = new Wall();
 						layout[y/2-1][x/2+1] = new Wall();
 						layout[y/2+1][x/2-1] = new Wall();
 						return layout;
-				case 2: 
-					layout[y/2][x/2] = new Monster_friendly();
-					layout[y/2][x/2+(x%2-1)] = new Fire();
-					return layout;
-						
-				default:
-					return genEmptyRoom(x,y);
+					case 2: 
+						layout[y/2][x/2] = new Monster_friendly();
+						layout[y/2][x/2+(x%2-1)] = new Fire();
+						return layout;
+					
+					default:
+						return genEmptyRoom(x,y);
 				}
 			}
 		}else{
@@ -381,6 +423,83 @@ public class Generate {
 			}
 		}
 		return layout;
+	}
+	
+	static Visible[][] genLabyrinth(int x, int y){
+		Visible[][] labyrinth = new Visible[y][x];
+		List<Floor_maze> mazefloor = new ArrayList<Floor_maze>();
+		for(int i = 0; i < y; i++){
+			for(int j = 0; j < x; j++){
+				if(i%2 == 0 || j%2 == 0){
+					labyrinth[i][j] = new Wall_maze();
+				}else{
+					labyrinth[i][j] = new Floor_maze();
+					mazefloor.add((Floor_maze) labyrinth[i][j]);
+				}
+			}
+		}
+		//((Floor_maze) labyrinth[y/2+(y%2-1)][x/2+(x%2-1)]).walkable = true;
+		mazefloor.get(mazefloor.size()/2).walkable = true;
+		//mazefloor.get(1).walkable = true;
+		/*
+		for(int t = 0; t < 20; t++){
+			for(int i = 1; i < y; i+=2){
+				for(int j = 1; j < x; j+=2){
+					if(!((Floor_maze) labyrinth[i][j]).walkable){
+						for(int c = 0; c < 2; c++){
+							for(int d = 0; d < 2; d++){
+								int xm = (int) (i + Math.pow(-1, c)*(c%2) *2);
+								int ym = (int) (j + Math.pow(-1, d)*((c+1)%2) *2);
+								if(xm > 0 && xm < x && ym > 0 && ym < y){
+									if(((Floor_maze) labyrinth[ym][xm]).walkable){
+										((Floor_maze) labyrinth[i][j]).walkable = true;
+										labyrinth[(int) (i+Math.pow(-1, c)*c%2)][(int) (j+Math.pow(-1, d)*(c+1)%2)] = new Floor_maze();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		*/
+		boolean search = true;
+		int maxt = 0;
+		while(search){
+			Random r = new Random();
+			int j = 2*r.nextInt(x/2) +1;
+			int i = 2*r.nextInt(y/2) +1;
+			if(!((Floor_maze) labyrinth[i][j]).walkable){
+				for(int c = 0; c < 2; c++){
+					for(int d = 0; d < 2; d++){
+						int xm = (int) (j + Math.pow(-1, c)*(c%2) *2);
+						int ym = (int) (i + Math.pow(-1, d)*((c+1)%2) *2);
+						if(xm > 0 && xm < x && ym > 0 && ym < y){
+							if(((Floor_maze) labyrinth[ym][xm]).walkable){
+								((Floor_maze) labyrinth[i][j]).walkable = true;
+								labyrinth[(int) (i+Math.pow(-1, d)*(c+1)%2)][(int) (j+Math.pow(-1, c)*c%2)] = new Floor_maze();
+							}
+						}
+					}
+				}
+			}
+			search = false;
+			for(int t = 0; t < mazefloor.size(); t++){
+				if(!mazefloor.get(i).walkable){
+					search = true;
+				}
+			}
+			if(maxt > 20000){
+				search = false;
+				System.out.println("Achtung!");
+			}
+			maxt++;
+		}
+		labyrinth[y/2][x/2] = new Chest();
+		labyrinth[0][1] = new Floor_maze();
+		labyrinth[y-1][x-2] = new Floor_maze();
+		
+		return labyrinth;
 	}
 
 }
