@@ -32,7 +32,7 @@ public class Room {
 			this.wallsy.add(sy-1);
 		}
 		//for(int j = 0; j < 2 ; j++){
-			for(int i = sy-1; i <= sy + y + 1; i++){
+			for(int i = sy-1; i <= sy + y+1; i++){
 				this.wallsy.add(i);
 				this.wallsy.add(i);
 			}

@@ -143,8 +143,9 @@ public class Generate {
 					}	
 				}
 				//add room to list
-				if(tmpx > 2 && tmpy > 2){
+				if(tmpx > 1 && tmpy > 1){
 					rooms.add(new Room(width, height, tmpx, tmpy));
+					width+=4;//dangerous d-d-d-dangerous
 				}
 			}//end
 			
@@ -152,7 +153,7 @@ public class Generate {
 		
 		//get neighbours
 		for(int i = 0; i < rooms.size(); i++){
-			for(int j = 1; j < rooms.size(); j++){
+			for(int j = 0; j < rooms.size(); j++){
 				int cnt = 0;
 				int firstx = 0;
 				int firsty = 0;
@@ -177,17 +178,19 @@ public class Generate {
 		
 		//Add doors
 		boolean allreachable = false;
-		rooms.get(1).walkable = true;
+		rooms.get(rooms.size()/2).walkable = true;
 		int timeout = 0;
 		while(!allreachable){
 			//is a neighbour walkable? if yes, build a door so we can be walkable too!
-			for(int i = 2; i < rooms.size(); i++){
-				for(int j = 0; j < rooms.get(i).neighbours.size(); j++){
-					if(!rooms.get(i).walkable && rooms.get(rooms.get(i).neighbours.get(j)).walkable){
-						tmpArray[rooms.get(i).neidoory.get(j)][rooms.get(i).neidoorx.get(j)] = new Door();
-						rooms.get(i).doors++;
-						rooms.get(rooms.get(i).neighbours.get(j)).doors++;
-						rooms.get(i).walkable = true;
+			for(int i = 1; i < rooms.size(); i++){
+				if(!rooms.get(i).walkable){
+					for(int j = 0; j < rooms.get(i).neighbours.size(); j++){
+						if(rooms.get(rooms.get(i).neighbours.get(j)).walkable){
+							tmpArray[rooms.get(i).neidoory.get(j)][rooms.get(i).neidoorx.get(j)] = new Door();
+							rooms.get(i).doors++;
+							rooms.get(rooms.get(i).neighbours.get(j)).doors++;
+							rooms.get(i).walkable = true;
+						}
 					}
 				}
 			}
@@ -200,7 +203,7 @@ public class Generate {
 			
 			//safety first
 			timeout++;
-			if(timeout > 500){
+			if(timeout > 2*rooms.size()){
 				allreachable = true; //REMOVE
 				System.out.println("ACHTUNG!");
 			}
@@ -212,6 +215,78 @@ public class Generate {
 		tmpArray[5][x-11] = new Door_boss();
 		
 		return tmpArray;
+	}
+	
+	Visible[][] genRoomLayout(int x, int y){
+		Random r = new Random();
+		int rand = r.nextInt(10);
+		
+		if(x > 2 && y > 2){
+			if(y > 14 && x > 14){
+				Visible[][] layout = new Visible[y][x];
+				switch(rand){
+				case 0: return genRoomLayout(x-2,y-2);
+				default:
+					return genEmptyRoom(x,y);
+				}
+			}else if(y > 12 && x > 12){
+				Visible[][] layout = new Visible[y][x];
+				switch(rand){
+				case 0: return genRoomLayout(x-2,y-2);
+				default:
+					return genEmptyRoom(x,y);
+				}
+			}else if(y > 10 && x > 10){
+				Visible[][] layout = new Visible[y][x];
+				switch(rand){
+				case 0: return genRoomLayout(x-2,y-2);
+				default:
+					return genEmptyRoom(x,y);
+				}
+			}else if(y > 8 && x > 8){
+				Visible[][] layout = new Visible[y][x];
+				switch(rand){
+				case 0: return genRoomLayout(x-2,y-2);
+				default:
+					return genEmptyRoom(x,y);
+				}
+			}else if(y > 6 && x > 6){
+				Visible[][] layout = new Visible[y][x];
+				switch(rand){
+				case 0: return genRoomLayout(x-2,y-2);
+				default:
+					return genEmptyRoom(x,y);
+				}
+			}else if(y > 4 && x > 4){
+				Visible[][] layout = new Visible[y][x];
+				switch(rand){
+				case 0: return genRoomLayout(x-2,y-2);
+				default:
+					return genEmptyRoom(x,y);
+				}
+			}else{
+				Visible[][] layout = new Visible[x][y];
+				switch(rand){
+				case 0: layout[(y+1)/2][(x+1)/2] = new RandomObj().genRanObj();
+				default:
+					return genEmptyRoom(x,y);
+				}
+			}
+		}else{
+			return genEmptyRoom(x,y);
+		}
+		
+		//return new Visible[0][0];
+	}
+	
+	Visible[][] genEmptyRoom(int x, int y){
+		Visible[][] layout = new Visible[y][x];
+		for(int i = 0; i < y; i++){
+			for(int j = 0; j < x; j++){
+				layout[i][j] = new Floor();
+			}
+		}
+		return layout;
 	}
 
 }
