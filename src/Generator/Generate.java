@@ -10,11 +10,12 @@ import shops.*;
 
 public class Generate {
 	
+	static List<Room> rooms = new ArrayList<Room>();
+	
 	public static Visible[][] genDungeon(int x, int y){ 
 		Random r = new Random();
 		
 		Visible[][] tmpArray = new Visible[y][x];
-		List<Room> rooms = new ArrayList<Room>();
 		
 		//ini the binding walls
 		for(int i = 0; i < x; i++){
@@ -142,6 +143,14 @@ public class Generate {
 
 					}	
 				}
+				//set layout:
+				Visible[][] layoutarr = genRoomLayout(tmpx,tmpy);
+				for(int i = 0; i < tmpy; i++){
+					for(int j = 0; j < tmpx; j++){
+						tmpArray[height+i][width+j] = layoutarr[i][j];
+					}
+				}
+				
 				//add room to list
 				if(tmpx > 1 && tmpy > 1){
 					rooms.add(new Room(width, height, tmpx, tmpy));
@@ -217,57 +226,53 @@ public class Generate {
 		return tmpArray;
 	}
 	
-	Visible[][] genRoomLayout(int x, int y){
+	static Visible[][] genRoomLayout(int x, int y){
 		Random r = new Random();
-		int rand = r.nextInt(10);
+		int rand = r.nextInt(2);
+		
+		Visible[][] layout = genEmptyRoom(x,y);
 		
 		if(x > 2 && y > 2){
 			if(y > 14 && x > 14){
-				Visible[][] layout = new Visible[y][x];
 				switch(rand){
-				case 0: return genRoomLayout(x-2,y-2);
-				default:
-					return genEmptyRoom(x,y);
+					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					default:
+						return layout;
 				}
 			}else if(y > 12 && x > 12){
-				Visible[][] layout = new Visible[y][x];
 				switch(rand){
-				case 0: return genRoomLayout(x-2,y-2);
-				default:
-					return genEmptyRoom(x,y);
-				}
+					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					default:
+						return layout;
+				}	
 			}else if(y > 10 && x > 10){
-				Visible[][] layout = new Visible[y][x];
 				switch(rand){
-				case 0: return genRoomLayout(x-2,y-2);
+				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 				default:
-					return genEmptyRoom(x,y);
-				}
+					return layout;
+			}	
 			}else if(y > 8 && x > 8){
-				Visible[][] layout = new Visible[y][x];
 				switch(rand){
-				case 0: return genRoomLayout(x-2,y-2);
+				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 				default:
-					return genEmptyRoom(x,y);
-				}
+					return layout;
+			}	
 			}else if(y > 6 && x > 6){
-				Visible[][] layout = new Visible[y][x];
 				switch(rand){
-				case 0: return genRoomLayout(x-2,y-2);
+				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 				default:
-					return genEmptyRoom(x,y);
-				}
+					return layout;
+			}	
 			}else if(y > 4 && x > 4){
-				Visible[][] layout = new Visible[y][x];
 				switch(rand){
-				case 0: return genRoomLayout(x-2,y-2);
+				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 				default:
-					return genEmptyRoom(x,y);
-				}
+					return layout;
+			}	
 			}else{
-				Visible[][] layout = new Visible[x][y];
 				switch(rand){
-				case 0: layout[(y+1)/2][(x+1)/2] = new RandomObj().genRanObj();
+				case 0: layout[(y+0)/2][(x+0)/2] = new RandomObj().genRanObj();
+						return layout;
 				default:
 					return genEmptyRoom(x,y);
 				}
@@ -279,11 +284,21 @@ public class Generate {
 		//return new Visible[0][0];
 	}
 	
-	Visible[][] genEmptyRoom(int x, int y){
+	static Visible[][] genEmptyRoom(int x, int y){
 		Visible[][] layout = new Visible[y][x];
 		for(int i = 0; i < y; i++){
 			for(int j = 0; j < x; j++){
 				layout[i][j] = new Floor();
+			}
+		}
+		return layout;
+	}
+	
+	static Visible[][] mergeRooms(Visible[][] a, Visible[][] b, int x, int y){
+		Visible[][] layout = a;
+		for(int i = 0; i < y-2; i++){
+			for(int j = 0; j < x-2; j++){
+				layout[i+1][j+1] = b[i][j];
 			}
 		}
 		return layout;
