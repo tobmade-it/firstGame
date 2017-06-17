@@ -21,7 +21,7 @@ public class Monster_friendly extends Mobs implements Visible{
 	@Override
 	public boolean getIsSolid() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

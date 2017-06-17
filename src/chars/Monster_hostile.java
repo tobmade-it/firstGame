@@ -18,7 +18,7 @@ public class Monster_hostile extends Mobs implements Visible{
 
 	@Override
 	public boolean getIsSolid() {
-		return false;
+		return true;
 	}
 
 
