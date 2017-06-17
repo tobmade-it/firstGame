@@ -1,5 +1,6 @@
 package chars;
 
+<<<<<<< HEAD
 import game.Visible;
 
 public class Monster_hostile extends Mobs implements Visible{
@@ -21,4 +22,10 @@ public class Monster_hostile extends Mobs implements Visible{
 		return false;
 	}
 
+=======
+public class Monster_hostile extends Mobs{
+	
+	String[] name_list = {"orc" , "dark elf" , "bandit" , "BWL-student", "dragon", "evil chest"};
+
+>>>>>>> d4c61286ebbc6120c423786c73398e8383fbe1c7
 }
