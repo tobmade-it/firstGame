@@ -60,8 +60,8 @@ public class GameArea extends JPanel implements ActionListener {
         	for(int j = 0; j < 20; j++) {
         		int xValue = p.getX()-(10-i);
         		int yValue = p.getY()-(10-j);
-        		System.out.println("x: " + xValue);
-        		System.out.println("y: " + yValue);
+        		//System.out.println("x: " + xValue);
+        		//System.out.println("y: " + yValue);
         		if(xValue >= 0 && xValue < Render.X_FIELD && yValue >= 0 && yValue < Render.Y_FIELD) {
         			Visible v = gameField[yValue][xValue];
         			if(v.getType() == "w") {

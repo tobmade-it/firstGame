@@ -99,7 +99,7 @@ public class Generate {
 				if(tmpx < 2 || tmpy < 2){
 					for(int i = 0; i < tmpy; i++){
 						for(int j = 0; j < tmpx; j++){
-								tmpArray[height+i][width+j] = new Wall();
+								//tmpArray[height+i][width+j] = new Wall();
 						}
 					}
 					tmpx = 0;

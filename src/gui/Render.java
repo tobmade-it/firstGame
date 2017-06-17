@@ -1,9 +1,8 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.EventQueue;
-
 import Generator.Generate;
+import game.Main;
 import game.Visible;
 
 public class Render {
@@ -13,6 +12,8 @@ public class Render {
 	public static void main(String args[]) {		
 		Visible[][] gameField = Generate.genDungeon(Render.X_FIELD, Render.Y_FIELD);
 		System.out.println("FELD: " + gameField.length);
+		
+		Main.playsong();
 		
 		EventQueue.invokeLater(new Runnable() {
             @Override
