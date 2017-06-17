@@ -32,11 +32,7 @@ public class Room {
 			this.wallsy.add(sy-1);
 		}
 		//for(int j = 0; j < 2 ; j++){
-<<<<<<< HEAD
 			for(int i = sy-1; i <= sy + y+1; i++){
-=======
-			for(int i = sy-1; i <= sy + y + 1; i++){
->>>>>>> d4c61286ebbc6120c423786c73398e8383fbe1c7
 				this.wallsy.add(i);
 				this.wallsy.add(i);
 			}
