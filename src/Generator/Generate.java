@@ -263,7 +263,7 @@ public class Generate {
 		*/
 		if(x > 2 && y > 2){
 			if(y > 14 && x > 14){
-				rand = 2;//r.nextInt(4);
+				rand = r.nextInt(3);
 				switch(rand){
 					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 					case 1: 
@@ -280,6 +280,25 @@ public class Generate {
 				rand = r.nextInt(3);
 				switch(rand){
 					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					case 1: 
+						for(int i = 1; i < y-1; i++){
+							for(int j = 1; j < x-1; j++){
+								layout[i][j] = new Cleft();
+							}
+						}
+						for(int j = 1; j < x-1; j++){
+							layout[y/2][j] = new Floor();
+						}
+						for(int j = 1; j < y-1; j++){
+							layout[j][x/2] = new Floor();
+						}
+						for(int i = 0; i < 3; i++){
+							layout[y/2-1][x/2-1+i%3] = new Floor();
+							layout[y/2][x/2-1+i%3] = new Floor();
+							layout[y/2+1][x/2-1+i%3] = new Floor();
+						}
+						layout[y/2][x/2] = new Monster_hostile();//new RandomObj().genRanObj();
+						return layout;
 					default:
 						return layout;
 				}	
@@ -466,18 +485,20 @@ public class Generate {
 		boolean search = true;
 		int maxt = 0;
 		while(search){
-			Random r = new Random();
-			int j = 2*r.nextInt(x/2) +1;
-			int i = 2*r.nextInt(y/2) +1;
-			if(!((Floor_maze) labyrinth[i][j]).walkable){
-				for(int c = 0; c < 2; c++){
-					for(int d = 0; d < 2; d++){
-						int xm = (int) (j + Math.pow(-1, c)*(c%2) *2);
-						int ym = (int) (i + Math.pow(-1, d)*((c+1)%2) *2);
-						if(xm > 0 && xm < x && ym > 0 && ym < y){
-							if(((Floor_maze) labyrinth[ym][xm]).walkable){
-								((Floor_maze) labyrinth[i][j]).walkable = true;
-								labyrinth[(int) (i+Math.pow(-1, d)*(c+1)%2)][(int) (j+Math.pow(-1, c)*c%2)] = new Floor_maze();
+			for(int dt = 0; dt < 3; dt++){
+				Random r = new Random();
+				int j = 2*r.nextInt(x/2) +1;
+				int i = 2*r.nextInt(y/2) +1;
+				if(!((Floor_maze) labyrinth[i][j]).walkable){
+					for(int c = 0; c < 2; c++){
+						for(int d = 0; d < 2; d++){
+							int xm = (int) (j + Math.pow(-1, d)*(c%2) *2);
+							int ym = (int) (i + Math.pow(-1, d)*((c+1)%2) *2);
+							if(xm > 0 && xm < x && ym > 0 && ym < y){
+								if(((Floor_maze) labyrinth[ym][xm]).walkable && !((Floor_maze) labyrinth[i][j]).walkable){
+									((Floor_maze) labyrinth[i][j]).walkable = true;
+									labyrinth[(int) (i+Math.pow(-1, d)*(c+1)%2)][(int) (j+Math.pow(-1, d)*c%2)] = new Floor_maze();
+								}
 							}
 						}
 					}
@@ -485,11 +506,11 @@ public class Generate {
 			}
 			search = false;
 			for(int t = 0; t < mazefloor.size(); t++){
-				if(!mazefloor.get(i).walkable){
+				if(!mazefloor.get(t).walkable){
 					search = true;
 				}
 			}
-			if(maxt > 20000){
+			if(maxt > 5000){
 				search = false;
 				System.out.println("Achtung!");
 			}
