@@ -7,8 +7,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//limit: 127! warum? keine ahnung, fehler in generator klasse, stack overflow? aber kein fehler?!
-		int x = 70;
-		int y = 55;
+		int x = 100;
+		int y = 100;
 
 		
 		Visible[][] gameField = Generate.genDungeon(x, y);
