@@ -1,5 +1,5 @@
 package items;
 
-public class MonsterWeapon extends Weapons{
+public class MonsterWeapon extends Weapon{
 
 }
