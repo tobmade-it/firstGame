@@ -19,5 +19,7 @@ public class Floor_bloody extends WorldGen implements Visible{
 	public boolean getIsSolid() {
 		return false;
 	}
+	
+	private boolean dragonblood;
 
 }

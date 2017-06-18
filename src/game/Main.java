@@ -11,9 +11,9 @@ import Generator.Generate;
 public class Main {
 	
 	//ich weiß , gehört hier nicht hin
-	public static void playsong(){
+	public static void playsong(String sound){
 		try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/sound/" + "rpgmusic1" + ".wav").getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/sound/" + sound + ".wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
@@ -29,6 +29,12 @@ public class Main {
             ex.printStackTrace();
         }
 	}
+	
+	public static void hitsound(Visible e){
+		if(e.getType() == "^" || e.getType() == "Y"){
+			playsong("autsch");
+		}
+	}
 
 	public static void main(String[] args) {
 		
@@ -38,7 +44,7 @@ public class Main {
 		
 		Visible[][] gameField = Generate.genDungeon(x, y);
 		
-		playsong();
+		playsong("rpgmusic1");
 		
 		//test
 		for(int i = 0; i < y; i++){

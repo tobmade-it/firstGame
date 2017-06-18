@@ -13,7 +13,7 @@ public class Render {
 		Visible[][] gameField = Generate.genDungeon(Render.X_FIELD, Render.Y_FIELD);
 		System.out.println("FELD: " + gameField.length);
 		
-		Main.playsong();
+		Main.playsong("rpgmusic1");
 		
 		EventQueue.invokeLater(new Runnable() {
             @Override

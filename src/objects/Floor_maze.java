@@ -7,7 +7,7 @@ public class Floor_maze extends WorldGen implements Visible{
 	
 	public Floor_maze(){
 		super.type = " ";
-		super.visible = true;
+		super.visible = false;
 		this.walkable = false;
 	}
 
