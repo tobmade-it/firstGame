@@ -6,8 +6,8 @@ import game.Main;
 import game.Visible;
 
 public class Render {
-	public final static int X_FIELD = 70;
-	public final static int Y_FIELD = 60;
+	public final static int X_FIELD = 100;
+	public final static int Y_FIELD = 100;
 	
 	public static void main(String args[]) {		
 		Visible[][] gameField = Generate.genDungeon(Render.X_FIELD, Render.Y_FIELD);

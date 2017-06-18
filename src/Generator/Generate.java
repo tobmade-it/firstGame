@@ -141,6 +141,7 @@ public class Generate {
 					}	
 				}
 				//set layout:
+				
 				Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2);
 				for(int i = 0; i < tmpy-2; i++){
 					for(int j = 0; j < tmpx-2; j++){
@@ -148,39 +149,44 @@ public class Generate {
 					}
 				}
 				
-				/*
-				if(x/2 > y){
-					Visible[][] layout1 = genRoomLayout(x/2,y);
-					Visible[][] layout2 = genRoomLayout(x/2+x%2,y);
-					for(int i = 0; i < y; i++){
-						for(int j = 0; j < x/2; j++){
-							layout[i][j] = layout1[i][j];
-						}
-					}
-					for(int i = 0; i < y; i++){
-						for(int j = 0; j < x/2+x%2; j++){
-							layout[i][x/2+j+1] = layout2[i][j];
-						}
-					}
-					return layout;
-				}
 				
-				if(y/2 > x){
-					Visible[][] layout1 = genRoomLayout(x,y/2);
-					Visible[][] layout2 = genRoomLayout(x,y/2+y%2);
-					for(int i = 0; i < y/2; i++){
-						for(int j = 0; j < x; j++){
-							layout[i][j] = layout1[i][j];
+				/*
+				if(tmpx/2 > tmpy){
+					Visible[][] layout1 = genRoomLayout((tmpx-2)/2,(tmpy-2));
+					Visible[][] layout2 = genRoomLayout((tmpx-2)/2+tmpx%2,(tmpy-2));
+					for(int i = 0; i < tmpy-2; i++){
+						for(int j = 0; j < (tmpx-2)/2; j++){
+							tmpArray[height+1+i][width+1+j] = layout1[i][j];
 						}
 					}
-					for(int i = 0; i < y/2+y%2; i++){
-						for(int j = 0; j < x; j++){
-							layout[i+y/2+1][j] = layout2[i][j];
+					for(int i = 0; i < (tmpy-2); i++){
+						for(int j = 0; j < (tmpx-2)/2+x%2; j++){
+							tmpArray[height+1+i][width+1+(tmpx-2)/2+j+1] = layout2[i][j];
 						}
 					}
-					return layout;
+				}else if(tmpy/2 > tmpx){
+					Visible[][] layout1 = genRoomLayout((tmpx-2),(tmpy-2)/2);
+					Visible[][] layout2 = genRoomLayout((tmpx-2),(tmpy-2)/2+(tmpy-2)%2);
+					for(int i = 0; i < (tmpy-2)/2; i++){
+						for(int j = 0; j < (tmpx-2); j++){
+							tmpArray[height+1+i][width+1+j] = layout1[i][j];
+						}
+					}
+					for(int i = 0; i < (tmpy-2)/2+(tmpy-2)%2; i++){
+						for(int j = 0; j < (tmpx-2); j++){
+							tmpArray[height+1+i+(tmpy-2)/2+1][width+1+j] = layout2[i][j];
+						}
+					}
+				}else{
+					Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2);
+					for(int i = 0; i < tmpy-2; i++){
+						for(int j = 0; j < tmpx-2; j++){
+							tmpArray[height+i+1][width+j+1] = layoutarr[i][j];
+						}
+					}
 				}
 				*/
+				
 				
 				
 				//add room to list
@@ -256,8 +262,16 @@ public class Generate {
 		tmpArray[4][x-11] = new Door_boss();
 		tmpArray[5][x-11] = new Door_boss();
 		
+		
+		//End of GENERATOR
 		return tmpArray;
 	}
+	
+	
+	
+	
+	
+	
 	
 	//returns a room[y][x] with random generated layout
 	static Visible[][] genRoomLayout(int x, int y){
@@ -277,7 +291,14 @@ public class Generate {
 							layout[y-1][0] = new Floor_spikes();
 							layout[y-1][x-1] = new Floor_spikes();
 							return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
-					case 2: return genLabyrinth(x, y);
+					case 2: //return genLabyrinth(x, y);
+						Visible[][] tmplab = genLabyrinth(x-(x+1)%2, y-(y+1)%2);
+						for(int i = 0; i < y-(y+1)%2; i++){
+							for(int j = 0; j < x-(x+1)%2; j++){
+								layout[i][j] = tmplab[i][j];
+							}
+						}
+						return layout;
 					case 3: 
 						layout[0][0] = new Floor_spikes();
 						layout[0][1] = new Floor_spikes();
@@ -453,7 +474,14 @@ public class Generate {
 						layout[0][0] = new Floor_spikes();
 						return layout;
 					case 3:
-						return genLabyrinth(x, y);
+						//return genLabyrinth(x, y);
+						Visible[][] tmplab = genLabyrinth(x-(x+1)%2, y-(y+1)%2);
+						for(int i = 0; i < y-(y+1)%2; i++){
+							for(int j = 0; j < x-(x+1)%2; j++){
+								layout[i][j] = tmplab[i][j];
+							}
+						}
+						return layout;
 					case 4: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 					case 5: 				
 						for(int i = 0; i < 2; i++){
@@ -587,6 +615,10 @@ public class Generate {
 		}
 	}
 	
+	
+	
+	
+	
 	//generates Room[y][x] with all floor
 	static Visible[][] genEmptyRoom(int x, int y){
 		if(x>0 && y > 0){
@@ -603,6 +635,10 @@ public class Generate {
 		}
 	}
 	
+	
+	
+	
+	
 	//merges Room of size [y][x] with room of size [y-2][x-2]
 	static Visible[][] mergeRooms(Visible[][] a, Visible[][] b, int x, int y){
 		Visible[][] layout = a;
@@ -613,6 +649,10 @@ public class Generate {
 		}
 		return layout;
 	}
+	
+	
+	
+	
 	
 	//generates a Room[y][x] with a labyrinth+chest in it
 	static Visible[][] genLabyrinth(int x, int y){
@@ -631,6 +671,8 @@ public class Generate {
 		//((Floor_maze) labyrinth[y/2+(y%2-1)][x/2+(x%2-1)]).walkable = true;
 		mazefloor.get(mazefloor.size()-1).walkable = true;
 		mazefloor.get(0).walkable = true;
+		//mazefloor.get(mazefloor.size()-x/2).walkable = true;
+		//mazefloor.get(x/2).walkable = true;
 
 		boolean search = true;
 		int maxt = 0;
@@ -670,6 +712,19 @@ public class Generate {
 			}
 			maxt++;
 		}
+		
+		//delete if not wanted
+		/*
+		for(int i = 0; i < x; i++){
+			labyrinth[y-1][i] = new Wall_maze();
+		}
+		for(int i = 1; i < x; i+=2){
+			labyrinth[y-1][i] = new Floor_maze();
+		}
+		*/
+		
+		//end delete
+		
 		labyrinth[chesty][chestx] = new Chest();
 		labyrinth[0][1] = new Floor_maze();
 		labyrinth[y-1][x-2] = new Floor_maze();
