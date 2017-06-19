@@ -292,7 +292,7 @@ public class Generate {
 							layout[y-1][x-1] = new Floor_spikes();
 							return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
 					case 2: //return genLabyrinth(x, y);
-						Visible[][] tmplab = genLabyrinth(x-(x+1)%2, y-(y+1)%2);
+						Visible[][] tmplab = genLabyrinth(x-(x+1)%2, y-(y+1)%2, 1+r.nextInt(4));
 						for(int i = 0; i < y-(y+1)%2; i++){
 							for(int j = 0; j < x-(x+1)%2; j++){
 								layout[i][j] = tmplab[i][j];
@@ -475,7 +475,7 @@ public class Generate {
 						return layout;
 					case 3:
 						//return genLabyrinth(x, y);
-						Visible[][] tmplab = genLabyrinth(x-(x+1)%2, y-(y+1)%2);
+						Visible[][] tmplab = genLabyrinth(x-(x+1)%2, y-(y+1)%2, 1+r.nextInt(2));
 						for(int i = 0; i < y-(y+1)%2; i++){
 							for(int j = 0; j < x-(x+1)%2; j++){
 								layout[i][j] = tmplab[i][j];
@@ -655,7 +655,7 @@ public class Generate {
 	
 	
 	//generates a Room[y][x] with a labyrinth+chest in it
-	static Visible[][] genLabyrinth(int x, int y){
+	static Visible[][] genLabyrinth(int x, int y, int entrances){
 		Visible[][] labyrinth = new Visible[y][x];
 		List<Floor_maze> mazefloor = new ArrayList<Floor_maze>();
 		for(int i = 0; i < y; i++){
@@ -669,10 +669,16 @@ public class Generate {
 			}
 		}
 		//((Floor_maze) labyrinth[y/2+(y%2-1)][x/2+(x%2-1)]).walkable = true;
-		mazefloor.get(mazefloor.size()-1).walkable = true;
-		mazefloor.get(0).walkable = true;
-		//mazefloor.get(mazefloor.size()-x/2).walkable = true;
-		//mazefloor.get(x/2).walkable = true;
+		if(entrances > 3){
+			mazefloor.get(x/2-1).walkable = true;
+		}
+		if(entrances > 2){
+			mazefloor.get(mazefloor.size()-x/2).walkable = true;
+		}
+		if(entrances > 1){
+			mazefloor.get(mazefloor.size()-1).walkable = true;
+		}
+		mazefloor.get(0).walkable = true;		
 
 		boolean search = true;
 		int maxt = 0;
@@ -683,13 +689,14 @@ public class Generate {
 				Random r = new Random();
 				int j = 2*r.nextInt(x/2) +1;
 				int i = 2*r.nextInt(y/2) +1;
+				int k = r.nextInt(15+maxt);
 				if(!((Floor_maze) labyrinth[i][j]).walkable){
 					for(int c = 0; c < 2; c++){
 						for(int d = 0; d < 2; d++){
 							int xm = (int) (j + Math.pow(-1, d)*(c%2) *2);
 							int ym = (int) (i + Math.pow(-1, d)*((c+1)%2) *2);
 							if(xm > 0 && xm < x && ym > 0 && ym < y){
-								if(((Floor_maze) labyrinth[ym][xm]).walkable && !((Floor_maze) labyrinth[i][j]).walkable){
+								if(((Floor_maze) labyrinth[ym][xm]).walkable && (!((Floor_maze) labyrinth[i][j]).walkable || k == 0)){
 									((Floor_maze) labyrinth[i][j]).walkable = true;
 									chestx = j;
 									chesty = i;
@@ -706,7 +713,7 @@ public class Generate {
 					search = true;
 				}
 			}
-			if(maxt > 5000){
+			if(maxt > 3000 + x*y){
 				search = false;
 				System.out.println("Achtung!");
 			}
@@ -725,9 +732,19 @@ public class Generate {
 		
 		//end delete
 		
-		labyrinth[chesty][chestx] = new Chest();
+		if(entrances > 3){
+			labyrinth[1][x-1] = new Floor_maze();
+		}
+		if(entrances > 2){
+			labyrinth[y-2][0] = new Floor_maze();
+		}
+		if(entrances > 1){
+			labyrinth[y-1][x-2] = new Floor_maze();
+		} 
 		labyrinth[0][1] = new Floor_maze();
-		labyrinth[y-1][x-2] = new Floor_maze();
+		
+		labyrinth[chesty][chestx] = new Chest();
+		
 		
 		return labyrinth;
 	}
