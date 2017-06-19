@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import Generator.Generate;
+import chars.Player;
 
 public class Main {
 	
@@ -30,9 +31,10 @@ public class Main {
         }
 	}
 	
-	public static void hitsound(Visible e){
+	public static void hitsound(Visible e, Player p){
 		if(e.getType() == "^" || e.getType() == "Y"){
 			playsong("autsch");
+			p.setHP(5);
 		}
 	}
 

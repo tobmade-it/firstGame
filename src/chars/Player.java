@@ -8,6 +8,8 @@ public class Player extends Creatures implements Visible {
 	
 	public Player(int viewdist) {
 		super.viewdist = viewdist;
+		super.maxhp = 100;
+		super.hp = 100;
 	}
 	
 	@Override
@@ -40,6 +42,20 @@ public class Player extends Creatures implements Visible {
 	@Override
 	public boolean getIsSolid() {
 		return false;
+	}
+	
+	public void setHP(int hp) {
+		if(this.hp - hp >= 0 && this.hp - hp <= this.maxhp){
+			this.hp -= hp;
+		}else if(this.hp - hp >= 0){
+			this.hp = this.maxhp;
+		}else{
+			this.hp = 0;
+		}
+	}
+	
+	public int getHP(int hp) {
+		return this.hp;
 	}
 
 

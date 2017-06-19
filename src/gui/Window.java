@@ -53,25 +53,25 @@ public class Window extends JFrame {
 					// left
 					if(!(gameArea.getFieldPosition(p.getX()-1, p.getY()).getIsSolid())) {
 						gameArea.p.setX(p.getX()-dis);
-						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()));
+						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 					}
 				} else if(key == 38) {
 					// top
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()-1).getIsSolid())) {
 						gameArea.p.setY(p.getY()-dis);
-						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()));
+						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 					}
 				} else if(key == 39) {
 					// right
 					if(!(gameArea.getFieldPosition(p.getX()+1, p.getY()).getIsSolid())) {
 						gameArea.p.setX(p.getX()+dis);
-						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()));
+						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 					}
 				} else if(key == 40) {
 					// bottom
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()+1).getIsSolid())) {
 						gameArea.p.setY(p.getY()+dis);
-						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()));
+						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 					}
 				}
 				
