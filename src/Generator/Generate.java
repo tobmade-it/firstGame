@@ -14,7 +14,16 @@ public class Generate {
 	
 	static List<Room> rooms = new ArrayList<Room>();
 	
-	public static Visible[][] genDungeon(int x, int y){ 
+	/**
+	 * @param x how wide the created array should be
+	 * @param y how high the created array should be
+	 * @param minroom sets the minimal size of a room, should be at least 3
+	 * @param maxroom sets the maximal size of a room, bigger then x or y for infinite
+	 * @return 
+	 * a ArrayList of size [y][x] filled with objects of interface Visible, will generate random rooms with random layout, but will make sure they are all walkable
+	 * Will create a startroom in the top left corner and a bossroom in the top right, walls will be the edges of the array
+	 */
+	public static Visible[][] genDungeon(int x, int y, int minroom, int maxroom){ 
 		Random r = new Random();
 		
 		Visible[][] tmpArray = new Visible[y][x];
@@ -88,11 +97,19 @@ public class Generate {
 				}
 				
 				//decide how big it should be
-				if(tmpx >= 10){
-					tmpx = 4 + r.nextInt(tmpx/2-2);
+				if(tmpx >= minroom*2){
+					if(tmpx > maxroom && tmpx - maxroom > 4){
+						tmpx = minroom + r.nextInt(maxroom-minroom);
+					}else{
+						tmpx = minroom + r.nextInt(tmpx/2-2);
+					}
 				}
-				if(tmpy >= 10){
-					tmpy = 4 + r.nextInt(tmpy/2-2);
+				if(tmpy >= minroom*2){
+					if(tmpy > maxroom && tmpy - maxroom > 4){
+						tmpy = minroom + r.nextInt(maxroom-minroom);
+					}else{
+						tmpy = minroom + r.nextInt(tmpy/2-2);
+					}
 				}
 				
 				//useless, safety for empty spaces or too small rooms
@@ -142,21 +159,21 @@ public class Generate {
 				}
 				//set layout:
 				
+				/*
 				Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2);
 				for(int i = 0; i < tmpy-2; i++){
 					for(int j = 0; j < tmpx-2; j++){
 						tmpArray[height+i+1][width+j+1] = layoutarr[i][j];
 					}
 				}
+				*/
 				
-				
-				/*
 				if(tmpx/2 > tmpy){
 					Visible[][] layout1 = genRoomLayout((tmpx-2)/2,(tmpy-2));
 					Visible[][] layout2 = genRoomLayout((tmpx-2)/2+tmpx%2,(tmpy-2));
 					for(int i = 0; i < tmpy-2; i++){
 						for(int j = 0; j < (tmpx-2)/2; j++){
-							tmpArray[height+1+i][width+1+j] = layout1[i][j];
+							tmpArray[height+1+i][width+1+j] = layout1[tmpy-3-i][j];
 						}
 					}
 					for(int i = 0; i < (tmpy-2); i++){
@@ -169,12 +186,12 @@ public class Generate {
 					Visible[][] layout2 = genRoomLayout((tmpx-2),(tmpy-2)/2+(tmpy-2)%2);
 					for(int i = 0; i < (tmpy-2)/2; i++){
 						for(int j = 0; j < (tmpx-2); j++){
-							tmpArray[height+1+i][width+1+j] = layout1[i][j];
+							tmpArray[height+1+i][width+1+j] = layout1[(tmpy-2)/2-1-i][j];
 						}
 					}
 					for(int i = 0; i < (tmpy-2)/2+(tmpy-2)%2; i++){
 						for(int j = 0; j < (tmpx-2); j++){
-							tmpArray[height+1+i+(tmpy-2)/2+1][width+1+j] = layout2[i][j];
+							tmpArray[height+1+i+(tmpy-2)/2][width+1+j] = layout2[i][j];
 						}
 					}
 				}else{
@@ -184,9 +201,7 @@ public class Generate {
 							tmpArray[height+i+1][width+j+1] = layoutarr[i][j];
 						}
 					}
-				}
-				*/
-				
+				}				
 				
 				
 				//add room to list
@@ -273,7 +288,13 @@ public class Generate {
 	
 	
 	
-	//returns a room[y][x] with random generated layout
+	/**
+	 * @param x how wide the layout should be
+	 * @param y how high the layout should be
+	 * @return
+	 * a layout of a floor as an ArrayList of size [y][x] filled with Visible
+	 * , walls may be blocked, so be careful with doors
+	 */
 	static Visible[][] genRoomLayout(int x, int y){
 		Random r = new Random();
 		int rand = 0;
@@ -617,9 +638,12 @@ public class Generate {
 	
 	
 	
-	
-	
-	//generates Room[y][x] with all floor
+	/**
+	 * @param x how wide the layout should be
+	 * @param y how high the layout should be
+	 * @return
+	 * generates floor of size [y][x] with all floor
+	 */
 	static Visible[][] genEmptyRoom(int x, int y){
 		if(x>0 && y > 0){
 			Visible[][] layout = new Visible[y][x];
@@ -638,8 +662,16 @@ public class Generate {
 	
 	
 	
-	
-	//merges Room of size [y][x] with room of size [y-2][x-2]
+
+	/**
+	 * @param a ArrayList Visible of size [y][x]
+	 * @param b ArrayList Visible of size [y-2][x-2]
+	 * @param x width of a
+	 * @param y height of a
+	 * @return
+	 * ArrayList of size [y][x]
+	 * merges Room of size [y][x] with room of size [y-2][x-2], so that the inner part is replaced
+	 */
 	static Visible[][] mergeRooms(Visible[][] a, Visible[][] b, int x, int y){
 		Visible[][] layout = a;
 		for(int i = 0; i < y-2; i++){
@@ -655,6 +687,15 @@ public class Generate {
 	
 	
 	//generates a Room[y][x] with a labyrinth+chest in it
+	/**
+	 * @param x width of Labyrinth
+	 * @param y height of Labyrinth
+	 * @param entrances number of entrances, less then 2 for 1 and more then 3 for 4
+	 * , and if Pi is less then 4 add the number of days this year to the age of your grandpa
+	 * , but if you were born in an odd month add the amount of your bloodcells instead 
+	 * @return
+	 * ArrayList of size [y][x] filled with Floor_maze and Wall_maze
+	 */
 	static Visible[][] genLabyrinth(int x, int y, int entrances){
 		Visible[][] labyrinth = new Visible[y][x];
 		List<Floor_maze> mazefloor = new ArrayList<Floor_maze>();

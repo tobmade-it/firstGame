@@ -10,7 +10,7 @@ public class Render {
 	public final static int Y_FIELD = 100;
 	
 	public static void main(String args[]) {		
-		Visible[][] gameField = Generate.genDungeon(Render.X_FIELD, Render.Y_FIELD);
+		Visible[][] gameField = Generate.genDungeon(Render.X_FIELD, Render.Y_FIELD, 4 , 100);
 		System.out.println("FELD: " + gameField.length);
 		
 		Main.playsong("rpgmusic1");
