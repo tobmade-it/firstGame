@@ -1,6 +1,7 @@
 package chars;
 
 import game.Visible;
+import items.Fist;
 
 public class Monster_hostile extends Mobs implements Visible{
 	
@@ -18,7 +19,7 @@ public class Monster_hostile extends Mobs implements Visible{
 		super.luck = 80;
 		super.viewdist = 0;
 		super.xp = 0;
-		super.mainweapon = null;
+		super.mainweapon = new Fist();
 		
 	}
 
@@ -35,7 +36,7 @@ public class Monster_hostile extends Mobs implements Visible{
 
 	@Override
 	public String getType() {
-		return "X";
+		return "M";
 	}
 
 	@Override

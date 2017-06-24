@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import chars.Creatures;
 import chars.Player;
 import game.Main;
 import game.Settings;
@@ -49,29 +50,40 @@ public class Window extends JFrame {
 				
 				Player p = gameArea.p;
 				
-				if(key == 37) {
+				if(key == 37 || key == KeyEvent.VK_A) {
 					// left
+					p.setViewdirection(1);
 					if(!(gameArea.getFieldPosition(p.getX()-1, p.getY()).getIsSolid())) {
 						gameArea.p.setX(p.getX()-dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 					}
-				} else if(key == 38) {
+				} else if(key == 38 || key == KeyEvent.VK_W) {
 					// top
+					p.setViewdirection(0);
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()-1).getIsSolid())) {
 						gameArea.p.setY(p.getY()-dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 					}
-				} else if(key == 39) {
+				} else if(key == 39 || key == KeyEvent.VK_D) {
 					// right
+					p.setViewdirection(3);
 					if(!(gameArea.getFieldPosition(p.getX()+1, p.getY()).getIsSolid())) {
 						gameArea.p.setX(p.getX()+dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 					}
-				} else if(key == 40) {
+				} else if(key == 40 || key == KeyEvent.VK_S) {
 					// bottom
+					p.setViewdirection(2);
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()+1).getIsSolid())) {
 						gameArea.p.setY(p.getY()+dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
+					}
+				} else if(key == KeyEvent.VK_F) {
+					// f to use
+					Visible useOn = gameArea.getFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)));
+					if(useOn.getType() == "M"){
+						System.out.println(p.mainweapon.use(p, null, 0, null, (Creatures) useOn));
+						System.out.println(p.mainweapon.use((Creatures) useOn, null, 0, null, p));
 					}
 				}
 				

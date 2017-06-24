@@ -11,5 +11,6 @@ public class Reference {
 			, "A good death is its own reward. -Faora"
 			, "On a long enough time line, the survival rate for everyone drops to zero. -The Narrator"
 			, "Dying is the day worth living for! -Barbossa"};
+	
 
 }

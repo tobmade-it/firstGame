@@ -7,15 +7,22 @@ import items.Fist;
 public class Player extends Creatures implements Visible {
 	private int x;
 	private int y;
-	
+	private int viewdirection; //2 unten 1 links 0 oben 3 rechts
+
 	public Player(int viewdist) {
 		super.viewdist = viewdist;
 		super.maxhp = 100;
 		super.hp = 100;
 		super.bagpack = new Bagpack();
 		super.mainweapon = new Fist();
+		this.viewdirection = 2;
 	}
 	
+	@Override
+	public String toString() {
+		return "Player";
+	}
+
 	@Override
 	public boolean getvisibility() {
 		// TODO Auto-generated method stub
@@ -63,6 +70,13 @@ public class Player extends Creatures implements Visible {
 	public int getHP(int hp) {
 		return this.hp;
 	}
+	
+	public int getViewdirection() {
+		return viewdirection;
+	}
 
+	public void setViewdirection(int viewdirection) {
+		this.viewdirection = viewdirection;
+	}
 
 }

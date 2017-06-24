@@ -13,6 +13,7 @@ public abstract class Items {
 	 * @param item the item it is used on
 	 * @param index the place in the inventory if it is a player item
 	 * @param obj the object it is used on
+	 * @param character the char it is used on
 	 * @return
 	 * a String with the message what happened
 	 */

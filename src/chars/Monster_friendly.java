@@ -3,12 +3,15 @@ package chars;
 import java.util.Arrays;
 
 import game.Visible;
+import items.Fist;
 
 public class Monster_friendly extends Mobs implements Visible{
 	
 	private String[] name_list = {"rat" , "Bill Gates" , "dog" , "cat", "old wise man", "Gandalf"};
 	
 	public Monster_friendly(int strenght){
+		
+		super.mainweapon = new Fist();
 		
 	}
 
@@ -26,7 +29,7 @@ public class Monster_friendly extends Mobs implements Visible{
 	@Override
 	public String getType() {
 		// TODO Auto-generated method stub
-		return "F";
+		return "M";
 	}
 
 	@Override
