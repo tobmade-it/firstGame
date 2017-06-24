@@ -1,6 +1,8 @@
 package chars;
 
 import game.Visible;
+import items.Bagpack;
+import items.Fist;
 
 public class Player extends Creatures implements Visible {
 	private int x;
@@ -10,6 +12,8 @@ public class Player extends Creatures implements Visible {
 		super.viewdist = viewdist;
 		super.maxhp = 100;
 		super.hp = 100;
+		super.bagpack = new Bagpack();
+		super.mainweapon = new Fist();
 	}
 	
 	@Override
@@ -44,7 +48,8 @@ public class Player extends Creatures implements Visible {
 		return false;
 	}
 	
-	public void setHP(int hp) {
+	@Override
+	public void takeDmg(int hp) {
 		if(this.hp - hp >= 0 && this.hp - hp <= this.maxhp){
 			this.hp -= hp;
 		}else if(this.hp - hp >= 0){
@@ -54,6 +59,7 @@ public class Player extends Creatures implements Visible {
 		}
 	}
 	
+	@Override
 	public int getHP(int hp) {
 		return this.hp;
 	}

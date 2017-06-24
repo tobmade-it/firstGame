@@ -1,10 +1,21 @@
 package chars;
 
+import java.util.Arrays;
+
 import game.Visible;
 
 public class Monster_friendly extends Mobs implements Visible{
 	
-	String[] name_list = {"rat" , "Bill Gates" , "dog" , "cat", "old wise man", "Gandalf"};
+	private String[] name_list = {"rat" , "Bill Gates" , "dog" , "cat", "old wise man", "Gandalf"};
+	
+	public Monster_friendly(int strenght){
+		
+	}
+
+	@Override
+	public String toString() {
+		return name_list[1];
+	}
 
 	@Override
 	public boolean getvisibility() {

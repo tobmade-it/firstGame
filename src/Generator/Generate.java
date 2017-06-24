@@ -20,7 +20,7 @@ public class Generate {
 	 * @param minroom sets the minimal size of a room, should be at least 3
 	 * @param maxroom sets the maximal size of a room, bigger then x or y for infinite
 	 * @return 
-	 * a ArrayList of size [y][x] filled with objects of interface Visible, will generate random rooms with random layout, but will make sure they are all walkable
+	 * a Array of size [y][x] filled with objects of interface Visible, will generate random rooms with random layout, but will make sure they are all walkable
 	 * Will create a startroom in the top left corner and a bossroom in the top right, walls will be the edges of the array
 	 */
 	public static Visible[][] genDungeon(int x, int y, int minroom, int maxroom){ 
@@ -160,7 +160,7 @@ public class Generate {
 				//set layout:
 				
 				/*
-				Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2);
+				Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2,width);
 				for(int i = 0; i < tmpy-2; i++){
 					for(int j = 0; j < tmpx-2; j++){
 						tmpArray[height+i+1][width+j+1] = layoutarr[i][j];
@@ -169,8 +169,8 @@ public class Generate {
 				*/
 				
 				if(tmpx/2 > tmpy){
-					Visible[][] layout1 = genRoomLayout((tmpx-2)/2,(tmpy-2));
-					Visible[][] layout2 = genRoomLayout((tmpx-2)/2+tmpx%2,(tmpy-2));
+					Visible[][] layout1 = genRoomLayout((tmpx-2)/2,(tmpy-2),width);
+					Visible[][] layout2 = genRoomLayout((tmpx-2)/2+tmpx%2,(tmpy-2),width);
 					for(int i = 0; i < tmpy-2; i++){
 						for(int j = 0; j < (tmpx-2)/2; j++){
 							tmpArray[height+1+i][width+1+j] = layout1[tmpy-3-i][j];
@@ -182,8 +182,8 @@ public class Generate {
 						}
 					}
 				}else if(tmpy/2 > tmpx){
-					Visible[][] layout1 = genRoomLayout((tmpx-2),(tmpy-2)/2);
-					Visible[][] layout2 = genRoomLayout((tmpx-2),(tmpy-2)/2+(tmpy-2)%2);
+					Visible[][] layout1 = genRoomLayout((tmpx-2),(tmpy-2)/2,width);
+					Visible[][] layout2 = genRoomLayout((tmpx-2),(tmpy-2)/2+(tmpy-2)%2,width);
 					for(int i = 0; i < (tmpy-2)/2; i++){
 						for(int j = 0; j < (tmpx-2); j++){
 							tmpArray[height+1+i][width+1+j] = layout1[(tmpy-2)/2-1-i][j];
@@ -195,7 +195,7 @@ public class Generate {
 						}
 					}
 				}else{
-					Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2);
+					Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2,width);
 					for(int i = 0; i < tmpy-2; i++){
 						for(int j = 0; j < tmpx-2; j++){
 							tmpArray[height+i+1][width+j+1] = layoutarr[i][j];
@@ -291,11 +291,12 @@ public class Generate {
 	/**
 	 * @param x how wide the layout should be
 	 * @param y how high the layout should be
+	 * @param strenght how hard mobs should be
 	 * @return
-	 * a layout of a floor as an ArrayList of size [y][x] filled with Visible
+	 * a layout of a floor as an Array of size [y][x] filled with Visible
 	 * , walls may be blocked, so be careful with doors
 	 */
-	static Visible[][] genRoomLayout(int x, int y){
+	static Visible[][] genRoomLayout(int x, int y, int strenght){
 		Random r = new Random();
 		int rand = 0;
 		
@@ -305,13 +306,13 @@ public class Generate {
 			if(y > 14 && x > 14){
 				rand = r.nextInt(4);
 				switch(rand){
-					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					case 1: 
 							layout[0][x-1] = new Floor_spikes();
 							layout[0][0] = new Floor_spikes();
 							layout[y-1][0] = new Floor_spikes();
 							layout[y-1][x-1] = new Floor_spikes();
-							return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+							return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					case 2: //return genLabyrinth(x, y);
 						Visible[][] tmplab = genLabyrinth(x-(x+1)%2, y-(y+1)%2, 1+r.nextInt(4));
 						for(int i = 0; i < y-(y+1)%2; i++){
@@ -333,14 +334,14 @@ public class Generate {
 						layout[y-2][x-1] = new Floor_spikes();
 						layout[y-1][x-1] = new Floor_spikes();
 						layout[y-1][x-2] = new Floor_spikes();
-						return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+						return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					default:
 						return layout;
 				}
 			}else if(y > 12 && x > 12){
 				rand = r.nextInt(4);
 				switch(rand){
-					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					case 1: 
 						for(int i = 1; i < y-1; i++){
 							for(int j = 1; j < x-1; j++){
@@ -358,7 +359,7 @@ public class Generate {
 							layout[y/2][x/2-1+i%3] = new Floor();
 							layout[y/2+1][x/2-1+i%3] = new Floor();
 						}
-						layout[y/2][x/2] = new Monster_hostile();//new RandomObj().genRanObj();
+						layout[y/2][x/2] = new Monster_hostile(strenght);//new RandomObj().genRanObj();
 						return layout;
 					case 2: 
 						layout[0][0] = new Floor_spikes();
@@ -373,20 +374,20 @@ public class Generate {
 						layout[y-2][x-1] = new Floor_spikes();
 						layout[y-1][x-1] = new Floor_spikes();
 						layout[y-1][x-2] = new Floor_spikes();
-						return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+						return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					case 3: 
 						layout[0][x-1] = new Floor_spikes();
 						layout[0][0] = new Floor_spikes();
 						layout[y-1][0] = new Floor_spikes();
 						layout[y-1][x-1] = new Floor_spikes();
-						return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+						return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					default:
 						return layout;
 				}	
 			}else if(y > 10 && x > 10){
 				rand = r.nextInt(4);
 				switch(rand){
-				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 1: 
 					layout[0][0] = new Floor_spikes();
 					layout[0][1] = new Floor_spikes();
@@ -400,34 +401,34 @@ public class Generate {
 					layout[y-2][x-1] = new Floor_spikes();
 					layout[y-1][x-1] = new Floor_spikes();
 					layout[y-1][x-2] = new Floor_spikes();
-					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 2: 
 					layout[0][x-1] = new Floor_spikes();
 					layout[0][0] = new Floor_spikes();
 					layout[y-1][0] = new Floor_spikes();
 					layout[y-1][x-1] = new Floor_spikes();
-					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 3: 
 					layout[0][x-1] = new Fire();
 					layout[0][0] = new Fire();
 					layout[y-1][0] = new Fire();
 					layout[y-1][x-1] = new Fire();
-					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				default:
 					return layout;
 			}	
 			}else if(y > 8 && x > 8){
 				rand = r.nextInt(5);
 				switch(rand){
-				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 1:	
 					int ranposx = 1 + r.nextInt(x-2);
 					int ranposy = 1 + r.nextInt(y-2);
-					layout[ranposy][0] = new Monster_hostile();
-					layout[y-1][ranposx] = new Monster_hostile();
-					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					layout[ranposy][0] = new Monster_hostile(strenght);
+					layout[y-1][ranposx] = new Monster_hostile(strenght);
+					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 2:	
-					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 3: 
 					for(int i = 1; i < y-1; i++){
 						for(int j = 1; j < x-1; j++){
@@ -445,7 +446,7 @@ public class Generate {
 						layout[y/2][x/2-1+i%3] = new Floor();
 						layout[y/2+1][x/2-1+i%3] = new Floor();
 					}
-					layout[y/2][x/2] = new Monster_hostile();//new RandomObj().genRanObj();
+					layout[y/2][x/2] = new Monster_hostile(strenght);//new RandomObj().genRanObj();
 					return layout;
 				case 4:
 					for(int i = 3; i < x-3; i++){
@@ -465,7 +466,7 @@ public class Generate {
 						layout[i][2] = new Cleft();
 						layout[i][x-3] = new Cleft();
 					}
-					layout[y/2][x/2] = new Monster_hostile();
+					layout[y/2][x/2] = new Monster_hostile(strenght);
 					return layout;
 				default:
 					return layout;
@@ -473,7 +474,7 @@ public class Generate {
 			}else if(y > 6 && x > 6){
 				rand = r.nextInt(7);
 				switch(rand){
-					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					case 1: 
 						for(int i = 0; i < x; i++){
 							layout[0][i] = new Wall();
@@ -487,7 +488,7 @@ public class Generate {
 						layout[y/2][x-1] = new Door();
 						layout[0][x/2] = new Door();
 						layout[y-1][x/2] = new Door();
-						return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+						return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					case 2:
 						layout[0][x-1] = new Floor_spikes();
 						layout[y-1][x-1] = new Floor_spikes();
@@ -503,12 +504,12 @@ public class Generate {
 							}
 						}
 						return layout;
-					case 4: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					case 4: return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 					case 5: 				
 						for(int i = 0; i < 2; i++){
 							int ranposx = 1 + r.nextInt(x-2);
 							int ranposy = 1 + r.nextInt(y-2);
-							layout[ranposy][ranposx] = new Monster_hostile();
+							layout[ranposy][ranposx] = new Monster_hostile(strenght);
 						}
 						return layout;
 					case 6:
@@ -522,7 +523,7 @@ public class Generate {
 						}
 						layout[y-3][x/2] = new Door();
 						layout[3][x/2] = new Chest();
-						layout[y-2][x/2] = new Monster_friendly(); //new Gandalf();
+						layout[y-2][x/2] = new Monster_friendly(strenght); //new Gandalf();
 						return layout;
 					default:
 						return layout;
@@ -530,11 +531,11 @@ public class Generate {
 			}else if(y > 4 && x > 4){
 				rand = r.nextInt(7);
 				switch(rand){
-				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 1:
 						int ranposx = 1 + r.nextInt(x-2);
 						int ranposy = 1 + r.nextInt(y-2);
-						layout[ranposy][ranposx] = new Monster_hostile();
+						layout[ranposy][ranposx] = new Monster_hostile(strenght);
 						return layout;
 				case 2: 
 					for(int i = 0; i < y; i++){
@@ -560,7 +561,7 @@ public class Generate {
 					layout[y-1][x-1] = new Floor_spikes();
 					layout[y-1][0] = new Floor_spikes();
 					layout[0][0] = new Floor_spikes();
-					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 4:
 					for(int i = 0; i < x; i++){
 						if(i%2 == 1){
@@ -574,7 +575,7 @@ public class Generate {
 							layout[i][x-1] = new Floor_spikes();
 						}
 					}
-					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 5:
 					for(int j = 1; j < x-1; j++){
 						layout[y/2][j] = new Cleft();
@@ -588,7 +589,7 @@ public class Generate {
 					layout[0][0] = new Floor_spikes();
 					layout[y-1][0] = new Floor_spikes();
 					layout[y-1][x-1] = new Floor_spikes();
-					return mergeRooms(layout, genRoomLayout(x-2,y-2),x,y);
+					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				default:
 					return layout;
 			}	
@@ -598,14 +599,14 @@ public class Generate {
 					case 0: layout[y/2][x/2] = new RandomObj().genRanObj();
 						return layout;
 					case 1: 
-						layout[y/2][x/2] = new Monster_hostile();
+						layout[y/2][x/2] = new Monster_hostile(strenght);
 						layout[y/2+1][x/2+1] = new Wall();
 						layout[y/2-1][x/2-1] = new Wall();
 						layout[y/2-1][x/2+1] = new Wall();
 						layout[y/2+1][x/2-1] = new Wall();
 						return layout;
 					case 2: 
-						layout[y/2][x/2] = new Monster_friendly();
+						layout[y/2][x/2] = new Monster_friendly(strenght);
 						layout[y/2][x/2+(x%2-1)] = new Fire();
 						return layout;
 					case 3:
@@ -615,10 +616,10 @@ public class Generate {
 						layout[0][0] = new Floor_spikes();
 						return layout;
 					case 4:
-						layout[y/2][x/2] = new Monster_hostile();
+						layout[y/2][x/2] = new Monster_hostile(strenght);
 						return layout;
 					case 5:
-						layout[y/2][x/2] = new Monster_friendly();
+						layout[y/2][x/2] = new Monster_friendly(strenght);
 						return layout;
 					case 6:
 						layout[y/2][x/2] = new Chest();
@@ -669,7 +670,7 @@ public class Generate {
 	 * @param x width of a
 	 * @param y height of a
 	 * @return
-	 * ArrayList of size [y][x]
+	 * Array of size [y][x]
 	 * merges Room of size [y][x] with room of size [y-2][x-2], so that the inner part is replaced
 	 */
 	static Visible[][] mergeRooms(Visible[][] a, Visible[][] b, int x, int y){
@@ -694,7 +695,7 @@ public class Generate {
 	 * , and if Pi is less then 4 add the number of days this year to the age of your grandpa
 	 * , but if you were born in an odd month add the amount of your bloodcells instead 
 	 * @return
-	 * ArrayList of size [y][x] filled with Floor_maze and Wall_maze
+	 * Array of size [y][x] filled with Floor_maze and Wall_maze
 	 */
 	static Visible[][] genLabyrinth(int x, int y, int entrances){
 		Visible[][] labyrinth = new Visible[y][x];

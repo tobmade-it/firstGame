@@ -1,9 +1,11 @@
 package items;
 
-public class Weapon extends Items{
+import chars.Player;
+
+public abstract class Weapon extends Items{
 	
-	double dmg;
-	int rareness;
-	String[] rarenesstypes = {"Rusty","Common","Rare","Epic","Legendary"};
+	protected double dmg;
+	protected int rareness;
+	protected String[] rarenesstypes = {"Rusty","Common","Rare","Epic","Legendary"};
 
 }

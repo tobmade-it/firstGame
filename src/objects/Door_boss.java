@@ -24,4 +24,12 @@ public class Door_boss extends WorldGen implements Visible{
 	
 	public static boolean closed;
 
+	public static boolean isClosed() {
+		return closed;
+	}
+
+	public static void setClosed(boolean closed) {
+		Door_boss.closed = closed;
+	}
+
 }

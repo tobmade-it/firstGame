@@ -34,7 +34,7 @@ public class Main {
 	public static void hitsound(Visible e, Player p){
 		if(e.getType() == "^" || e.getType() == "Y"){
 			playsong("autsch");
-			p.setHP(5);
+			p.takeDmg(5);
 		}
 	}
 
