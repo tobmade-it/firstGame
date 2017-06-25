@@ -8,6 +8,8 @@ import javax.sound.sampled.Clip;
 
 import Generator.Generate;
 import chars.Player;
+import objects.Floor_moon;
+import objects.Floor_sun;
 
 public class Main {
 	
@@ -35,7 +37,18 @@ public class Main {
 		if(e.getType() == "^" || e.getType() == "Y"){
 			playsong("autsch");
 			p.takeDmg(5);
+		}else if(e.getType() == "1" || e.getType() == "2"){
+			playsong("autsch");
 		}
+	}
+	
+	public static Visible change(Visible e){
+		if(e.getType() == "1"){
+			return new Floor_sun();
+		}else if(e.getType() == "2"){
+			return new Floor_moon();
+		}
+		return e;
 	}
 
 	public static void main(String[] args) {
@@ -44,7 +57,7 @@ public class Main {
 		int x = 100;
 		int y = 100;
 		
-		Visible[][] gameField = Generate.genDungeon(x, y, 4 , 100);
+		Visible[][] gameField = Generate.genDungeon(x, y, 7 , 100);
 		
 		playsong("rpgmusic1");
 		

@@ -56,6 +56,7 @@ public class Window extends JFrame {
 					if(!(gameArea.getFieldPosition(p.getX()-1, p.getY()).getIsSolid())) {
 						gameArea.p.setX(p.getX()-dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
+						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 38 || key == KeyEvent.VK_W) {
 					// top
@@ -63,6 +64,7 @@ public class Window extends JFrame {
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()-1).getIsSolid())) {
 						gameArea.p.setY(p.getY()-dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
+						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 39 || key == KeyEvent.VK_D) {
 					// right
@@ -70,6 +72,7 @@ public class Window extends JFrame {
 					if(!(gameArea.getFieldPosition(p.getX()+1, p.getY()).getIsSolid())) {
 						gameArea.p.setX(p.getX()+dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
+						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 40 || key == KeyEvent.VK_S) {
 					// bottom
@@ -77,6 +80,7 @@ public class Window extends JFrame {
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()+1).getIsSolid())) {
 						gameArea.p.setY(p.getY()+dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
+						gameArea.setFieldPosition(p.getX(),p.getY(),Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == KeyEvent.VK_F) {
 					// f to use

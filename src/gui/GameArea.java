@@ -92,6 +92,14 @@ public class GameArea extends JPanel implements ActionListener {
 						g2d.setPaint(Color.pink);
 						g2d.fillRect(i*35, j*30, 35, 30);
 					}
+        			else if(v.getType() == "1") {
+						g2d.setPaint(Color.darkGray);
+						g2d.fillRect(i*35, j*30, 35, 30);
+					}
+        			else if(v.getType() == "2") {
+						g2d.setPaint(Color.yellow);
+						g2d.fillRect(i*35, j*30, 35, 30);
+					}
         		}
             }
         }
@@ -124,6 +132,10 @@ public class GameArea extends JPanel implements ActionListener {
     
     public Visible getFieldPosition(int x, int y) {
     	return gameField[y][x];
+    }
+    
+    public void setFieldPosition(int x, int y, Visible e) {
+    	gameField[y][x] = e;
     }
     
     @Override

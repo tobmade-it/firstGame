@@ -529,7 +529,7 @@ public class Generate {
 						return layout;
 				}	
 			}else if(y > 4 && x > 4){
-				rand = r.nextInt(7);
+				rand = r.nextInt(8);
 				switch(rand){
 				case 0: return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 1:
@@ -590,6 +590,25 @@ public class Generate {
 					layout[y-1][0] = new Floor_spikes();
 					layout[y-1][x-1] = new Floor_spikes();
 					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
+				case 7:
+					for(int i = 0; i < x; i++){
+							layout[0][i] = new Floor_spikes();
+							layout[y-1][i] = new Floor_spikes();
+					}
+					for(int i = 0; i < y; i++){
+							layout[i][0] = new Floor_spikes();
+							layout[i][x-1] = new Floor_spikes();
+					}
+					layout[y-1][1] = new Floor();
+					for(int i = 1; i < y-1; i++){
+						for(int j = 1; j < x-1; j++){
+							layout[i][j] = new Floor_moon();							
+						}
+					}
+					for(int i = 0; i < x*y/2; i++){
+						layout[r.nextInt(y-2)+1][x-r.nextInt(x-2)-2] = new Floor_sun();
+					}
+					return layout;
 				default:
 					return layout;
 			}	
