@@ -57,7 +57,7 @@ public class Main {
 		int x = 100;
 		int y = 100;
 		
-		Visible[][] gameField = Generate.genDungeon(x, y, 7 , 100);
+		Visible[][] gameField = Generate.genDungeon(x, y, 9 , 25);
 		
 		playsong("rpgmusic1");
 		

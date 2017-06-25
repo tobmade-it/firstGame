@@ -18,6 +18,6 @@ public abstract class Creatures {
 	public Bagpack bagpack;
 	
 	public abstract void takeDmg(int hp);
-	public abstract int getHP(int hp);
+	public abstract int getHP();
 
 }

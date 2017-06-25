@@ -1,5 +1,6 @@
 package chars;
 
+import game.Reference;
 import game.Visible;
 import items.Fist;
 
@@ -12,7 +13,7 @@ public class Monster_hostile extends Mobs implements Visible{
 		
 		this.rnd = 0;
 		super.defense = 0;
-		super.maxhp = 0;
+		super.maxhp = 10;
 		super.hp = maxhp;
 		super.strength = 0;
 		super.intelligence = 0;
@@ -25,7 +26,7 @@ public class Monster_hostile extends Mobs implements Visible{
 
 	@Override
 	public String toString() {
-		return name_list[1];
+		return name_list[Reference.r.nextInt(5)];
 	}
 
 

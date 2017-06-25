@@ -100,6 +100,10 @@ public class GameArea extends JPanel implements ActionListener {
 						g2d.setPaint(Color.yellow);
 						g2d.fillRect(i*35, j*30, 35, 30);
 					}
+        			else if(v.getType() == "b") {
+						g2d.setPaint(Color.magenta);
+						g2d.fillRect(i*35, j*30, 35, 30);
+					}
         		}
             }
         }

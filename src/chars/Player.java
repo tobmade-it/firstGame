@@ -67,7 +67,7 @@ public class Player extends Creatures implements Visible {
 	}
 	
 	@Override
-	public int getHP(int hp) {
+	public int getHP() {
 		return this.hp;
 	}
 	
