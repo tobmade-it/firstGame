@@ -14,7 +14,7 @@ import objects.Floor_sun;
 public class Main {
 	
 	//ich weiß , gehört hier nicht hin
-	public static void playsong(String sound){
+	public static void playsound(String sound){
 		try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/sound/" + sound + ".wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
@@ -35,10 +35,10 @@ public class Main {
 	
 	public static void hitsound(Visible e, Player p){
 		if(e.getType() == "^" || e.getType() == "Y"){
-			playsong("autsch");
+			playsound("autsch");
 			p.takeDmg(5);
 		}else if(e.getType() == "1" || e.getType() == "2"){
-			playsong("autsch");
+			playsound("autsch");
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class Main {
 		
 		Visible[][] gameField = Generate.genDungeon(x, y, 9 , 25);
 		
-		playsong("rpgmusic1");
+		playsound("rpgmusic1");
 		
 		//test
 		for(int i = 0; i < y; i++){
