@@ -2,15 +2,10 @@ package gui;
 
 import java.awt.EventQueue;
 import java.io.File;
-import java.io.IOException;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import Generator.Generate;
-import game.Main;
 import game.Visible;
 
 public class Render {

@@ -47,6 +47,11 @@ public class GameArea extends JPanel implements ActionListener {
         
         g2d.drawRect(0, 0, Settings.GAME_W, Settings.GAME_H);
         
+        g2d.setPaint(Color.red);
+        g2d.fillRect(0, 600, p.getMaxHP()*7, 60);
+        g2d.setPaint(Color.green);
+        g2d.fillRect(0, 600, p.getHP()*7, 60);  
+        
         int x = Render.X_FIELD;
         int y = Render.Y_FIELD;
         

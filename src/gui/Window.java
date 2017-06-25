@@ -88,12 +88,16 @@ public class Window extends JFrame {
 					Visible useOn = gameArea.getFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)));
 					if(useOn.getType() == "M"){
 						System.out.println(p.mainweapon.use(p, null, 0, null, (Creatures) useOn));
+						Main.playsound("hit0");
 						if(((Creatures) useOn).getHP() == 0){
 							gameArea.setFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)) , new Floor_bloody());
 						}else{
 							System.out.println(p.mainweapon.use((Creatures) useOn, null, 0, null, p));
+							Main.playsound("hit1");
+							if(p.getHP() == 0){
+								Main.playsound("lost");
+							}
 						}
-
 					}
 				}
 				

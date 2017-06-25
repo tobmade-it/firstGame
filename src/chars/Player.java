@@ -71,6 +71,10 @@ public class Player extends Creatures implements Visible {
 		return this.hp;
 	}
 	
+	public int getMaxHP() {
+		return this.maxhp;
+	}
+	
 	public int getViewdirection() {
 		return viewdirection;
 	}

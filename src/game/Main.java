@@ -38,7 +38,7 @@ public class Main {
 			playsound("autsch");
 			p.takeDmg(5);
 		}else if(e.getType() == "1" || e.getType() == "2"){
-			playsound("autsch");
+			playsound("test");
 		}
 	}
 	
