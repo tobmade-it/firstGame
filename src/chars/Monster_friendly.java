@@ -4,10 +4,12 @@ import java.util.Arrays;
 
 import game.Visible;
 import items.Fist;
+import items.Weapon;
 
 public class Monster_friendly extends Mobs implements Visible{
 	
 	private String[] name_list = {"rat" , "Bill Gates" , "dog" , "cat", "old wise man", "Gandalf"};
+	public Weapon mainweapon;
 	
 	public Monster_friendly(int strenght){
 		
@@ -19,7 +21,7 @@ public class Monster_friendly extends Mobs implements Visible{
 		super.luck = 80;
 		super.viewdist = 0;
 		super.xp = 0;
-		super.mainweapon = new Fist();
+		this.mainweapon = new Fist();
 		
 	}
 

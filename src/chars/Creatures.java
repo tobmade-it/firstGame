@@ -13,7 +13,6 @@ public abstract class Creatures {
 	int defense;
 	int intelligence;
 	int viewdist;
-	public Weapon mainweapon;
 	int luck;
 	public Bagpack bagpack;
 	

@@ -3,11 +3,12 @@ package chars;
 import game.Reference;
 import game.Visible;
 import items.Fist;
+import items.Weapon;
 
 public class Monster_hostile extends Mobs implements Visible{
 	
 	private String[] name_list = {"orc" , "dark elf" , "bandit" , "BWL-student", "dragon", "evil chest"};
-	private int rnd;
+	public Weapon mainweapon;
 	
 	public Monster_hostile(int strenght){
 		
@@ -20,7 +21,7 @@ public class Monster_hostile extends Mobs implements Visible{
 		super.luck = 80;
 		super.viewdist = 0;
 		super.xp = 0;
-		super.mainweapon = new Fist();
+		this.mainweapon = new Fist();
 		
 	}
 

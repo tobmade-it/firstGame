@@ -3,18 +3,20 @@ package chars;
 import game.Visible;
 import items.Bagpack;
 import items.Fist;
+import items.Weapon;
 
 public class Player extends Creatures implements Visible {
 	private int x;
 	private int y;
 	private int viewdirection; //2 unten 1 links 0 oben 3 rechts
+	public Weapon mainweapon;
 
 	public Player(int viewdist) {
 		super.viewdist = viewdist;
 		super.maxhp = 100;
 		super.hp = 100;
 		super.bagpack = new Bagpack();
-		super.mainweapon = new Fist();
+		this.mainweapon = new Fist();
 		this.viewdirection = 2;
 	}
 	

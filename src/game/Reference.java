@@ -6,6 +6,9 @@ public class Reference {
 	
 	public static Random r = new Random();
 	
+	public static final	String NAME = "RPG - rare personal goblin ";
+	public static final String VERSION = "0.3.1";
+	
 	String[] deathMsg = 
 			{"Death is just another path. One that we all must take. -Gandalf"
 			, "A good death is its own reward. -Faora"

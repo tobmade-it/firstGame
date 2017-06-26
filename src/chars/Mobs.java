@@ -3,6 +3,11 @@ package chars;
 public class Mobs extends Creatures{
 	
 	protected int xp;
+	protected int rnd;
+	
+	public String attack(Player p){
+		return "Nichts geschieht";
+	}
 
 	@Override
 	public int getHP() {
