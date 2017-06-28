@@ -56,6 +56,7 @@ public class Window extends JFrame {
 					// left
 					p.setViewdirection(1);
 					if(!(gameArea.getFieldPosition(p.getX()-1, p.getY()).getIsSolid())) {
+						gameArea.lastPlayerX = p.getX();
 						gameArea.p.setX(p.getX()-dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
@@ -64,6 +65,7 @@ public class Window extends JFrame {
 					// top
 					p.setViewdirection(0);
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()-1).getIsSolid())) {
+						gameArea.lastPlayerY = p.getY();
 						gameArea.p.setY(p.getY()-dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
@@ -72,6 +74,7 @@ public class Window extends JFrame {
 					// right
 					p.setViewdirection(3);
 					if(!(gameArea.getFieldPosition(p.getX()+1, p.getY()).getIsSolid())) {
+						gameArea.lastPlayerX = p.getX();
 						gameArea.p.setX(p.getX()+dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
@@ -80,6 +83,7 @@ public class Window extends JFrame {
 					// bottom
 					p.setViewdirection(2);
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()+1).getIsSolid())) {
+						gameArea.lastPlayerY = p.getY();
 						gameArea.p.setY(p.getY()+dis);
 						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 						gameArea.setFieldPosition(p.getX(),p.getY(),Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
@@ -88,12 +92,12 @@ public class Window extends JFrame {
 					// f to use
 					Visible useOn = gameArea.getFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)));
 					if(useOn.getType() == "M"){
-						System.out.println(p.mainweapon.use(p, null, 0, null, (Creatures) useOn));
+						System.out.println(((Mobs) useOn).attack(p));//p.mainweapon.use((Creatures) useOn, null, 0, null, p));
 						Main.playsound("hit0");
 						if(((Creatures) useOn).getHP() == 0){
 							gameArea.setFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)) , new Floor_bloody());
 						}else{
-							System.out.println(((Mobs) useOn).attack(p));//p.mainweapon.use((Creatures) useOn, null, 0, null, p));
+							System.out.println(p.mainweapon.use((Creatures) useOn, null, 0, null, p));
 							Main.playsound("hit1");
 							if(p.getHP() == 0){
 								Main.playsound("lost");
@@ -114,8 +118,8 @@ public class Window extends JFrame {
         });
 
         setTitle(this.name);
-        setSize(Settings.WINDOW_H, Settings.WINDOW_W);
-        setLocationRelativeTo(null); // Window in the center of the screen
+        setSize(Settings.WINDOW_W, Settings.WINDOW_H);
+        //setLocationRelativeTo(null); // Window in the center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
