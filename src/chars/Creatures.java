@@ -15,6 +15,7 @@ public abstract class Creatures {
 	int viewdist;
 	int luck;
 	public Bagpack bagpack;
+	String name;
 	
 	public abstract void takeDmg(int hp);
 	public abstract int getHP();

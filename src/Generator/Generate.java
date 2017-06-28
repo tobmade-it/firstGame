@@ -169,8 +169,8 @@ public class Generate {
 				*/
 				
 				if(tmpx/2 > tmpy){
-					Visible[][] layout1 = genRoomLayout((tmpx-2)/2,(tmpy-2),width);
-					Visible[][] layout2 = genRoomLayout((tmpx-2)/2+tmpx%2,(tmpy-2),width);
+					Visible[][] layout1 = genRoomLayout((tmpx-2)/2,(tmpy-2),2);
+					Visible[][] layout2 = genRoomLayout((tmpx-2)/2+tmpx%2,(tmpy-2),2);
 					for(int i = 0; i < tmpy-2; i++){
 						for(int j = 0; j < (tmpx-2)/2; j++){
 							tmpArray[height+1+i][width+1+j] = layout1[tmpy-3-i][j];
@@ -182,8 +182,8 @@ public class Generate {
 						}
 					}
 				}else if(tmpy/2 > tmpx){
-					Visible[][] layout1 = genRoomLayout((tmpx-2),(tmpy-2)/2,width);
-					Visible[][] layout2 = genRoomLayout((tmpx-2),(tmpy-2)/2+(tmpy-2)%2,width);
+					Visible[][] layout1 = genRoomLayout((tmpx-2),(tmpy-2)/2,2);
+					Visible[][] layout2 = genRoomLayout((tmpx-2),(tmpy-2)/2+(tmpy-2)%2,2);
 					for(int i = 0; i < (tmpy-2)/2; i++){
 						for(int j = 0; j < (tmpx-2); j++){
 							tmpArray[height+1+i][width+1+j] = layout1[(tmpy-2)/2-1-i][j];
@@ -195,7 +195,7 @@ public class Generate {
 						}
 					}
 				}else{
-					Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2,width);
+					Visible[][] layoutarr = genRoomLayout(tmpx-2,tmpy-2,2);
 					for(int i = 0; i < tmpy-2; i++){
 						for(int j = 0; j < tmpx-2; j++){
 							tmpArray[height+i+1][width+j+1] = layoutarr[i][j];
@@ -359,7 +359,7 @@ public class Generate {
 							layout[y/2][x/2-1+i%3] = new Floor();
 							layout[y/2+1][x/2-1+i%3] = new Floor();
 						}
-						layout[y/2][x/2] = new Monster_hostile(strenght);//new RandomObj().genRanObj();
+						layout[y/2][x/2] = new Monster_hostile().genMob(strenght);//new RandomObj().genRanObj();
 						return layout;
 					case 2: 
 						layout[0][0] = new Floor_spikes();
@@ -424,8 +424,8 @@ public class Generate {
 				case 1:	
 					int ranposx = 1 + r.nextInt(x-2);
 					int ranposy = 1 + r.nextInt(y-2);
-					layout[ranposy][0] = new Monster_hostile(strenght);
-					layout[y-1][ranposx] = new Monster_hostile(strenght);
+					layout[ranposy][0] = new Monster_hostile().genMob(strenght);
+					layout[y-1][ranposx] = new Monster_hostile().genMob(strenght);
 					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
 				case 2:	
 					return mergeRooms(layout, genRoomLayout(x-2,y-2,strenght),x,y);
@@ -446,7 +446,7 @@ public class Generate {
 						layout[y/2][x/2-1+i%3] = new Floor();
 						layout[y/2+1][x/2-1+i%3] = new Floor();
 					}
-					layout[y/2][x/2] = new Monster_hostile(strenght);//new RandomObj().genRanObj();
+					layout[y/2][x/2] = new Monster_hostile().genMob(strenght);//new RandomObj().genRanObj();
 					return layout;
 				case 4:
 					for(int i = 3; i < x-3; i++){
@@ -466,7 +466,7 @@ public class Generate {
 						layout[i][2] = new Cleft();
 						layout[i][x-3] = new Cleft();
 					}
-					layout[y/2][x/2] = new Monster_hostile(strenght);
+					layout[y/2][x/2] =  new Monster_hostile().genMob(strenght); //!
 					return layout;
 				default:
 					return layout;
@@ -509,7 +509,7 @@ public class Generate {
 						for(int i = 0; i < 2; i++){
 							int ranposx = 1 + r.nextInt(x-2);
 							int ranposy = 1 + r.nextInt(y-2);
-							layout[ranposy][ranposx] = new Monster_hostile(strenght);
+							layout[ranposy][ranposx] =  new Monster_hostile().genMob(strenght); //!
 						}
 						return layout;
 					case 6:
@@ -535,7 +535,7 @@ public class Generate {
 				case 1:
 						int ranposx = 1 + r.nextInt(x-2);
 						int ranposy = 1 + r.nextInt(y-2);
-						layout[ranposy][ranposx] = new Monster_hostile(strenght);
+						layout[ranposy][ranposx] =  new Monster_hostile().genMob(strenght); //!
 						return layout;
 				case 2: 
 					for(int i = 0; i < y; i++){
@@ -618,7 +618,7 @@ public class Generate {
 					case 0: layout[y/2][x/2] = new RandomObj().genRanObj();
 						return layout;
 					case 1: 
-						layout[y/2][x/2] = new Monster_hostile(strenght);
+						layout[y/2][x/2] = new Monster_hostile().genMob(strenght); //!
 						layout[y/2+1][x/2+1] = new Wall();
 						layout[y/2-1][x/2-1] = new Wall();
 						layout[y/2-1][x/2+1] = new Wall();
@@ -635,7 +635,7 @@ public class Generate {
 						layout[0][0] = new Floor_spikes();
 						return layout;
 					case 4:
-						layout[y/2][x/2] = new Monster_hostile(strenght);
+						layout[y/2][x/2] = new Monster_hostile().genMob(strenght); //!
 						return layout;
 					case 5:
 						layout[y/2][x/2] = new Monster_friendly(strenght);

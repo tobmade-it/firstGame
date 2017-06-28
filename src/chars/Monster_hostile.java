@@ -10,24 +10,23 @@ public class Monster_hostile extends Mobs implements Visible{
 	private String[] name_list = {"orc" , "dark elf" , "bandit" , "BWL-student", "dragon", "evil chest"};
 	public Weapon mainweapon;
 	
-	public Monster_hostile(int strenght){
-		
-		this.rnd = 0;
-		super.defense = 0;
-		super.maxhp = 10;
-		super.hp = maxhp;
-		super.strength = 0;
-		super.intelligence = 0;
-		super.luck = 80;
-		super.viewdist = 0;
-		super.xp = 0;
-		this.mainweapon = new Fist();
-		
+	public Monster_hostile(){//int strenght){
+		//genMob(strenght);
+	}
+	
+	public Monster_hostile genMob(int strenght){
+		int rnd = Reference.r.nextInt(7);
+		switch(rnd){
+		case 0:
+			return new Bandit(strenght);
+		default:
+			return new Bandit(strenght);
+		}
 	}
 
 	@Override
 	public String toString() {
-		return name_list[Reference.r.nextInt(5)];
+		return "Ein Monster!";
 	}
 
 

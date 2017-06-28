@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import chars.Creatures;
+import chars.Mobs;
 import chars.Player;
 import game.Main;
 import game.Settings;
@@ -92,7 +93,7 @@ public class Window extends JFrame {
 						if(((Creatures) useOn).getHP() == 0){
 							gameArea.setFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)) , new Floor_bloody());
 						}else{
-							System.out.println(p.mainweapon.use((Creatures) useOn, null, 0, null, p));
+							System.out.println(((Mobs) useOn).attack(p));//p.mainweapon.use((Creatures) useOn, null, 0, null, p));
 							Main.playsound("hit1");
 							if(p.getHP() == 0){
 								Main.playsound("lost");

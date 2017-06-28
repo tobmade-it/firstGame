@@ -13,16 +13,6 @@ public class Monster_friendly extends Mobs implements Visible{
 	
 	public Monster_friendly(int strenght){
 		
-		super.defense = 0;
-		super.maxhp = 10;
-		super.hp = maxhp;
-		super.strength = 0;
-		super.intelligence = 0;
-		super.luck = 80;
-		super.viewdist = 0;
-		super.xp = 0;
-		this.mainweapon = new Fist();
-		
 	}
 
 	@Override

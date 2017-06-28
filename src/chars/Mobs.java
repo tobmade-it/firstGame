@@ -5,7 +5,7 @@ public class Mobs extends Creatures{
 	protected int xp;
 	protected int rnd;
 	
-	public String attack(Player p){
+	public String attack(Creatures p){
 		return "Nichts geschieht";
 	}
 
