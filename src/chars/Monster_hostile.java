@@ -14,13 +14,13 @@ public class Monster_hostile extends Mobs implements Visible{
 		//genMob(strenght);
 	}
 	
-	public Monster_hostile genMob(int strenght){
+	public Monster_hostile genMob(int strgth){
 		int rnd = Reference.r.nextInt(7);
 		switch(rnd){
 		case 0:
-			return new Bandit(strenght);
+			return new Bandit(strgth);
 		default:
-			return new Bandit(strenght);
+			return new Bandit(strgth);
 		}
 	}
 

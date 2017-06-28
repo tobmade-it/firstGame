@@ -10,6 +10,7 @@ public class Player extends Creatures implements Visible {
 	private int y;
 	private int viewdirection; //2 unten 1 links 0 oben 3 rechts
 	public Weapon mainweapon;
+	
 
 	public Player(int viewdist) {
 		super.viewdist = viewdist;
@@ -18,6 +19,7 @@ public class Player extends Creatures implements Visible {
 		super.bagpack = new Bagpack();
 		this.mainweapon = new Fist();
 		this.viewdirection = 2;
+		super.gold = 1000;
 	}
 	
 	@Override

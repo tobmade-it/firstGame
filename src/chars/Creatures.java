@@ -16,6 +16,7 @@ public abstract class Creatures {
 	int luck;
 	public Bagpack bagpack;
 	String name;
+	public int gold;
 	
 	public abstract void takeDmg(int hp);
 	public abstract int getHP();
