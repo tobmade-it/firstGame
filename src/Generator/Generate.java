@@ -12,7 +12,7 @@ import shops.*;
 
 public class Generate {
 	
-	static List<Room> rooms = new ArrayList<Room>();
+	public static List<Room> rooms = new ArrayList<Room>();
 	
 	/**
 	 * @param x how wide the created array should be
