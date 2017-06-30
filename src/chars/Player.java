@@ -3,6 +3,7 @@ package chars;
 import game.Visible;
 import items.Bagpack;
 import items.Fist;
+import items.Sword;
 import items.Weapon;
 
 public class Player extends Creatures implements Visible {
@@ -10,16 +11,21 @@ public class Player extends Creatures implements Visible {
 	private int y;
 	private int viewdirection; //2 unten 1 links 0 oben 3 rechts
 	public Weapon mainweapon;
+	private int level;
+	private int xp;
 	
 
 	public Player(int viewdist) {
 		super.viewdist = viewdist;
-		super.maxhp = 100;
-		super.hp = 100;
+		super.maxhp = 200;
+		super.hp = this.maxhp;
+		this.strength = 50;
 		super.bagpack = new Bagpack();
-		this.mainweapon = new Fist();
+		this.mainweapon = new Sword();
 		this.viewdirection = 2;
 		super.gold = 1000;
+		this.level = 1;
+		this.xp = 0;
 	}
 	
 	@Override

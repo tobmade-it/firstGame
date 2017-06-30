@@ -6,13 +6,26 @@ import game.Visible;
 public class Fist extends Weapon{
 	
 	public Fist(){
-		this.dmg = 5;
+		this.dmg = 50;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "deine Faust";
 	}
 
 	@Override
 	public String use(Creatures user, Items item, int index, Visible obj, Creatures character) {
-		character.takeDmg((int) this.dmg);
-		return character.toString() + " erlitt 5 Schaden!";
+		String msg = "";
+		
+		if(character != null){
+			int dmg = (user.getStrength() + this.dmg)/10 - character.getDefense()/10;
+			character.takeDmg(dmg);
+			msg = character.getName() + " erleidet " + dmg + " Schaden durch " + this.toString() + "!";
+		}
+		return msg;
 	}
 
+	
 }

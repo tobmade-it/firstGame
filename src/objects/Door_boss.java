@@ -5,7 +5,7 @@ import game.Visible;
 public class Door_boss extends WorldGen implements Visible{
 	
 	public Door_boss(){
-		this.closed = true;
+		this.closed = false;//true;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class Render {
 	public final static int Y_FIELD = 60;
 	
 	public static void main(String args[]) {		
-		Visible[][] gameField = Generate.genDungeon(Render.X_FIELD, Render.Y_FIELD, 6 , 100);
+		Visible[][] gameField = Generate.genDungeon(Render.X_FIELD, Render.Y_FIELD, 9 , 25);
 		System.out.println("FELD: " + gameField.length);
 		
 		try {

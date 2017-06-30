@@ -15,12 +15,18 @@ public class Monster_hostile extends Mobs implements Visible{
 	}
 	
 	public Monster_hostile genMob(int strgth){
-		int rnd = Reference.r.nextInt(7);
+		int rnd = Reference.r.nextInt(4);
 		switch(rnd){
 		case 0:
-			return new Bandit(strgth);
+			return new Bandit(strgth*4);
+		case 1: 
+			return new Dragon(strgth*4);
+		case 2:
+			return new Chest_evil(strgth*4);
+		case 3:
+			return new CrazyMage(strgth*4);
 		default:
-			return new Bandit(strgth);
+			return new Bandit(strgth*4);
 		}
 	}
 

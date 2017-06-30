@@ -6,7 +6,7 @@ import game.Visible;
 
 public abstract class Weapon extends Items{
 	
-	protected double dmg;
+	protected int dmg;
 	protected int rareness;
 	protected String[] rarenesstypes = {"Rusty","Common","Rare","Epic","Legendary"};
 	

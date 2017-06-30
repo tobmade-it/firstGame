@@ -17,8 +17,70 @@ public abstract class Creatures {
 	public Bagpack bagpack;
 	String name;
 	public int gold;
+	int stun;
 	
 	public abstract void takeDmg(int hp);
 	public abstract int getHP();
+	
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	public int getMaxhp() {
+		return maxhp;
+	}
+	public void setMaxhp(int maxhp) {
+		this.maxhp = maxhp;
+	}
+	public int getStrength() {
+		return strength;
+	}
+	public void setStrength(int strength) {
+		this.strength = strength;
+	}
+	public int getDefense() {
+		return defense;
+	}
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+	public int getIntelligence() {
+		return intelligence;
+	}
+	public void setIntelligence(int intelligence) {
+		this.intelligence = intelligence;
+	}
+	public int getViewdist() {
+		return viewdist;
+	}
+	public void setViewdist(int viewdist) {
+		this.viewdist = viewdist;
+	}
+	public int getLuck() {
+		return luck;
+	}
+	public void setLuck(int luck) {
+		this.luck = luck;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getGold() {
+		return gold;
+	}
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
+	public int getStun() {
+		return stun;
+	}
+	public void setStun(int stun) {
+		this.stun = stun;
+	}
 
 }

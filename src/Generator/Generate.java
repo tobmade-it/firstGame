@@ -6,6 +6,7 @@ import java.util.Random;
 
 import chars.Monster_friendly;
 import chars.Monster_hostile;
+import chars.SchwarzMann;
 import game.Visible;
 import objects.*;
 import shops.*;
@@ -44,7 +45,7 @@ public class Generate {
 				tmpArray[i][j] = new Floor();
 			}
 		}
-		tmpArray[2][2] = new Healer();
+		tmpArray[2][2] = new Monster_hostile().genMob(4);//tmpArray[2][2] = new Healer();
 		tmpArray[2][7] = new Armory();
 		tmpArray[7][2] = new Bibliotary();
 		tmpArray[7][7] = new Weaponary();
@@ -67,7 +68,7 @@ public class Generate {
 			tmpArray[j][x-11] = new Wall();
 			tmpArray[10][x-j] = new Wall();
 		}
-		tmpArray[5][x-6] = new Floor_spikes();
+		tmpArray[5][x-6] = new SchwarzMann(4);//new Floor_spikes();
 		tmpArray[10][x-11] = new Wall();
 		rooms.add(new Room(x-11,1,9,9));
 		rooms.get(0).bossroom = true;
