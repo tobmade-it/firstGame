@@ -3,6 +3,7 @@ package items;
 import java.util.ArrayList;
 import java.util.List;
 
+import chars.Creatures;
 import chars.Player;
 import game.Visible;
 
@@ -23,7 +24,7 @@ public class Bagpack extends Items{
 	}
 
 	@Override
-	String use(Player player, Items item, int index, Visible obj) {
+	String use(Creatures user, Items item, int index, Visible obj, Creatures character) {
 		// TODO Auto-generated method stub
 		return null;
 	}
