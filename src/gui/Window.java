@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -18,6 +16,13 @@ import game.Settings;
 import game.Visible;
 import objects.Floor_bloody;
 
+/**
+ * 
+ * General Window Class handling all window settings
+ * and also listen to events and handle them.
+ * 
+ */
+@SuppressWarnings("serial")
 public class Window extends JFrame {
 	private String name = "Our first game";
 	private GameArea gameArea = null;
@@ -32,6 +37,8 @@ public class Window extends JFrame {
         
         addKeyListener(new KeyListener() {
         	
+        	// TODO: to the same key events, when the key is typed
+        	//       that the player can hold the keys down
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
@@ -58,7 +65,6 @@ public class Window extends JFrame {
 					if(!(gameArea.getFieldPosition(p.getX()-1, p.getY()).getIsSolid())) {
 						gameArea.lastPlayerX = p.getX();
 						gameArea.p.setX(p.getX()-dis);
-						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 38 || key == KeyEvent.VK_W) {
@@ -67,7 +73,6 @@ public class Window extends JFrame {
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()-1).getIsSolid())) {
 						gameArea.lastPlayerY = p.getY();
 						gameArea.p.setY(p.getY()-dis);
-						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 39 || key == KeyEvent.VK_D) {
@@ -76,7 +81,6 @@ public class Window extends JFrame {
 					if(!(gameArea.getFieldPosition(p.getX()+1, p.getY()).getIsSolid())) {
 						gameArea.lastPlayerX = p.getX();
 						gameArea.p.setX(p.getX()+dis);
-						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 40 || key == KeyEvent.VK_S) {
@@ -85,7 +89,6 @@ public class Window extends JFrame {
 					if(!(gameArea.getFieldPosition(p.getX(), p.getY()+1).getIsSolid())) {
 						gameArea.lastPlayerY = p.getY();
 						gameArea.p.setY(p.getY()+dis);
-						Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
 						gameArea.setFieldPosition(p.getX(),p.getY(),Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == KeyEvent.VK_F) {
@@ -105,7 +108,11 @@ public class Window extends JFrame {
 						}
 					}
 				}
-				
+				// Play hitsound
+				if(key == KeyEvent.VK_W || key == KeyEvent.VK_A || key == KeyEvent.VK_S || key == KeyEvent.VK_D || 
+						  key == 37 || key == 38 || key == 39 ||key == 40) {
+					Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
+				}
 			}
 		});
         
@@ -116,7 +123,8 @@ public class Window extends JFrame {
                 timer.stop();
             }
         });
-
+        
+        // window settings
         setTitle(this.name);
         setSize(Settings.WINDOW_W, Settings.WINDOW_H);
         //setLocationRelativeTo(null); // Window in the center of the screen

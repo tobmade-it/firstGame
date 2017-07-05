@@ -8,7 +8,14 @@ import javax.sound.sampled.Clip;
 import Generator.Generate;
 import game.Visible;
 
+/**
+ * 
+ * Start class for graphical interface
+ * Generates the Dungeon, start game sound and initialize the Window Object.
+ *
+ */
 public class Render {
+	// Size of the generated game
 	public final static int X_FIELD = 70;
 	public final static int Y_FIELD = 60;
 	
