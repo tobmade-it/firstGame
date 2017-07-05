@@ -1,5 +1,6 @@
 package chars;
 
+import items.Armor;
 import items.Bagpack;
 import items.Weapon;
 import objects.WorldGen;
@@ -18,6 +19,7 @@ public abstract class Creatures {
 	String name;
 	public int gold;
 	int stun;
+	public Armor armor = new Armor();
 	
 	public abstract void takeDmg(int hp);
 	public abstract int getHP();

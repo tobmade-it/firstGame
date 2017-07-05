@@ -14,7 +14,7 @@ public class CrazyMage extends Monster_hostile{
 		super.maxhp = 5 + strgth*5 + rnd*5;
 		super.hp = maxhp;
 		super.strength = 1+rnd;
-		super.intelligence = 1+rnd*2;
+		super.intelligence = 10+rnd*20;
 		super.luck = 90;
 		super.viewdist = 3;
 		super.xp = 5*rnd;
@@ -36,7 +36,7 @@ public class CrazyMage extends Monster_hostile{
 					break;
 				default:
 					p.takeDmg(this.intelligence-p.intelligence);
-					msg = "Der Verückte Magier sprengt sich in die Luft und verursacht "+ (this.intelligence - p.intelligence) +" Schaden!";
+					msg = "Der Verückte Magier sprengt sich in die Luft und verursacht "+ (this.intelligence - p.intelligence)/10 +" Schaden!";
 					this.hp = 0;
 					break;
 			}

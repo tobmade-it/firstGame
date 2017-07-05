@@ -28,7 +28,7 @@ public class Sword extends Weapon{
 		String msg = "";
 		
 		if(character != null){
-			int dmg = (user.getStrength() + this.dmg*this.sharpness/100)/10 - character.getDefense()/10;
+			int dmg = (user.getStrength() + this.dmg*this.sharpness/100)/10 - (character.getDefense()+character.armor.getDef())/10;
 			character.takeDmg(dmg);
 			msg = character.getName() + " erleidet " + dmg + " Schaden durch " + this.toString() + "!";
 		}
