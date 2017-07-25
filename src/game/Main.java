@@ -6,8 +6,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import Generator.Generate;
 import chars.Player;
+import generator.Generate;
 import objects.Floor_moon;
 import objects.Floor_sun;
 

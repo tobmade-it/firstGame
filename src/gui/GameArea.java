@@ -5,15 +5,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import Generator.Generate;
-import Generator.Room;
 import chars.Player;
 import game.Settings;
 import game.Visible;
+import generator.Generate;
+import generator.Room;
 
 /**
  * Drawing Class
@@ -25,7 +28,10 @@ import game.Visible;
 public class GameArea extends JPanel implements ActionListener {
     private Timer timer;
     private Visible[][] gameField = null;
+    private BufferedImage img;
     private final int DELAY = 1000/Settings.FPS; // FPS of the game
+    private int imgWidth  = Settings.GAME_W/16;
+    private int imgHeight = Settings.GAME_H/9;
     
     /** array that memorizes every position the player has seen */
     private boolean[][] visited = new boolean[Render.Y_FIELD][Render.X_FIELD];
@@ -41,6 +47,12 @@ public class GameArea extends JPanel implements ActionListener {
     public GameArea(Visible[][] gameField) {
     	this.setBackground(Settings.BACKGROUND);
     	this.gameField = gameField;
+    	
+    	try {
+    		this.img  = ImageIO.read(getClass().getResourceAsStream("/wall4.png"));
+    	} catch(IOException e) {
+    		e.printStackTrace();
+    	}
     	
     	// player start position
     	this.p.setX(4);
@@ -101,8 +113,12 @@ public class GameArea extends JPanel implements ActionListener {
 		else if(v.getType() == "b") {
 			useColor = Color.magenta;
 		}
-    	g2d.setPaint(useColor);
-    	g2d.fillRect(i*35, j*30, 35, 30);
+    	if(useColor != Color.white) {
+	    	g2d.setPaint(useColor);
+	    	g2d.fillRect(i*imgWidth, j*imgHeight, imgWidth, imgWidth);
+    	} else {
+    		g2d.drawImage(img, i*imgWidth, j*imgHeight, imgWidth, imgHeight, null);
+    	}
     }
     
     /**
@@ -125,7 +141,7 @@ public class GameArea extends JPanel implements ActionListener {
 		}
     	
     	g2d.setPaint(useColor);
-    	g2d.fillRect(i*35, j*30, 35, 30);
+    	g2d.fillRect(i*imgWidth, j*imgHeight, imgWidth, imgHeight);
     }
     
     /**
@@ -183,14 +199,23 @@ public class GameArea extends JPanel implements ActionListener {
 		Room neighbour2 = null;
         
 		// draw the field of view
-		// complete visible game area is 20 x 20
-        for(int i = 0; i < 20; i++) {
-        	for(int j = 0; j < 20; j++) {
-        		int xValue = p.getX()-(10-i);
-        		int yValue = p.getY()-(10-j);
+		// complete visible game area is ...
+        for(int i = 0; i < Settings.GAME_W/imgWidth; i++) {
+        	for(int j = 0; j < Settings.GAME_H/imgHeight; j++) {
+        		int xValue = p.getX()-((Settings.GAME_W/imgWidth)/2-i);
+        		int yValue = p.getY()-((Settings.GAME_H/imgHeight)/2-j);
         		
         		if(xValue >= 0 && xValue < Render.X_FIELD && yValue >= 0 && yValue < Render.Y_FIELD) {
         			Visible v = gameField[yValue][xValue];
+        			
+        			/* write function that creates this array with error handling
+        			 * Visible[] visibles = {
+        				gameField[yValue+1][xValue],
+        				gameField[yValue-1][xValue],
+        				gameField[yValue][xValue],
+        				gameField[yValue][xValue+1],
+        				gameField[yValue][xValue-1]
+        			};*/
         			
         			// draw objects
         			if(visited[yValue][xValue])    { drawDarkObject(v, g2d, i, j); }
@@ -288,7 +313,8 @@ public class GameArea extends JPanel implements ActionListener {
         // draw Player
         g2d.setPaint(Color.red);
         // player will be all the time in the center of the game area
-        g2d.fillRect((Settings.GAME_W/2), (Settings.GAME_H/2), 35, 30);
+        // attention: -40 offset 
+        g2d.fillRect((Settings.GAME_W/2), (Settings.GAME_H/2)-40, imgWidth, imgHeight);
         
     }
     

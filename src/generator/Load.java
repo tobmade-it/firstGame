@@ -1,4 +1,4 @@
-package Generator;
+package generator;
 
 public class Load {
 
