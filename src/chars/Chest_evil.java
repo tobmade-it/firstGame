@@ -24,9 +24,9 @@ public class Chest_evil extends Monster_hostile{
 	@Override
 	public String attack(Creatures p){
 		String msg = "";
-		int chance = Reference.r.nextInt(this.luck);
+		int chance = Reference.r.nextInt(this.luck+100);
 		int atk = Reference.r.nextInt(2);
-		if(chance < 15){
+		if(chance < 25){
 			msg = "Der Kasten hat verfehlt!";
 		}else{
 			switch(atk){
@@ -36,8 +36,9 @@ public class Chest_evil extends Monster_hostile{
 					msg = "Der Kasten hat dir " + steal + " Gold gestohlen!";
 					break;
 				default:
-					p.takeDmg(this.strength-p.defense);
-					msg = "Der Kasten trifft mit seinem Dolch und verursacht "+ (this.strength - p.defense) +" Schaden!";
+					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					//p.takeDmg(this.strength-p.defense);
+					//msg = "Der Kasten trifft mit seinem Dolch und verursacht "+ (this.strength - p.defense) +" Schaden!";
 					break;
 			}
 		}

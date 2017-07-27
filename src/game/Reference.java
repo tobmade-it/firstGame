@@ -16,7 +16,7 @@ public class Reference {
 			, "Dying is the day worth living for! -Barbossa"};
 	
 	String[] names = {"Dave","Peter","Thomas","Erwin","Hilbert"};
-	String[] battlecry = {"Huhahaha","Ich hatte Frau und Kinder!","Ich bin der Schaffner der Kackeisenbahn!",
+	String[] humanbattlecry = {"Huhahaha","Ich hatte Frau und Kinder!","Ich bin der Schaffner der Kackeisenbahn!",
 			"Ich fresse eure Babies!","Ich bin widerlich!","Lass mich deinen Schmerz spüren!", "Friss meinen Zorn!",
 			"Geteiltes Leid ist doppeltes Leid!", "Suar Reih Rim Flih, Ettib!"};
 

@@ -8,12 +8,15 @@ import chars.Monster_friendly;
 import chars.Monster_hostile;
 import chars.SchwarzMann;
 import game.Visible;
+import items.*;
 import objects.*;
 import shops.*;
 
 public class Generate {
 	
 	public static List<Room> rooms = new ArrayList<Room>();
+	private List<Visible> inventories = new ArrayList<Visible>();
+	public static List<ShopInv> shops = new ArrayList<ShopInv>();
 	
 	/**
 	 * @param x how wide the created array should be
@@ -45,10 +48,35 @@ public class Generate {
 				tmpArray[i][j] = new Floor();
 			}
 		}
+		
 		tmpArray[2][2] = new Monster_hostile().genMob(4);//tmpArray[2][2] = new Healer();
-		tmpArray[2][7] = new Armory();
-		tmpArray[7][2] = new Bibliotary();
-		tmpArray[7][7] = new Weaponary();
+		
+		for(int i = 0; i < 2; i++){
+			for(int j = 0; j < 2; j++){
+				tmpArray[1+i][6+j] = new Armory(2);
+				tmpArray[6+i][1+j] = new Bibliotary(1);
+				tmpArray[6+i][6+j] = new Weaponary(0);
+				tmpArray[1+i][1+j] = new Healer(3);
+			}
+		}
+		
+		shops.add(new WeaponaryInv(0));
+		for(int i = 0; i < 4; i++){
+			shops.get(0).addToInv(new RandomWeapon().genRanWea());
+		}
+		shops.add(new BibliotaryInv(1));
+		for(int i = 0; i < 4; i++){
+			shops.get(1).addToInv(new RandomSpell().genRanSpe());
+		}
+		shops.add(new ArmoryInv(2));
+		for(int i = 0; i < 4; i++){
+			shops.get(2).addToInv(new RandomArmor().genRanArm());
+		}
+		shops.add(new HealerInv(3));
+		for(int i = 0; i < 4; i++){
+			shops.get(3).addToInv(new RandomPotion().genRanPot());
+		}
+		
 		tmpArray[4][4] = new Fire();
 		tmpArray[0][4] = new Stairs();
 		for(int i = 0; i < 8; i++){

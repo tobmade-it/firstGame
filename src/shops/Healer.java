@@ -4,8 +4,9 @@ import game.Visible;
 
 public class Healer extends Shops implements Visible {
 	
-	public Healer(){
+	public Healer(int n){
 		super.type = "H";
+		this.id = n;
 	}
 
 

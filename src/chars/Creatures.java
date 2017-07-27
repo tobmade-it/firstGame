@@ -84,5 +84,15 @@ public abstract class Creatures {
 	public void setStun(int stun) {
 		this.stun = stun;
 	}
+	protected int dmgamount(int dmg, int def){
+		int ret = dmg * 100 / (100 + def);
+		return ret;
+	}
+	public int getDmg() {
+		return this.strength;
+	}
+	public int getDef() {
+		return this.defense;
+	}
 
 }

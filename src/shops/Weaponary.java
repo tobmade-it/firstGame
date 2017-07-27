@@ -4,10 +4,10 @@ import game.Visible;
 
 public class Weaponary extends Shops implements Visible {
 	
-	public Weaponary(){
+	public Weaponary(int n){
 		super.type = "W";
+		this.id = n;
 	}
-
 
 	@Override
 	public boolean getvisibility() {

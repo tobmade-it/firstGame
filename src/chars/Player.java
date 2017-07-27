@@ -3,6 +3,7 @@ package chars;
 import game.Visible;
 import items.Bagpack;
 import items.Fist;
+import items.IronChestplate;
 import items.Sword;
 import items.Weapon;
 
@@ -19,15 +20,16 @@ public class Player extends Creatures implements Visible {
 		super.viewdist = viewdist;
 		super.maxhp = 200;
 		super.hp = this.maxhp;
-		this.strength = 50;
+		this.strength = 5;
 		super.bagpack = new Bagpack();
 		this.mainweapon = new Sword();
 		this.viewdirection = 2;
-		this.intelligence = 10;
+		this.intelligence = 5;
 		super.gold = 1000;
 		this.defense = 10;
 		this.level = 1;
 		this.xp = 0;
+		this.armor = new IronChestplate();
 	}
 	
 	@Override
@@ -93,6 +95,16 @@ public class Player extends Creatures implements Visible {
 
 	public void setViewdirection(int viewdirection) {
 		this.viewdirection = viewdirection;
+	}
+	
+	@Override
+	public int getDmg() {
+		return this.strength;
+	}
+	
+	@Override
+	public int getDef() {
+		return this.defense + this.armor.getDef();
 	}
 
 }

@@ -12,4 +12,9 @@ public class MonsterWeapon extends Weapon{
 		return null;
 	}
 
+	@Override
+	public int getDmg() {
+		return this.dmg;
+	}
+
 }

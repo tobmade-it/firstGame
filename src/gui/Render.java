@@ -25,7 +25,7 @@ public class Render {
 		System.out.println("FELD: " + gameField.length);
 		
 		try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/sound/rpgmusic1.wav").getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./sounds/rpgmusic1.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);

@@ -24,20 +24,21 @@ public class Dragon extends Monster_hostile{
 	@Override
 	public String attack(Creatures p){
 		String msg = "";
-		int chance = Reference.r.nextInt(this.luck);
+		int chance = Reference.r.nextInt(this.luck+100);
 		int atk = Reference.r.nextInt(2);
-		if(chance < 15){
-			msg = "Der Bandit hat verfehlt!";
+		if(chance < 25){
+			msg = "Der Drache hat verfehlt!";
 		}else{
 			switch(atk){
 				case 0:
-					int dmg = this.strength-p.defense;
-					p.takeDmg(dmg);
-					msg = "Der Drache hat dir " + dmg + " Schaden mit seinen Krallen verursacht!";
+					//int dmg = this.strength-p.defense;
+					//p.takeDmg(dmg);
+					//msg = "Der Drache hat dir " + dmg + " Schaden mit seinen Krallen verursacht!";
+					System.out.println(this.mainweapon.use(this, null, 0, null, p));
 					break;
 				default:
-					p.takeDmg(this.strength-p.defense);
-					msg = "Der Drache trifft mit seinem Feueratem und verursacht "+ (this.strength - p.defense) +" Schaden!";
+					p.takeDmg(this.strength*4 *100/(100+p.defense));
+					msg = "Der Drache trifft mit seinem Feueratem und verursacht "+ (this.strength*4 *100/(100+p.defense)) +" Schaden!";
 					break;
 			}
 		}

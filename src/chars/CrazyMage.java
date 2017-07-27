@@ -24,9 +24,9 @@ public class CrazyMage extends Monster_hostile{
 	@Override
 	public String attack(Creatures p){
 		String msg = "";
-		int chance = Reference.r.nextInt(this.luck);
+		int chance = Reference.r.nextInt(this.luck+100);
 		int atk = Reference.r.nextInt(3);
-		if(chance < 15){
+		if(chance < 25){
 			msg = "Der Verrückte Magier hat verfehlt!";
 		}else{
 			switch(atk){
@@ -36,7 +36,7 @@ public class CrazyMage extends Monster_hostile{
 					break;
 				default:
 					p.takeDmg(this.intelligence-p.intelligence);
-					msg = "Der Verückte Magier sprengt sich in die Luft und verursacht "+ (this.intelligence - p.intelligence)/10 +" Schaden!";
+					msg = "Der Verückte Magier sprengt sich in die Luft und verursacht "+ (this.intelligence*2 *100/(p.intelligence+100)) +" Schaden!";
 					this.hp = 0;
 					break;
 			}

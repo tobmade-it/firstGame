@@ -4,8 +4,9 @@ import game.Visible;
 
 public class Armory extends Shops implements Visible {
 	
-	public Armory(){
+	public Armory(int n){
 		super.type = "A";
+		this.id = n;
 	}
 
 

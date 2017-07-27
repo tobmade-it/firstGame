@@ -10,16 +10,16 @@ public class Sword extends Weapon{
 	private int sharpness;
 	
 	public Sword(){
-		super.rareness = Reference.r.nextInt(this.rarenesstypes.length);
-		super.value = 200;
-		super.dmg = 50;
+		this.rareness = Reference.r.nextInt(this.rarenesstypes.length);
+		this.value = 150 + 50*(rareness) + Reference.r.nextInt(100);;
+		this.dmg = 5 * (2+rareness) + Reference.r.nextInt(rareness+1);
 		this.sharpness = 100;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return this.rarenesstypes[this.rareness] + " Schwert";
+		return this.rarenesstypes[this.rareness] + "es Schwert";
 	}
 
 
@@ -28,11 +28,30 @@ public class Sword extends Weapon{
 		String msg = "";
 		
 		if(character != null){
-			int dmg = (user.getStrength() + this.dmg*this.sharpness/100)/10 - (character.getDefense()+character.armor.getDef())/10;
-			character.takeDmg(dmg);
-			msg = character.getName() + " erleidet " + dmg + " Schaden durch " + this.toString() + "!";
+			int chance = Reference.r.nextInt(100+user.getLuck());
+			int crit = Reference.r.nextInt(100+user.getLuck());
+			if(chance > 30){
+				if(crit < user.getLuck()){
+					crit = 2;
+					msg = "Ein kritischer Treffer! ";
+				}else{
+					crit = 1;
+				}
+				int dmg = crit*(user.getStrength() + this.getDmg()) *100/(100+character.getDef());
+				character.takeDmg(dmg);
+				this.sharpness--;
+				msg += character.getName() + " erleidet " + dmg + " Schaden durch " + this.toString() + "!";
+			}else{
+				msg = "Der Angriff hat verfehlt!";
+			}
 		}
 		return msg;
+	}
+
+
+	@Override
+	public int getDmg() {
+		return this.dmg*this.sharpness/100;
 	}
 
 }

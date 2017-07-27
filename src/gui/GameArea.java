@@ -113,6 +113,9 @@ public class GameArea extends JPanel implements ActionListener {
 		else if(v.getType() == "b") {
 			useColor = Color.magenta;
 		}
+		else if(v.getType() == "W") {
+			useColor = Color.CYAN;
+		}
     	if(useColor != Color.white) {
 	    	g2d.setPaint(useColor);
 	    	g2d.fillRect(i*imgWidth, j*imgHeight, imgWidth, imgWidth);

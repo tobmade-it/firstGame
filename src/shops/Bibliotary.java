@@ -4,8 +4,9 @@ import game.Visible;
 
 public class Bibliotary extends Shops implements Visible {
 	
-	public Bibliotary(){
+	public Bibliotary(int n){
 		super.type = "B";
+		this.id = n;
 	}
 
 
