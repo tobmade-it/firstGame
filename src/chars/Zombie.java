@@ -8,7 +8,7 @@ public class Zombie extends Monster_hostile{
 	public Zombie(int strgth) {
 		
 		//super(strenght);
-		this.name = "Bandit";
+		this.name = "Zombie";
 		this.rnd = Reference.r.nextInt(strgth);
 		super.defense = 3;
 		super.maxhp = 5 + strgth*10 + rnd*5;
@@ -27,17 +27,17 @@ public class Zombie extends Monster_hostile{
 		int chance = Reference.r.nextInt(this.luck);
 		int atk = Reference.r.nextInt(2);
 		if(chance < 15){
-			msg = "Der Bandit hat verfehlt!";
+			msg = "Der Zombie hat verfehlt!";
 		}else{
 			switch(atk){
 				case 0:
 					int steal = p.gold/20;
 					p.gold -= steal;
-					msg = "Der Bandit hat dir " + steal + " Gold gestohlen!";
+					msg = "Der Zombie hat dir " + steal + " Gold gestohlen!";
 					break;
 				default:
 					p.takeDmg(this.strength-p.defense);
-					msg = "Der Bandit trifft mit seinem Dolch und verursacht "+ (this.strength - p.defense) +" Schaden!";
+					msg = "Der Zombie trifft mit seinem Dolch und verursacht "+ (this.strength - p.defense) +" Schaden!";
 					break;
 			}
 		}

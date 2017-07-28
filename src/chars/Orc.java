@@ -8,7 +8,7 @@ public class Orc extends Monster_hostile{
 	public Orc(int strgth) {
 		
 		//super(strenght);
-		this.name = "Bandit";
+		this.name = "Ork";
 		this.rnd = Reference.r.nextInt(strgth);
 		super.defense = 3;
 		super.maxhp = 5 + strgth*10 + rnd*5;

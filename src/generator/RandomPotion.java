@@ -1,22 +1,22 @@
 package generator;
 
 import game.Reference;
-import items.Axe;
-import items.Sword;
-import items.Weapon;
+import items.DmgPotion;
+import items.HealingPotion;
+import items.Potion;
 
 public class RandomPotion {
 	
-	int rand = Reference.r.nextInt(1);
+	int rand = Reference.r.nextInt(2);
 	
-	public Weapon genRanPot(){
+	public Potion genRanPot(){
 		switch(rand){
 			case 0:
-				return new Sword();
+				return new HealingPotion();
 			case 1:
-				return new Axe();
+				return new DmgPotion();
 			default:
-				return new Sword();
+				return new HealingPotion();
 		}
 	}
 

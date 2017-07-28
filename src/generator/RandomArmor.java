@@ -1,22 +1,22 @@
 package generator;
 
 import game.Reference;
-import items.Axe;
-import items.Sword;
-import items.Weapon;
+import items.Armor;
+import items.IronChestplate;
+
 
 public class RandomArmor {
 	
 	int rand = Reference.r.nextInt(1);
 	
-	public Weapon genRanArm(){
+	public Armor genRanArm(){
 		switch(rand){
 			case 0:
-				return new Sword();
+				return new IronChestplate();
 			case 1:
-				return new Axe();
+				return new IronChestplate();
 			default:
-				return new Sword();
+				return new IronChestplate();
 		}
 	}
 

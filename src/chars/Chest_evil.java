@@ -8,7 +8,7 @@ public class Chest_evil extends Monster_hostile{
 	public Chest_evil(int strgth) {
 		
 		//super(strenght);
-		this.name = "Chest";
+		this.name = "Kiste";
 		this.rnd = Reference.r.nextInt(strgth);
 		super.defense = 3;
 		super.maxhp = 5 + strgth*10 + rnd*5;
@@ -37,8 +37,6 @@ public class Chest_evil extends Monster_hostile{
 					break;
 				default:
 					System.out.println(this.mainweapon.use(this, null, 0, null, p));
-					//p.takeDmg(this.strength-p.defense);
-					//msg = "Der Kasten trifft mit seinem Dolch und verursacht "+ (this.strength - p.defense) +" Schaden!";
 					break;
 			}
 		}

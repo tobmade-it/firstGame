@@ -20,24 +20,32 @@ public class BobRoss extends Boss{
 	@Override
 	public String attack(Creatures p){
 		String msg = "";
-		int chance = Reference.r.nextInt(this.luck);
-		int atk = Reference.r.nextInt(2);
-		if(chance < 15){
+		int chance = Reference.r.nextInt(this.luck+100);
+		int crit = Reference.r.nextInt(this.luck+100);
+		int atk = Reference.r.nextInt(3);
+		if(crit < this.getLuck()){
+			crit = 2;
+			msg = "Ein kritischer Treffer! ";
+		}else{
+			crit = 1;
+		}
+		if(chance < 25){
 			msg = "Bob Ross ist in Gedanken verloren!";
 		}else{
 			switch(atk){
 				case 0:
-					int dmg = this.strength-p.defense;
+					int dmg = crit*(this.getStrength()+Reference.r.nextInt(5)) *100/(100+p.getDef());
 					p.takeDmg(dmg);
-					msg = "Bob Ross beats the devil out of you! Schaden: " + dmg;
+					msg += "Bob beats the devil out of you! Schaden: " + dmg;
 					break;
 				case 1:
-					p.stun = 1;
-					msg = "Bob Ross malt mit dir!";
+					p.setStun(1);
+					msg = "Bobs Charm ist überwältigend, du setzt eine Runde aus!!";
 					break;
 				default:
-					p.takeDmg(this.strength-p.defense);
-					msg = "Du erleidest "+ (this.strength - p.defense) +" Schaden! Happy little accidents!";
+					int dmgg = crit*(this.getIntelligence()+Reference.r.nextInt(10)) *100/(100+p.getIntelligence());
+					p.takeDmg(dmgg);
+					msg += "Du erleidest "+ (dmgg) +" Schaden! Happy little accidents!";
 					break;
 			}
 		}

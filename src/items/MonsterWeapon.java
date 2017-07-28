@@ -1,7 +1,6 @@
 package items;
 
 import chars.Creatures;
-import chars.Player;
 import game.Visible;
 
 public class MonsterWeapon extends Weapon{
