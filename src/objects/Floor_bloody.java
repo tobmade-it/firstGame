@@ -21,5 +21,9 @@ public class Floor_bloody extends WorldGen implements Visible{
 	}
 	
 	private boolean dragonblood;
+	
+	public boolean getDragon(){
+		return this.dragonblood;
+	}
 
 }

@@ -32,7 +32,9 @@ public class Bow extends Weapon{
 				}
 				int dmg = crit*(user.getStrength() + this.getDmg()) *100/(100+character.getDef());
 				character.takeDmg(dmg);
-				this.tension--;
+				if(this.tension>50){
+					this.tension--;
+				}
 				msg += character.getName() + " erleidet " + dmg + " Schaden durch " + this.toString() + "!";
 			}else{
 				msg = "Der Angriff hat verfehlt!";

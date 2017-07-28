@@ -4,15 +4,20 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class Axe extends Weapon{
+public class Dragon_Sword extends Weapon{
 	
 	private int sharpness;
 	
-	public Axe(){
-		super.rareness = Reference.r.nextInt(this.rarenesstypes.length);
-		super.value = 120 + 35*(rareness) + Reference.r.nextInt(100);;
-		super.dmg = 4 * (2+rareness) + Reference.r.nextInt(rareness+1);
+	public Dragon_Sword(int rare){
+		this.rareness = rare;
+		this.value = 350 + 100*(rareness) + Reference.r.nextInt(100);;
+		this.dmg = 8 * (2+rareness) + Reference.r.nextInt(rareness+1);
 		this.sharpness = 100;
+	}	
+	
+	@Override
+	public String toString() {
+		return this.rarenesstypes[this.rareness] + "es Drachentöter Schwert";
 	}
 
 	@Override
@@ -31,9 +36,6 @@ public class Axe extends Weapon{
 				}
 				int dmg = crit*(user.getStrength() + this.getDmg()) *100/(100+character.getDef());
 				character.takeDmg(dmg);
-				if(this.sharpness>50){
-					this.sharpness--;
-				}
 				msg += character.getName() + " erleidet " + dmg + " Schaden durch " + this.toString() + "!";
 			}else{
 				msg = "Der Angriff hat verfehlt!";
@@ -41,19 +43,7 @@ public class Axe extends Weapon{
 		}
 		return msg;
 	}
-	
-	@Override
-	public String toString() {
-		return this.rarenesstypes[this.rareness] + "e Axt";
-	}
 
-	public int getSharpness() {
-		return sharpness;
-	}
-
-	public void setSharpness(int sharpness) {
-		this.sharpness = sharpness;
-	}
 
 	@Override
 	public int getDmg() {

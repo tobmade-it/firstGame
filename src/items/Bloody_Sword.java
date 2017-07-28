@@ -3,16 +3,27 @@ package items;
 import chars.Creatures;
 import game.Reference;
 import game.Visible;
+import objects.Floor_bloody;
 
-public class Axe extends Weapon{
+public class Bloody_Sword extends Weapon{
 	
 	private int sharpness;
+	private boolean dragon;
+	private String state;
 	
-	public Axe(){
-		super.rareness = Reference.r.nextInt(this.rarenesstypes.length);
-		super.value = 120 + 35*(rareness) + Reference.r.nextInt(100);;
-		super.dmg = 4 * (2+rareness) + Reference.r.nextInt(rareness+1);
+	public Bloody_Sword(int rare, boolean bool){
+		this.rareness = rare;
+		this.value = 50 + 35*(rareness) + Reference.r.nextInt(100);;
+		this.dmg = 4 * (2+rare) + Reference.r.nextInt(rareness+1);
 		this.sharpness = 100;
+		this.dragon = bool;
+		this.state = "blutverschmiertes";
+	}
+	
+	
+	@Override
+	public String toString() {
+		return this.rarenesstypes[this.rareness] + "es " + this.state + " Schwert";
 	}
 
 	@Override
@@ -38,22 +49,20 @@ public class Axe extends Weapon{
 			}else{
 				msg = "Der Angriff hat verfehlt!";
 			}
+		}else if(obj.getType() == "Y"){
+			if(this.dragon){
+				user.bagpack.add(new Dragon_Sword(this.rareness));
+				user.bagpack.remove(index);
+				msg = "Das Drachenblut um dein Schwert verhärtet sich und hat deine Waffe verbessert!";
+			}else{
+				this.state = "blutrotes";
+				this.dmg = 5 * (2+this.rareness) + Reference.r.nextInt(rareness+1);
+				msg = "Das Blut um dein Schwert ist eingetrocknet und hat es rot gefärbt!";
+			}
 		}
 		return msg;
 	}
-	
-	@Override
-	public String toString() {
-		return this.rarenesstypes[this.rareness] + "e Axt";
-	}
 
-	public int getSharpness() {
-		return sharpness;
-	}
-
-	public void setSharpness(int sharpness) {
-		this.sharpness = sharpness;
-	}
 
 	@Override
 	public int getDmg() {

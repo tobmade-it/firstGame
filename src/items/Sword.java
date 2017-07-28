@@ -4,6 +4,7 @@ import chars.Creatures;
 import chars.Player;
 import game.Reference;
 import game.Visible;
+import objects.Floor_bloody;
 
 public class Sword extends Weapon{
 	
@@ -39,11 +40,17 @@ public class Sword extends Weapon{
 				}
 				int dmg = crit*(user.getStrength() + this.getDmg()) *100/(100+character.getDef());
 				character.takeDmg(dmg);
-				this.sharpness--;
+				if(this.sharpness>50){
+					this.sharpness--;
+				}
 				msg += character.getName() + " erleidet " + dmg + " Schaden durch " + this.toString() + "!";
 			}else{
 				msg = "Der Angriff hat verfehlt!";
 			}
+		}else if(obj.getType() == "b"){
+			user.bagpack.add(new Bloody_Sword(this.rareness, ((Floor_bloody)obj).getDragon()));
+			user.bagpack.remove(index);
+			msg = "Dein Schwert ist jetzt voller Blut, warum zur Hölle solltest du das wollen?!";
 		}
 		return msg;
 	}
