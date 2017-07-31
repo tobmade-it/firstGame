@@ -22,7 +22,7 @@ public class Fist extends Weapon implements hasImage{
 		if(character != null){
 			int chance = Reference.r.nextInt(100+user.getLuck());
 			int crit = Reference.r.nextInt(100+user.getLuck());
-			if(chance > 30){
+			if(chance > 20){
 				if(crit < user.getLuck()){
 					crit = 2;
 					msg = "Ein kritischer Treffer! ";

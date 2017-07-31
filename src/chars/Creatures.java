@@ -37,7 +37,7 @@ public abstract class Creatures {
 		this.maxhp = maxhp;
 	}
 	public int getStrength() {
-		return strength;
+		return strength + this.armor.getBuff();
 	}
 	public void setStrength(int strength) {
 		this.strength = strength;

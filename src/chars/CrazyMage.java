@@ -2,6 +2,7 @@ package chars;
 
 import game.Reference;
 import items.Fist;
+import items.Wand;
 
 public class CrazyMage extends Monster_hostile{
 
@@ -14,11 +15,11 @@ public class CrazyMage extends Monster_hostile{
 		super.maxhp = 5 + strgth*5 + rnd*5;
 		super.hp = maxhp;
 		super.strength = 1+rnd;
-		super.intelligence = 10+rnd*20;
+		super.intelligence = 10+rnd*3;
 		super.luck = 90;
 		super.viewdist = 3;
 		super.xp = 5*rnd;
-		this.mainweapon = new Fist();
+		this.mainweapon = new Wand();
 	}
 	
 	@Override

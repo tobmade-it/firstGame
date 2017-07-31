@@ -2,6 +2,7 @@ package chars;
 
 import game.Reference;
 import items.Fist;
+import items.Trash;
 
 public class Chest_evil extends Monster_hostile{
 
@@ -10,7 +11,7 @@ public class Chest_evil extends Monster_hostile{
 		//super(strenght);
 		this.name = "Kiste";
 		this.rnd = Reference.r.nextInt(strgth);
-		super.defense = 3;
+		super.defense = 30;
 		super.maxhp = 5 + strgth*10 + rnd*5;
 		super.hp = maxhp;
 		super.strength = 1+rnd;
@@ -18,7 +19,7 @@ public class Chest_evil extends Monster_hostile{
 		super.luck = 70;
 		super.viewdist = 3;
 		super.xp = 10*rnd;
-		this.mainweapon = new Fist();
+		this.mainweapon = new Trash();
 	}
 	
 	@Override
@@ -31,9 +32,7 @@ public class Chest_evil extends Monster_hostile{
 		}else{
 			switch(atk){
 				case 0:
-					int steal = p.gold/20;
-					p.gold -= steal;
-					msg = "Der Kasten hat dir " + steal + " Gold gestohlen!";
+					System.out.println(this.mainweapon.use(this, null, 0, null, p));
 					break;
 				default:
 					System.out.println(this.mainweapon.use(this, null, 0, null, p));

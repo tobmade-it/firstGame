@@ -10,7 +10,7 @@ public class Axe extends Weapon implements hasImage{
 	
 	public Axe(){
 		super.rareness = Reference.r.nextInt(this.rarenesstypes.length);
-		super.value = 120 + 35*(rareness) + Reference.r.nextInt(100);;
+		super.value = 120 + 35*(rareness) + Reference.r.nextInt(100);
 		super.dmg = 4 * (2+rareness) + Reference.r.nextInt(rareness+1);
 		this.sharpness = 100;
 	}

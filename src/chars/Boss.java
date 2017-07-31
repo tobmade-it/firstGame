@@ -1,10 +1,9 @@
 package chars;
 
+import game.Reference;
 import game.Visible;
 
 public class Boss extends Creatures  implements Visible{
-	
-	String[] name_list = {"John Cena", "Bob Ross", "Xenomorph", "Browser", "ImmunToPoison"};
 
 	@Override
 	public int getHP() {
@@ -14,6 +13,22 @@ public class Boss extends Creatures  implements Visible{
 	
 	public String attack(Creatures p){
 		return "Nichts geschieht";
+	}
+	
+	public Boss genBoss(int strgth){
+		int rnd = Reference.r.nextInt(5);
+		switch(rnd){
+		case 0:
+			return new BillGates(strgth*4);
+		case 1: 
+			return new BobRoss(strgth*4);
+		case 2:
+			return new MarcelDavis(strgth*4);
+		case 3:
+			return new TonaldDrump(strgth*4);
+		default:
+			return new SchwarzMann(strgth*4);
+		}
 	}
 	
 	@Override

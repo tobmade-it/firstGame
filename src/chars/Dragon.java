@@ -1,6 +1,7 @@
 package chars;
 
 import game.Reference;
+import items.Claws;
 import items.Fist;
 
 public class Dragon extends Monster_hostile{
@@ -8,7 +9,7 @@ public class Dragon extends Monster_hostile{
 	public Dragon(int strgth) {
 		
 		//super(strenght);
-		this.name = "Dragon";
+		this.name = "Drache";
 		this.rnd = Reference.r.nextInt(strgth);
 		super.defense = 3;
 		super.maxhp = 5 + strgth*10 + rnd*5;
@@ -18,7 +19,7 @@ public class Dragon extends Monster_hostile{
 		super.luck = 70;
 		super.viewdist = 3;
 		super.xp = 10*rnd;
-		this.mainweapon = new Fist();
+		this.mainweapon = new Claws();
 	}
 	
 	@Override

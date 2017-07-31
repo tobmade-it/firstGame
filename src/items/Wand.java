@@ -4,15 +4,15 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class Hammer extends Weapon implements hasImage{
+public class Wand extends Weapon implements hasImage{
 	
-	private int weight;
+	private int sharpness;
 	
-	public Hammer(){
-		this.rareness = Reference.r.nextInt(this.rarenesstypes.length);
-		this.value = 150 + 50*(rareness) + Reference.r.nextInt(100);;
-		this.dmg = 5 * (2+rareness) + Reference.r.nextInt(rareness+1);
-		this.weight = 1 + 2*(rareness+3)/10;
+	public Wand(){
+		super.rareness = Reference.r.nextInt(this.rarenesstypes.length);
+		super.value = 10 + 10*(rareness) + Reference.r.nextInt(100);;
+		super.dmg = 2 * (2+rareness) + Reference.r.nextInt(rareness+1);
+		this.sharpness = 100;
 	}
 
 	@Override
@@ -22,16 +22,18 @@ public class Hammer extends Weapon implements hasImage{
 		if(character != null){
 			int chance = Reference.r.nextInt(100+user.getLuck());
 			int crit = Reference.r.nextInt(100+user.getLuck());
-			if(chance > 33){
+			if(chance > 25){
 				if(crit < user.getLuck()){
 					crit = 2;
 					msg = "Ein kritischer Treffer! ";
 				}else{
 					crit = 1;
 				}
-				int dmg = crit*this.weight*(user.getStrength() + this.getDmg()) *100/(100+character.getDef());
+				int dmg = crit*(user.getStrength() + this.getDmg()) *100/(100+character.getDef());
 				character.takeDmg(dmg);
-				user.setStun(1);
+				if(this.sharpness>50){
+					this.sharpness--;
+				}
 				msg += character.getName() + " erleidet " + dmg + " Schaden durch " + this.toString() + "!";
 			}else{
 				msg = "Der Angriff hat verfehlt!";
@@ -42,26 +44,26 @@ public class Hammer extends Weapon implements hasImage{
 	
 	@Override
 	public String toString() {
-		return this.rarenesstypes[this.rareness] + "er Hammer";
-	}
-	
-	public int getWeight() {
-		return weight;
+		return this.rarenesstypes[this.rareness] + "er Stab";
 	}
 
-	public void setWeight(int weight) {
-		this.weight = weight;
+	public int getSharpness() {
+		return sharpness;
+	}
+
+	public void setSharpness(int sharpness) {
+		this.sharpness = sharpness;
 	}
 
 	@Override
 	public int getDmg() {
-		return this.dmg;
+		return this.dmg*this.sharpness/100;
 	}
-
+	
 	@Override
 	public String getImage() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Wand";
 	}
 
 }
+

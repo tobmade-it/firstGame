@@ -1,6 +1,7 @@
 package chars;
 
 import game.Reference;
+import items.Dagger;
 import items.Fist;
 
 public class Bandit extends Monster_hostile{
@@ -18,7 +19,7 @@ public class Bandit extends Monster_hostile{
 		super.luck = 70;
 		super.viewdist = 3;
 		super.xp = 11*rnd+strgth*2+3;
-		this.mainweapon = new Fist();
+		this.mainweapon = new Dagger();
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package chars;
 
 import game.Reference;
+import items.Claws;
 import items.Fist;
 
 public class Zombie extends Monster_hostile{
@@ -18,26 +19,23 @@ public class Zombie extends Monster_hostile{
 		super.luck = 70;
 		super.viewdist = 3;
 		super.xp = 10*rnd;
-		this.mainweapon = new Fist();
+		this.mainweapon = new Claws();
 	}
 	
 	@Override
 	public String attack(Creatures p){
 		String msg = "";
-		int chance = Reference.r.nextInt(this.luck);
+		int chance = Reference.r.nextInt(this.luck+100);
 		int atk = Reference.r.nextInt(2);
-		if(chance < 15){
-			msg = "Der Zombie hat verfehlt!";
+		if(chance < 25){
+			msg = "Der Kasten hat verfehlt!";
 		}else{
 			switch(atk){
 				case 0:
-					int steal = p.gold/20;
-					p.gold -= steal;
-					msg = "Der Zombie hat dir " + steal + " Gold gestohlen!";
+					System.out.println(this.mainweapon.use(this, null, 0, null, p));
 					break;
 				default:
-					p.takeDmg(this.strength-p.defense);
-					msg = "Der Zombie trifft mit seinem Dolch und verursacht "+ (this.strength - p.defense) +" Schaden!";
+					System.out.println(this.mainweapon.use(this, null, 0, null, p));
 					break;
 			}
 		}

@@ -17,7 +17,8 @@ public class Armor extends Items{
 		this.def = def;
 	}
 
-	private int def;
+	protected int def;
+	protected int str;
 
 	@Override
 	String use(Creatures user, Items item, int index, Visible obj, Creatures character) {
@@ -29,5 +30,9 @@ public class Armor extends Items{
 	public String getImage() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public int getBuff(){
+		return this.str;
 	}
 }

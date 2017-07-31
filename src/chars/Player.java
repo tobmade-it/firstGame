@@ -17,14 +17,15 @@ public class Player extends Creatures implements Visible {
 	
 
 	public Player(int viewdist) {
+		super.name = "Spieler";
 		super.viewdist = viewdist;
 		super.maxhp = 200;
 		super.hp = this.maxhp;
-		this.strength = 5;
+		this.strength = 10;
 		super.bagpack = new Bagpack();
 		this.mainweapon = new Sword();
 		this.viewdirection = 2;
-		this.intelligence = 5;
+		this.intelligence = 10;
 		super.gold = 1000;
 		this.defense = 10;
 		this.level = 1;

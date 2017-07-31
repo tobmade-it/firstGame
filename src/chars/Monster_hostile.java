@@ -7,7 +7,6 @@ import items.Weapon;
 
 public class Monster_hostile extends Mobs implements Visible{
 	
-	private String[] name_list = {"orc" , "dark elf" , "bandit" , "BWL-student", "dragon", "evil chest"};
 	public Weapon mainweapon;
 	
 	public Monster_hostile(){//int strenght){
@@ -15,7 +14,7 @@ public class Monster_hostile extends Mobs implements Visible{
 	}
 	
 	public Monster_hostile genMob(int strgth){
-		int rnd = Reference.r.nextInt(4);
+		int rnd = Reference.r.nextInt(6);
 		switch(rnd){
 		case 0:
 			return new Bandit(strgth*4);
@@ -25,6 +24,10 @@ public class Monster_hostile extends Mobs implements Visible{
 			return new Chest_evil(strgth*4);
 		case 3:
 			return new CrazyMage(strgth*4);
+		case 4:
+			return new Orc(strgth*4);
+		case 5:
+			return new Zombie(strgth*4);
 		default:
 			return new Bandit(strgth*4);
 		}
