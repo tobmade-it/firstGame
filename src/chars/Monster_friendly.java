@@ -11,7 +11,7 @@ public class Monster_friendly extends Mobs implements Visible{
 	private String[] name_list = {"rat" , "Bill Gates" , "dog" , "cat", "old wise man", "Gandalf"};
 	public Weapon mainweapon;
 	
-	public Monster_friendly(int strenght){
+	public Monster_friendly(){
 		
 	}
 

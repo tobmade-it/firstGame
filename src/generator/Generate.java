@@ -1,10 +1,12 @@
 package generator;
 
+import java.awt.event.InvocationEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import chars.Boss;
+import chars.Gandalf;
 import chars.Monster_friendly;
 import chars.Monster_hostile;
 import chars.SchwarzMann;
@@ -16,7 +18,7 @@ import shops.*;
 public class Generate {
 	
 	public static List<Room> rooms = new ArrayList<Room>();
-	private List<Visible> inventories = new ArrayList<Visible>();
+	public static List<Chest> inventories = new ArrayList<Chest>();
 	public static List<ShopInv> shops = new ArrayList<ShopInv>();
 	
 	/**
@@ -306,6 +308,9 @@ public class Generate {
 		tmpArray[5][x-11] = new Door_boss();
 		
 		
+		//generate the key
+		inventories.get(r.nextInt(inventories.size())).add(new Key_boss());
+		
 		//End of GENERATOR
 		return tmpArray;
 	}
@@ -551,7 +556,7 @@ public class Generate {
 						}
 						layout[y-3][x/2] = new Door();
 						layout[3][x/2] = new Chest();
-						layout[y-2][x/2] = new Monster_friendly(strenght); //new Gandalf();
+						layout[y-2][x/2] = new Gandalf(2);
 						return layout;
 					default:
 						return layout;
@@ -582,7 +587,9 @@ public class Generate {
 					for(int i = 2; i < x-2; i++){
 						layout[2][i] = new Floor_spikes();
 					}
-					layout[y-2][3] = new Chest();
+					Chest e = new Chest();
+					inventories.add(e);
+					layout[y-2][3] = e;
 					return layout;
 				case 3:
 					layout[0][x-1] = new Floor_spikes();
@@ -653,7 +660,7 @@ public class Generate {
 						layout[y/2+1][x/2-1] = new Wall();
 						return layout;
 					case 2: 
-						layout[y/2][x/2] = new Monster_friendly(strenght);
+						layout[y/2][x/2] = new Monster_friendly();
 						layout[y/2][x/2+(x%2-1)] = new Fire();
 						return layout;
 					case 3:
@@ -666,10 +673,12 @@ public class Generate {
 						layout[y/2][x/2] = new Monster_hostile().genMob(strenght); //!
 						return layout;
 					case 5:
-						layout[y/2][x/2] = new Monster_friendly(strenght);
+						layout[y/2][x/2] = new Monster_friendly();
 						return layout;
 					case 6:
-						layout[y/2][x/2] = new Chest();
+						Chest e = new Chest();
+						inventories.add(e);
+						layout[y/2][x/2] = e;
 						layout[y/2+1][x/2] = new Floor_spikes();
 						layout[y/2][x/2+1] = new Floor_spikes();
 						layout[y/2][x/2-1] = new Floor_spikes();
@@ -832,8 +841,9 @@ public class Generate {
 		} 
 		labyrinth[0][1] = new Floor_maze();
 		
-		labyrinth[chesty][chestx] = new Chest();
-		
+		Chest e = new Chest();
+		inventories.add(e);
+		labyrinth[chesty][chestx] = e;
 		
 		return labyrinth;
 	}
