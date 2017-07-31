@@ -25,4 +25,9 @@ public class Armor extends Items{
 		return null;
 	}
 
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

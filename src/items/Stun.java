@@ -4,7 +4,7 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class Stun extends Spells{
+public class Stun extends Spells implements hasImage{
 	
 	
 	public Stun(){
@@ -44,6 +44,12 @@ public class Stun extends Spells{
 	@Override
 	public int getDmg() {
 		return this.dmg;
+	}
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

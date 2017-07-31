@@ -25,15 +25,17 @@ import objects.Floor_bloody;
 @SuppressWarnings("serial")
 public class Window extends JFrame {
 	private String name = "Our first game";
-	private GameArea gameArea = null;
+	private GUIMain main = null;
+	private DungeonArea dungeon = null;
 	
 	public Window(Visible[][] field) {
-		gameArea = new GameArea(field);
+		main = new GUIMain(field);
+		dungeon = main.dungeon;
         initUI();
     }
 	
     private void initUI() {      
-        add(this.gameArea);
+        add(this.main);
         
         addKeyListener(new KeyListener() {
         	
@@ -57,48 +59,48 @@ public class Window extends JFrame {
 				int key = e.getKeyCode();
 				int dis = 1;
 				
-				Player p = gameArea.p;
+				Player p = main.p;
 				
 				if(key == 37 || key == KeyEvent.VK_A) {
 					// left
 					p.setViewdirection(1);
-					if(!(gameArea.getFieldPosition(p.getX()-1, p.getY()).getIsSolid())) {
-						gameArea.lastPlayerX = p.getX();
-						gameArea.p.setX(p.getX()-dis);
-						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
+					if(!(dungeon.getFieldPosition(p.getX()-1, p.getY()).getIsSolid())) {
+						main.lastPlayerX = p.getX();
+						GUIMain.p.setX(p.getX()-dis);
+						dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 38 || key == KeyEvent.VK_W) {
 					// top
 					p.setViewdirection(0);
-					if(!(gameArea.getFieldPosition(p.getX(), p.getY()-1).getIsSolid())) {
-						gameArea.lastPlayerY = p.getY();
-						gameArea.p.setY(p.getY()-dis);
-						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
+					if(!(dungeon.getFieldPosition(p.getX(), p.getY()-1).getIsSolid())) {
+						main.lastPlayerY = p.getY();
+						GUIMain.p.setY(p.getY()-dis);
+						dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 39 || key == KeyEvent.VK_D) {
 					// right
 					p.setViewdirection(3);
-					if(!(gameArea.getFieldPosition(p.getX()+1, p.getY()).getIsSolid())) {
-						gameArea.lastPlayerX = p.getX();
-						gameArea.p.setX(p.getX()+dis);
-						gameArea.setFieldPosition(p.getX(),p.getY(), Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
+					if(!(dungeon.getFieldPosition(p.getX()+1, p.getY()).getIsSolid())) {
+						main.lastPlayerX = p.getX();
+						GUIMain.p.setX(p.getX()+dis);
+						dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == 40 || key == KeyEvent.VK_S) {
 					// bottom
 					p.setViewdirection(2);
-					if(!(gameArea.getFieldPosition(p.getX(), p.getY()+1).getIsSolid())) {
-						gameArea.lastPlayerY = p.getY();
-						gameArea.p.setY(p.getY()+dis);
-						gameArea.setFieldPosition(p.getX(),p.getY(),Main.change(gameArea.getFieldPosition(p.getX(),p.getY())));
+					if(!(dungeon.getFieldPosition(p.getX(), p.getY()+1).getIsSolid())) {
+						main.lastPlayerY = p.getY();
+						GUIMain.p.setY(p.getY()+dis);
+						dungeon.setFieldPosition(p.getX(),p.getY(),Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
 					}
 				} else if(key == KeyEvent.VK_F) {
 					// f to use
-					Visible useOn = gameArea.getFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)));
+					Visible useOn = dungeon.getFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)));
 					if(useOn.getType() == "M"){
 						System.out.println(p.mainweapon.use(p, null, 0, null, (Creatures) useOn));
 						Main.playsound("hit0");
 						if(((Creatures) useOn).getHP() == 0){
-							gameArea.setFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)) , new Floor_bloody());
+							dungeon.setFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)) , new Floor_bloody());
 						}else{
 							System.out.println(((Mobs) useOn).attack(p));//p.mainweapon.use((Creatures) useOn, null, 0, null, p));
 							Main.playsound("hit1");
@@ -107,11 +109,18 @@ public class Window extends JFrame {
 							}
 						}
 					}
+				} else if(key == KeyEvent.VK_I) {
+					// open inv
+					if(main.invOpen) {
+						main.invOpen = false;
+					} else {
+						main.invOpen = true;
+					}
 				}
 				// Play hitsound
 				if(key == KeyEvent.VK_W || key == KeyEvent.VK_A || key == KeyEvent.VK_S || key == KeyEvent.VK_D || 
 						  key == 37 || key == 38 || key == 39 ||key == 40) {
-					Main.hitsound(gameArea.getFieldPosition(p.getX(), p.getY()),p);
+					Main.hitsound(dungeon.getFieldPosition(p.getX(), p.getY()),p);
 				}
 			}
 		});
@@ -119,7 +128,7 @@ public class Window extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Timer timer = gameArea.getTimer();
+                Timer timer = main.getTimer();
                 timer.stop();
             }
         });
@@ -127,7 +136,7 @@ public class Window extends JFrame {
         // window settings
         setTitle(this.name);
         setSize(Settings.WINDOW_W, Settings.WINDOW_H);
-        //setLocationRelativeTo(null); // Window in the center of the screen
+        setLocationRelativeTo(null); // Window in the center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

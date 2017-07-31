@@ -12,5 +12,9 @@ public abstract class Spells extends Items{
 	
 	public abstract int getDmg();
 
-
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

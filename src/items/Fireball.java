@@ -4,7 +4,7 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class Fireball extends Spells{
+public class Fireball extends Spells implements hasImage{
 	
 	
 	public Fireball(){
@@ -45,6 +45,12 @@ public class Fireball extends Spells{
 	@Override
 	public int getDmg() {
 		return this.dmg;
+	}
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

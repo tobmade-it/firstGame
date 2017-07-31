@@ -7,7 +7,7 @@ import chars.Creatures;
 import chars.Player;
 import game.Visible;
 
-public class Bagpack extends Items{
+public class Bagpack extends Items implements hasImage {
 	
 	private List<Items> inventory = new ArrayList<>();
 	
@@ -25,6 +25,12 @@ public class Bagpack extends Items{
 
 	@Override
 	String use(Creatures user, Items item, int index, Visible obj, Creatures character) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getImage() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -5,7 +5,7 @@ import chars.Player;
 import game.Visible;
 import objects.Door_boss;
 
-public class Key_boss extends Items{
+public class Key_boss extends Items implements hasImage{
 
 	@Override
 	String use(Creatures user, Items item, int index, Visible obj, Creatures character) {
@@ -16,6 +16,12 @@ public class Key_boss extends Items{
 			msg = "Der Schlüssel zerfällt zu Staub und die Tür vor dir öffnet sich!";
 		}
 		return msg;
+	}
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

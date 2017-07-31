@@ -61,4 +61,10 @@ public class Sword extends Weapon{
 		return this.dmg*this.sharpness/100;
 	}
 
+
+	@Override
+	public String getImage() {
+		return null;
+	}
+
 }

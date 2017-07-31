@@ -4,7 +4,7 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class Hammer extends Weapon{
+public class Hammer extends Weapon implements hasImage{
 	
 	private int weight;
 	
@@ -56,6 +56,12 @@ public class Hammer extends Weapon{
 	@Override
 	public int getDmg() {
 		return this.dmg;
+	}
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

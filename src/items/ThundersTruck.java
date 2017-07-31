@@ -4,7 +4,7 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class ThundersTruck extends Spells{
+public class ThundersTruck extends Spells implements hasImage{
 	
 	
 	public ThundersTruck(){
@@ -45,6 +45,11 @@ public class ThundersTruck extends Spells{
 	@Override
 	public int getDmg() {
 		return this.dmg;
+	}
+	
+	@Override
+	public String getImage() {
+		return null;
 	}
 
 }

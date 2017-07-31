@@ -1,5 +1,11 @@
 package items;
 
-public class IronChestplate extends Armor{
+public class IronChestplate extends Armor implements hasImage{
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

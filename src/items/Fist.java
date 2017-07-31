@@ -4,7 +4,7 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class Fist extends Weapon{
+public class Fist extends Weapon implements hasImage{
 	
 	public Fist(){
 		this.dmg = 5;
@@ -43,6 +43,13 @@ public class Fist extends Weapon{
 	@Override
 	public int getDmg() {
 		return this.dmg;
+	}
+
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
