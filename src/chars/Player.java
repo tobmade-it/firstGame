@@ -1,9 +1,13 @@
 package chars;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import game.Visible;
 import items.Bagpack;
 import items.Fist;
 import items.IronChestplate;
+import items.Spells;
 import items.Sword;
 import items.Weapon;
 
@@ -14,6 +18,7 @@ public class Player extends Creatures implements Visible {
 	public Weapon mainweapon;
 	private int level;
 	private int xp;
+	private List<Spells> spells = new ArrayList<Spells>();
 	
 
 	public Player(int viewdist) {
@@ -106,6 +111,22 @@ public class Player extends Creatures implements Visible {
 	@Override
 	public int getDef() {
 		return this.defense + this.armor.getDef();
+	}
+	
+	public int getLevel() {
+		return this.level;
+	}
+	
+	public int getXP() {
+		return this.xp;
+	}
+	
+	public void setXP(int n) {
+		this.xp = n;
+	}
+	
+	public void setLevel(int n) {
+		this.level = n;
 	}
 
 }
