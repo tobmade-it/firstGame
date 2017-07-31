@@ -5,7 +5,7 @@ import game.Reference;
 import game.Visible;
 import objects.Floor_bloody;
 
-public class Bloody_Sword extends Weapon{
+public class Bloody_Sword extends Weapon implements hasImage{
 	
 	private int sharpness;
 	private boolean dragon;
@@ -67,6 +67,13 @@ public class Bloody_Sword extends Weapon{
 	@Override
 	public int getDmg() {
 		return this.dmg*this.sharpness/100;
+	}
+
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

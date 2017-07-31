@@ -4,7 +4,7 @@ import chars.Creatures;
 import chars.Player;
 import game.Visible;
 
-public abstract class Items {
+public abstract class Items implements hasImage {
 
 	protected int value;
 	
@@ -19,4 +19,6 @@ public abstract class Items {
 	 */
 	abstract String use(Creatures user, Items item, int index, Visible obj, Creatures character);
 	
+	@Override
+	public abstract String getImage();
 }

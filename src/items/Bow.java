@@ -4,7 +4,7 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class Bow extends Weapon{
+public class Bow extends Weapon implements hasImage{
 	
 	private int range;
 	private int tension;
@@ -67,6 +67,12 @@ public class Bow extends Weapon{
 	@Override
 	public int getDmg() {
 		return this.dmg*this.tension/100;
+	}
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

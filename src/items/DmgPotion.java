@@ -4,7 +4,7 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class DmgPotion extends Potion{
+public class DmgPotion extends Potion implements hasImage{
 	
 	private int sharpness;
 	private int heal;
@@ -27,6 +27,12 @@ public class DmgPotion extends Potion{
 	@Override
 	public String toString() {
 		return this.leveltypes[this.level] + "er Heilungstrank";
+	}
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

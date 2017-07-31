@@ -4,7 +4,7 @@ import chars.Creatures;
 import game.Reference;
 import game.Visible;
 
-public class Dragon_Sword extends Weapon{
+public class Dragon_Sword extends Weapon implements hasImage{
 	
 	private int sharpness;
 	
@@ -48,6 +48,12 @@ public class Dragon_Sword extends Weapon{
 	@Override
 	public int getDmg() {
 		return this.dmg*this.sharpness/100;
+	}
+
+	@Override
+	public String getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
