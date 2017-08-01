@@ -122,10 +122,10 @@ public class Player extends Creatures implements Visible {
 	}
 	
 	public void addXP(int n) {
-		if(this.xp + n < this.xp * this.level){
+		if(this.xp + n < 100 * this.level){
 			this.xp += n;
 		}else{
-			this.xp = this.xp+n-this.xp*this.level;
+			this.xp = this.xp+n-100*this.level;
 			this.level++;
 			this.luck++;
 			this.intelligence++;
