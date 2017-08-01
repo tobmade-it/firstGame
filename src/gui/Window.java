@@ -55,43 +55,108 @@ public class Window extends JFrame {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 				int key = e.getKeyCode();
 				int dis = 1;
+				int step = 2;
+				int correct = 1;
+				int velo = 4;
 				
 				Player p = main.p;
 				
 				if(key == 37 || key == KeyEvent.VK_A) {
 					// left
 					p.setViewdirection(1);
-					if(!(dungeon.getFieldPosition(p.getX()-1, p.getY()).getIsSolid())) {
-						main.lastPlayerX = p.getX();
-						GUIMain.p.setX(p.getX()-dis);
-						dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
+					for(int i=0; i < velo; i++) {
+						if(GUIMain.p.getExactX() != 0) {
+							correct = 1;
+						} else {
+							correct = 0;
+						}
+						
+						if( !(dungeon.getFieldPosition(p.getX()-1+correct, p.getY()).getIsSolid()) ) {
+							if(GUIMain.p.getExactX() == 0) {
+								GUIMain.lastPlayerX = p.getX();
+								GUIMain.p.setX(p.getX()-dis);
+								GUIMain.p.setExactX(80-step);
+								dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
+							} else if(GUIMain.p.getExactX() < -(80-step)) {
+								GUIMain.p.setX(p.getX()-dis);
+								GUIMain.p.setExactX(0);
+							} else {
+								GUIMain.p.setExactX(GUIMain.p.getExactX()-step);
+							}
+						}
 					}
 				} else if(key == 38 || key == KeyEvent.VK_W) {
 					// top
 					p.setViewdirection(0);
-					if(!(dungeon.getFieldPosition(p.getX(), p.getY()-1).getIsSolid())) {
-						main.lastPlayerY = p.getY();
-						GUIMain.p.setY(p.getY()-dis);
-						dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
+					for(int i=0; i < velo; i++) {
+					if(GUIMain.p.getExactY() != 0) {
+						correct = 1;
+					} else {
+						correct = 0;
+					}
+					if(!(dungeon.getFieldPosition(p.getX(), p.getY()-1+correct).getIsSolid())) {
+						if(GUIMain.p.getExactY() == 0) {
+							GUIMain.lastPlayerY = p.getY();
+							GUIMain.p.setY(p.getY()-dis);
+							GUIMain.p.setExactY(80-step);
+							dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
+						} else if(GUIMain.p.getExactY() < -(60-step-1)) {
+							GUIMain.p.setY(p.getY()-dis);
+							GUIMain.p.setExactY(20);
+						} else {
+							GUIMain.p.setExactY(GUIMain.p.getExactY()-step);
+						}
+						}
 					}
 				} else if(key == 39 || key == KeyEvent.VK_D) {
 					// right
 					p.setViewdirection(3);
-					if(!(dungeon.getFieldPosition(p.getX()+1, p.getY()).getIsSolid())) {
-						main.lastPlayerX = p.getX();
-						GUIMain.p.setX(p.getX()+dis);
-						dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
+					for(int i=0; i < velo; i++) {
+					if(GUIMain.p.getExactX() == 40) {
+						correct = 0;
+					} else {
+						correct = 1;
 					}
+					if( !(dungeon.getFieldPosition(p.getX()+1-correct, p.getY()).getIsSolid()) ) {
+						
+						if(GUIMain.p.getExactX() == 40) {
+							GUIMain.lastPlayerX = p.getX();
+							GUIMain.p.setX(p.getX()+dis);
+							GUIMain.p.setExactX(-(40-step));
+							dungeon.setFieldPosition(p.getX(),p.getY(), Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
+						} else if(GUIMain.p.getExactX() > (80-step)) {
+							GUIMain.p.setX(p.getX()+dis);
+							GUIMain.p.setExactX(0);
+						} else {
+							GUIMain.p.setExactX(GUIMain.p.getExactX()+step);
+						}
+					}
+					}
+					
 				} else if(key == 40 || key == KeyEvent.VK_S) {
 					// bottom
 					p.setViewdirection(2);
-					if(!(dungeon.getFieldPosition(p.getX(), p.getY()+1).getIsSolid())) {
-						main.lastPlayerY = p.getY();
-						GUIMain.p.setY(p.getY()+dis);
+					for(int i=0; i < velo; i++) {
+					if(GUIMain.p.getExactY() != 20) {
+						correct = 1;
+					} else {
+						correct = 0;
+					}
+					if(!(dungeon.getFieldPosition(p.getX(), p.getY()+1-correct).getIsSolid())) {
+						if(GUIMain.p.getExactY() == 20) {
+							GUIMain.lastPlayerY = p.getY();
+							GUIMain.p.setY(p.getY()+dis);
+							GUIMain.p.setExactY(-(60-step));
+						} else if(GUIMain.p.getExactY() > (80-step)) {
+							GUIMain.p.setY(p.getY()+dis);
+							GUIMain.p.setExactY(0);
+						} else {
+							GUIMain.p.setExactY(GUIMain.p.getExactY()+step);
+						}
 						dungeon.setFieldPosition(p.getX(),p.getY(),Main.change(dungeon.getFieldPosition(p.getX(),p.getY())));
+					}
 					}
 				} else if(key == KeyEvent.VK_F) {
 					// f to use

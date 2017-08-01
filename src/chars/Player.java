@@ -14,6 +14,8 @@ import items.Weapon;
 public class Player extends Creatures implements Visible {
 	private int x;
 	private int y;
+	private int exactX = 20;
+	private int exactY = 10;
 	private int viewdirection; //2 unten 1 links 0 oben 3 rechts
 	public Weapon mainweapon;
 	private int level;
@@ -142,6 +144,22 @@ public class Player extends Creatures implements Visible {
 	
 	public void addGold(int n) {
 		this.gold += n;
+	}
+
+	public int getExactX() {
+		return exactX;
+	}
+
+	public void setExactX(int exactX) {
+		this.exactX = exactX;
+	}
+
+	public int getExactY() {
+		return exactY;
+	}
+
+	public void setExactY(int exactY) {
+		this.exactY = exactY;
 	}
 
 }

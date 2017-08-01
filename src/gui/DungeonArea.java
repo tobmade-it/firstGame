@@ -15,6 +15,8 @@ import generator.Room;
 public class DungeonArea implements Drawable {
 	public Graphics2D g2d = null;
 	private BufferedImage img;
+	private BufferedImage charImg;
+	private BufferedImage shadowImg;
 	private Visible[][] gameField = null;
 	private int imgWidth  = Settings.GAME_W/16;
     private int imgHeight = Settings.GAME_H/9;
@@ -29,7 +31,9 @@ public class DungeonArea implements Drawable {
 		this.gameField = gameField;
 		
     	try {
-    		this.img  = ImageIO.read(getClass().getResourceAsStream("/wall4.png"));
+    		this.img  = ImageIO.read(getClass().getResourceAsStream("/wall-top.png"));
+    		this.charImg  = ImageIO.read(getClass().getResourceAsStream("/char.png"));
+    		this.shadowImg  = ImageIO.read(getClass().getResourceAsStream("/dropshadow.png"));
     	} catch(IOException e) {
     		e.printStackTrace();
     	}
@@ -64,15 +68,6 @@ public class DungeonArea implements Drawable {
         		
         		if(xValue >= 0 && xValue < Render.X_FIELD && yValue >= 0 && yValue < Render.Y_FIELD) {
         			Visible v = gameField[yValue][xValue];
-        			
-        			/* write function that creates this array with error handling
-        			 * Visible[] visibles = {
-        				gameField[yValue+1][xValue],
-        				gameField[yValue-1][xValue],
-        				gameField[yValue][xValue],
-        				gameField[yValue][xValue+1],
-        				gameField[yValue][xValue-1]
-        			};*/
         			
         			// draw objects
         			if(visited[yValue][xValue])    { drawDarkObject(v, g2d, i, j); }
@@ -171,7 +166,8 @@ public class DungeonArea implements Drawable {
         g2d.setPaint(Color.red);
         // player will be all the time in the center of the game area
         // attention: -40 offset 
-        g2d.fillRect((Settings.GAME_W/2), (Settings.GAME_H/2)-40, imgWidth, imgHeight);
+        g2d.drawImage(shadowImg,(Settings.GAME_W/2)-5, (Settings.GAME_H/2)-12, 50, 50, null);
+        g2d.drawImage(charImg,(Settings.GAME_W/2), (Settings.GAME_H/2)-40, 40, 60, null);
 		
 	}
 	
@@ -201,7 +197,7 @@ public class DungeonArea implements Drawable {
 			useColor = Color.white;
 		}
     	else if(v.getType() == " ") {
-			useColor = Color.blue;
+			useColor = new Color(107,130,157);
 		}
 		else if(v.getType() == "C") {
 			useColor = Color.orange;
@@ -230,11 +226,11 @@ public class DungeonArea implements Drawable {
 		else if(v.getType() == "W") {
 			useColor = Color.CYAN;
 		}
-    	if(useColor != Color.white) {
-	    	g2d.setPaint(useColor);
-	    	g2d.fillRect(i*imgWidth, j*imgHeight, imgWidth, imgWidth);
+    	if(v.getType() == "w") {
+    		g2d.drawImage(img, i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgHeight, null);
     	} else {
-    		g2d.drawImage(img, i*imgWidth, j*imgHeight, imgWidth, imgHeight, null);
+    		g2d.setPaint(useColor);
+	    	g2d.fillRect(i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgWidth);
     	}
     }
     
@@ -258,7 +254,7 @@ public class DungeonArea implements Drawable {
 		}
     	
     	g2d.setPaint(useColor);
-    	g2d.fillRect(i*imgWidth, j*imgHeight, imgWidth, imgHeight);
+    	g2d.fillRect(i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgHeight);
     }
     
     /**

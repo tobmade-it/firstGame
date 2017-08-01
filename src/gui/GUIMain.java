@@ -38,9 +38,10 @@ public class GUIMain extends JPanel implements ActionListener {
     
     // coordinates to compare with the current coordinates
     // to see if a player enters a new room
-    public int lastPlayerX;
-    public int lastPlayerY;
+    public static int lastPlayerX;
+    public static int lastPlayerY;
     public static Player p = new Player(20);
+    public static int addoffset = 0;
     
     public GUIMain(Visible[][] field) {
     	this.setBackground(Settings.BACKGROUND);
@@ -77,20 +78,10 @@ public class GUIMain extends JPanel implements ActionListener {
         g2d.setPaint(Color.white);
         g2d.drawRect(0, 0, Settings.GAME_W, Settings.GAME_H);
         
-        // draw help bar
-        g2d.setPaint(Color.red);
-        g2d.fillRect(0, 600, p.getMaxHP()*7, 60);
-        g2d.setPaint(Color.green);
-        g2d.fillRect(0, 600, p.getHP()*7, 60);  
+         
         
         int x = Render.X_FIELD;
         int y = Render.Y_FIELD;
-        
-        // some prompt for debugging
-        g2d.drawString("x: " + Integer.toString(p.getX()), 800, 20);
-        g2d.drawString("y: " + Integer.toString(p.getY()), 800, 40);
-        g2d.drawString("x: " + Integer.toString(this.lastPlayerX), 800, 60);
-        g2d.drawString("y: " + Integer.toString(this.lastPlayerY), 800, 80);
         
         if(status) {
         	dungeon.draw(g2d);
@@ -101,6 +92,20 @@ public class GUIMain extends JPanel implements ActionListener {
         } else {
         	// combat.draw
         }
+        
+        // draw health bar
+        g2d.setPaint(Color.red);
+        g2d.fillRect(0, 600, p.getMaxHP()*5, 60);
+        g2d.setPaint(Color.green);
+        g2d.fillRect(0, 600, p.getHP()*5, 60); 
+        
+        // some prompt for debugging
+        g2d.drawString("x: " + Integer.toString(p.getX()), 800, 20);
+        g2d.drawString("y: " + Integer.toString(p.getY()), 800, 40);
+        g2d.drawString("xE: " + Integer.toString(p.getExactX()), 840, 20);
+        g2d.drawString("yE: " + Integer.toString(p.getExactY()), 840, 40);
+        g2d.drawString("x: " + Integer.toString(this.lastPlayerX), 800, 60);
+        g2d.drawString("y: " + Integer.toString(this.lastPlayerY), 800, 80);
         
         
     }
