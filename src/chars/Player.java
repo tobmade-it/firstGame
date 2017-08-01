@@ -26,13 +26,13 @@ public class Player extends Creatures implements Visible {
 		super.viewdist = viewdist;
 		super.maxhp = 200;
 		super.hp = this.maxhp;
-		this.strength = 10;
+		this.strength = 15;
 		super.bagpack = new Bagpack();
 		this.mainweapon = new Sword();
 		this.viewdirection = 2;
 		this.intelligence = 10;
 		super.gold = 1000;
-		this.defense = 10;
+		this.defense = 40;
 		this.level = 1;
 		this.xp = 0;
 		this.armor = new IronChestplate();
@@ -40,7 +40,7 @@ public class Player extends Creatures implements Visible {
 	
 	@Override
 	public String toString() {
-		return "Player";
+		return "Spieler";
 	}
 
 	@Override
@@ -138,6 +138,10 @@ public class Player extends Creatures implements Visible {
 	
 	public void setLevel(int n) {
 		this.level = n;
+	}
+	
+	public void addGold(int n) {
+		this.gold += n;
 	}
 
 }

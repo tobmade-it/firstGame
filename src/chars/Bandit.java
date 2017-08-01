@@ -20,6 +20,7 @@ public class Bandit extends Monster_hostile{
 		super.viewdist = 3;
 		super.xp = 11*rnd+strgth*2+3;
 		this.mainweapon = new Dagger();
+		this.gold = Reference.r.nextInt(200);
 	}
 	
 	@Override
@@ -37,7 +38,7 @@ public class Bandit extends Monster_hostile{
 					msg = "Der Bandit hat dir " + steal + " Gold gestohlen!";
 					break;
 				default:
-					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					msg = this.mainweapon.use(this, null, 0, null, p);
 					//p.takeDmg(dmgamount(this.getDmg(), p.getDef()));
 					//msg = "Der Bandit trifft mit seinem Dolch und verursacht "+ (dmgamount(this.getDmg(), p.getDef())) +" Schaden!";
 					break;

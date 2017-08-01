@@ -19,11 +19,13 @@ public class Gandalf extends Monster_friendly{
 		super.viewdist = 3;
 		super.xp = 11*rnd+strgth*2+3;
 		this.mainweapon = new Wand();
+		this.gold = Reference.r.nextInt(10);
 	}
 	
 	@Override
 	public String attack(Creatures p){
-		String msg = "YOU SHALL NOT PASS!";
+		String  msg = this.mainweapon.use(this, null, 0, null, p);
+		msg = "YOU SHALL NOT PASS!";
 		return msg;
 	}
 	

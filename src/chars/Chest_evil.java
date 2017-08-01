@@ -20,6 +20,7 @@ public class Chest_evil extends Monster_hostile{
 		super.viewdist = 3;
 		super.xp = 10*rnd;
 		this.mainweapon = new Trash();
+		this.gold = Reference.r.nextInt(400);
 	}
 	
 	@Override
@@ -32,10 +33,10 @@ public class Chest_evil extends Monster_hostile{
 		}else{
 			switch(atk){
 				case 0:
-					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					msg = this.mainweapon.use(this, null, 0, null, p);
 					break;
 				default:
-					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					msg = this.mainweapon.use(this, null, 0, null, p);
 					break;
 			}
 		}

@@ -13,12 +13,13 @@ public class Orc extends Monster_hostile{
 		super.defense = 3;
 		super.maxhp = 5 + strgth*10 + rnd*5;
 		super.hp = maxhp;
-		super.strength = 5+rnd;
+		super.strength = 8+rnd;
 		super.intelligence = 1;
 		super.luck = 70;
 		super.viewdist = 3;
 		super.xp = 10*rnd;
 		this.mainweapon = new Fist();
+		this.gold = Reference.r.nextInt(100);
 	}
 	
 	@Override
@@ -27,14 +28,14 @@ public class Orc extends Monster_hostile{
 		int chance = Reference.r.nextInt(this.luck+100);
 		int atk = Reference.r.nextInt(2);
 		if(chance < 25){
-			msg = "Der Kasten hat verfehlt!";
+			msg = "Der Ork hat verfehlt!";
 		}else{
 			switch(atk){
 				case 0:
-					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					msg = this.mainweapon.use(this, null, 0, null, p);
 					break;
 				default:
-					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					msg = this.mainweapon.use(this, null, 0, null, p);
 					break;
 			}
 		}

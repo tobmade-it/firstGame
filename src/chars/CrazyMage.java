@@ -20,6 +20,7 @@ public class CrazyMage extends Monster_hostile{
 		super.viewdist = 3;
 		super.xp = 5*rnd;
 		this.mainweapon = new Wand();
+		this.gold = Reference.r.nextInt(150);
 	}
 	
 	@Override

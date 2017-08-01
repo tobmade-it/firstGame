@@ -11,15 +11,16 @@ public class Dragon extends Monster_hostile{
 		//super(strenght);
 		this.name = "Drache";
 		this.rnd = Reference.r.nextInt(strgth);
-		super.defense = 3;
-		super.maxhp = 5 + strgth*10 + rnd*5;
+		super.defense = 30;
+		super.maxhp = 18 + strgth*9 + rnd*5;
 		super.hp = maxhp;
 		super.strength = 1+rnd;
-		super.intelligence = 1;
+		super.intelligence = 10;
 		super.luck = 70;
 		super.viewdist = 3;
 		super.xp = 10*rnd;
 		this.mainweapon = new Claws();
+		this.gold = Reference.r.nextInt(300);
 	}
 	
 	@Override
@@ -32,13 +33,10 @@ public class Dragon extends Monster_hostile{
 		}else{
 			switch(atk){
 				case 0:
-					//int dmg = this.strength-p.defense;
-					//p.takeDmg(dmg);
-					//msg = "Der Drache hat dir " + dmg + " Schaden mit seinen Krallen verursacht!";
-					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					msg = this.mainweapon.use(this, null, 0, null, p);
 					break;
 				default:
-					p.takeDmg(this.strength*4 *100/(100+p.defense));
+					p.takeDmg(this.strength*3 *100/(100+p.defense));
 					msg = "Der Drache trifft mit seinem Feueratem und verursacht "+ (this.strength*4 *100/(100+p.defense)) +" Schaden!";
 					break;
 			}

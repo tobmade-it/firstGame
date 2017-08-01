@@ -14,6 +14,10 @@ public class Mobs extends Creatures{
 		return this.hp;
 	}
 	
+	public int getXP() {
+		return this.xp;
+	}
+	
 	@Override
 	public void takeDmg(int hp) {
 		if(this.hp - hp >= 0 && this.hp - hp <= this.maxhp){

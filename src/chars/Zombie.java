@@ -20,6 +20,7 @@ public class Zombie extends Monster_hostile{
 		super.viewdist = 3;
 		super.xp = 10*rnd;
 		this.mainweapon = new Claws();
+		this.gold = Reference.r.nextInt(200);
 	}
 	
 	@Override
@@ -28,14 +29,14 @@ public class Zombie extends Monster_hostile{
 		int chance = Reference.r.nextInt(this.luck+100);
 		int atk = Reference.r.nextInt(2);
 		if(chance < 25){
-			msg = "Der Kasten hat verfehlt!";
+			msg = "Der Zombie hat verfehlt!";
 		}else{
 			switch(atk){
 				case 0:
-					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					msg = this.mainweapon.use(this, null, 0, null, p);
 					break;
 				default:
-					System.out.println(this.mainweapon.use(this, null, 0, null, p));
+					msg = this.mainweapon.use(this, null, 0, null, p);
 					break;
 			}
 		}

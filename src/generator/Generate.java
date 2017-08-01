@@ -660,7 +660,7 @@ public class Generate {
 						layout[y/2+1][x/2-1] = new Wall();
 						return layout;
 					case 2: 
-						layout[y/2][x/2] = new Monster_friendly();
+						layout[y/2][x/2] = new Monster_friendly().genMob(strenght);
 						layout[y/2][x/2+(x%2-1)] = new Fire();
 						return layout;
 					case 3:
@@ -673,7 +673,7 @@ public class Generate {
 						layout[y/2][x/2] = new Monster_hostile().genMob(strenght); //!
 						return layout;
 					case 5:
-						layout[y/2][x/2] = new Monster_friendly();
+						layout[y/2][x/2] = new Monster_friendly().genMob(strenght);
 						return layout;
 					case 6:
 						Chest e = new Chest();
