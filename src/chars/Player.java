@@ -121,8 +121,19 @@ public class Player extends Creatures implements Visible {
 		return this.xp;
 	}
 	
-	public void setXP(int n) {
-		this.xp = n;
+	public void addXP(int n) {
+		if(this.xp + n < this.xp * this.level){
+			this.xp += n;
+		}else{
+			this.xp = this.xp+n-this.xp*this.level;
+			this.level++;
+			this.luck++;
+			this.intelligence++;
+			this.maxhp += 10;
+			this.hp += 10;
+			this.strength++;
+			this.defense++;
+		}
 	}
 	
 	public void setLevel(int n) {
