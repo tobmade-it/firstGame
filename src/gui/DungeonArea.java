@@ -1,12 +1,14 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import chars.Creatures;
 import game.Settings;
 import game.Visible;
 import generator.Generate;
@@ -17,9 +19,14 @@ public class DungeonArea implements Drawable {
 	private BufferedImage img;
 	private BufferedImage charImg;
 	private BufferedImage shadowImg;
+	private BufferedImage mobImg, mobDeadImg;
 	private Visible[][] gameField = null;
 	private int imgWidth  = Settings.GAME_W/16;
     private int imgHeight = Settings.GAME_H/9;
+    public boolean activeFight = false;
+    public String fightMessage1 = "";
+    public String fightMessage2 = "";
+    public int mobsKilled = 0;
     
     /** array that memorizes every position the player has seen */
     private boolean[][] visited = new boolean[Render.Y_FIELD][Render.X_FIELD];
@@ -34,6 +41,8 @@ public class DungeonArea implements Drawable {
     		this.img  = ImageIO.read(getClass().getResourceAsStream("/wall-top.png"));
     		this.charImg  = ImageIO.read(getClass().getResourceAsStream("/char.png"));
     		this.shadowImg  = ImageIO.read(getClass().getResourceAsStream("/dropshadow.png"));
+    		this.mobImg  = ImageIO.read(getClass().getResourceAsStream("/slimeBlock.png"));
+    		this.mobDeadImg  = ImageIO.read(getClass().getResourceAsStream("/slimeBlock_dead.png"));
     	} catch(IOException e) {
     		e.printStackTrace();
     	}
@@ -58,6 +67,8 @@ public class DungeonArea implements Drawable {
         
         Room neighbour1 = null;
 		Room neighbour2 = null;
+		
+		
         
 		// draw the field of view
 		// complete visible game area is ...
@@ -79,6 +90,7 @@ public class DungeonArea implements Drawable {
         	        	if(GUIMain.p.getX() == 4 && GUIMain.p.getY() == 8) {
         	        		resetActiveRoom();
         	        		// Entrance
+        	        		// is not included in the rooms array
         	        		// TODO: make it possible to go back to the entrance
         	        		for (Room room : Generate.rooms) {
         	        			if(room.starty == 9 && room.startx == 1) {
@@ -94,24 +106,19 @@ public class DungeonArea implements Drawable {
         	        	} else {
         	        		BREAKOUT:		// stop the for-loop when we find the rooms
         	        		if(search) {
-        	        			// find the rooms that hold both the Door the player is at
+        	        			// find the rooms with a door at (x,y)
 	    	        			for (Room room : Generate.rooms) {
 	    							for(int k=0; k < room.neidoorx.size(); k++) {
 	    								int xx = room.neidoorx.get(k);
 	    								int yy = room.neidoory.get(k);
 	    								if(xx == GUIMain.p.getX() && yy == GUIMain.p.getY()) {
-	    									System.out.println("Tür gefunden " + GUIMain.p.getX() + " , " + yy);
-	    									// set for to a end
+	    									// end the for loop
 	    									k = room.neidoorx.size();
 	    									
-	    									// this could be optimized, so once we entered here, breakout
-	    									// (only possible, if we want make both rooms visible and not one
 	    									if(neighbour1 == null) {
-	    										System.out.println("Room1 ini");
 	    										neighbour1 = room;
 	    									} else {
 	    										neighbour2 = room;
-	    										System.out.println("Room2 ini");
 	    										search = false;
 	    										break BREAKOUT;
 	    									}
@@ -168,6 +175,26 @@ public class DungeonArea implements Drawable {
         // attention: -40 offset 
         g2d.drawImage(shadowImg,(Settings.GAME_W/2)-5, (Settings.GAME_H/2)-12, 50, 50, null);
         g2d.drawImage(charImg,(Settings.GAME_W/2), (Settings.GAME_H/2)-40, 40, 60, null);
+        
+        // draw fight messages
+        if(activeFight) {
+        	g2d.setColor(Color.white);
+        	g2d.fillRect(200, 600, 600, 50);
+        	g2d.setColor(Color.black);
+        	g2d.drawString(fightMessage1, 220, 620);
+        	g2d.drawString(fightMessage2, 220, 635);
+        }
+        
+        if(GUIMain.p.getX() == Render.X_FIELD-11 && (GUIMain.p.getY() == 3 || GUIMain.p.getY() == 4 || GUIMain.p.getY() == 5)) {
+			if(mobsKilled >= 3 && GUIMain.p.getHP() > 0) {
+				Font myFont = new Font (GUIMain.fontnameSpecial, 1, 27);
+				g2d.setFont(myFont);
+				g2d.drawString("DU HAST GEWONNEN! Herzlichen Glückwunsch.", 300, 300);
+			} else {
+				g2d.drawString("Du musst mindestens 3 Monster gekillt haben um zu gewinnen.", 300, 300);
+				g2d.drawString("Außerdem dürfen deine HP nicht NULL sein.", 300, 320);
+			}
+		}
 		
 	}
 	
@@ -195,6 +222,9 @@ public class DungeonArea implements Drawable {
     	
     	if(v.getType() == "w") {
 			useColor = Color.white;
+		} 
+    	else if(v.getType() == "D" || v.getType() == "6") {
+			useColor = new Color(139, 69, 19);
 		}
     	else if(v.getType() == " ") {
 			useColor = new Color(107,130,157);
@@ -206,7 +236,7 @@ public class DungeonArea implements Drawable {
 			useColor = Color.red;
 		}
 		else if(v.getType() == "^") {
-			useColor = Color.gray;
+			useColor = new Color(0,0,128);
 		}
 		else if(v.getType() == "=") {
 			useColor = Color.green;
@@ -220,15 +250,29 @@ public class DungeonArea implements Drawable {
 		else if(v.getType() == "2") {
 			useColor = Color.yellow;
 		}
-		else if(v.getType() == "b") {
-			useColor = Color.magenta;
-		}
 		else if(v.getType() == "W") {
 			useColor = Color.CYAN;
-		}
+		} 
     	if(v.getType() == "w") {
     		g2d.drawImage(img, i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgHeight, null);
-    	} else {
+    	} else if(v.getType() == "M") {
+    		// draw Mobname
+    		Creatures mob = (Creatures) v;
+    		String mobname = mob.getName();
+    		Font myFont = new Font (GUIMain.fontname, 1, 12);
+            g2d.setFont(myFont);
+    		g2d.drawString(mobname, i*imgWidth-GUIMain.p.getExactX()+5, j*imgHeight-GUIMain.p.getExactY()-10);;
+    		// draw monster image with floor color
+    		useColor = new Color(107,130,157);
+    		g2d.setPaint(useColor);
+	    	g2d.fillRect(i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgWidth);
+    		g2d.drawImage(mobImg, i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgHeight, null);
+		} else if(v.getType() == "b") {
+			// draw dead monster
+			g2d.setPaint(useColor);
+	    	g2d.fillRect(i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgWidth);
+	    	g2d.drawImage(mobDeadImg, i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgHeight, null);
+		} else {
     		g2d.setPaint(useColor);
 	    	g2d.fillRect(i*imgWidth-GUIMain.p.getExactX(), j*imgHeight-GUIMain.p.getExactY(), imgWidth, imgWidth);
     	}

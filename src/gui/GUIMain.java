@@ -1,12 +1,16 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -33,6 +37,8 @@ public class GUIMain extends JPanel implements ActionListener {
     private Visible[][] gameField = null;
     public boolean status = true; // 1 -> Dungeon, 0 -> Combat
     public boolean invOpen = false;
+    public static String fontname = "Verdana";
+    public static String fontnameSpecial = "Verdana";
     
     private final int DELAY = 1000/Settings.FPS; // FPS of the game
     
@@ -49,6 +55,24 @@ public class GUIMain extends JPanel implements ActionListener {
     	
     	dungeon = new DungeonArea(gameField);
     	inv = new Inventory();
+    	
+    	// Load Font
+    	try {
+        	Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("fonts/Roboto-Bold.ttf"));
+        	fontname = font.getFontName();
+        	GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        	/*String[] fonts = ge.getAvailableFontFamilyNames();
+        	for (int i = 0; i < fonts.length; i++) {
+				System.out.println(fonts[i]);
+			} */
+            ge.registerFont(font);
+            font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("fonts/Lobster-Regular.ttf"));
+        	fontnameSpecial = font.getFontName();
+        	ge.registerFont(font);
+        	
+        } catch (Exception e) {
+			System.out.println("Error: Could not load font." + e.getMessage());
+		}
     	
     	Axe a = new Axe();
     	inv.addItem(a);
@@ -95,9 +119,12 @@ public class GUIMain extends JPanel implements ActionListener {
         
         // draw health bar
         g2d.setPaint(Color.red);
-        g2d.fillRect(0, 600, p.getMaxHP()*5, 60);
+        g2d.fillRect(0, 750, p.getMaxHP()*5, 60);
         g2d.setPaint(Color.green);
-        g2d.fillRect(0, 600, p.getHP()*5, 60); 
+        g2d.fillRect(0, 750, p.getHP()*5, 60); 
+        
+        Font myFont = new Font (fontname, 1, 17);
+        g2d.setFont(myFont);
         
         // some prompt for debugging
         g2d.drawString("x: " + Integer.toString(p.getX()), 800, 20);

@@ -60,7 +60,7 @@ public class Window extends JFrame {
 				int step = 2;
 				int correct = 1;
 				int velo = 4;
-				
+				dungeon.activeFight = false;
 				Player p = main.p;
 				
 				if(key == 37 || key == KeyEvent.VK_A) {
@@ -159,14 +159,19 @@ public class Window extends JFrame {
 					}
 					}
 				} else if(key == KeyEvent.VK_F) {
-					// f to use
+					// f to use --> to hit enemy
 					Visible useOn = dungeon.getFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)));
 					if(useOn.getType() == "M"){
+						dungeon.activeFight = true;
+						dungeon.fightMessage1 = p.mainweapon.use(p, null, 0, null, (Creatures) useOn);
 						System.out.println(p.mainweapon.use(p, null, 0, null, (Creatures) useOn));
 						Main.playsound("hit0");
 						if(((Creatures) useOn).getHP() == 0){
 							dungeon.setFieldPosition((int) (p.getX()+(p.getViewdirection())%2*Math.pow(-1, (p.getViewdirection())%3)), (int) (p.getY()+(p.getViewdirection()+1)%2*Math.pow(-1, (p.getViewdirection()+1)%3)) , new Floor_bloody());
-						}else{
+							dungeon.fightMessage2 = ((Creatures) useOn).getName() + " wurde besiegt.";
+							dungeon.mobsKilled++;
+						} else{
+							dungeon.fightMessage2 = ((Mobs) useOn).attack(p);
 							System.out.println(((Mobs) useOn).attack(p));//p.mainweapon.use((Creatures) useOn, null, 0, null, p));
 							Main.playsound("hit1");
 							if(p.getHP() == 0){

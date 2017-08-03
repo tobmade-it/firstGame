@@ -1,5 +1,10 @@
 package game;
 
+/**
+ * Anmerkung: Diese Datei diese Datei dient nur für Testzwecke.
+ * Die eigentliche Main befindet sich im package gui. Die Render.java
+ * muss ausgeführt werden.
+ */
 import java.io.File;
 
 import javax.sound.sampled.AudioInputStream;
